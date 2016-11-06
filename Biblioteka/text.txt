@@ -1,0 +1,50 @@
+﻿MODEL:
+	Knjiga
+		naslov 
+		spisak autora
+		shifra knjige
+		zanr
+		publisher name
+		godinja izdanja
+
+	Strip 
+		animatorska kuca
+		spisak umjetnika
+		broj izdanja
+		specijalno / obicno izdanje
+
+	Naucni radovi
+		konferencija
+		oblast nauke
+
+		generalneInformacije() - something
+		autoriRada() - spisak radova autora
+		oblastRada() - oblast nauke
+		oblikReferenciranja() -> string
+
+	studenti, studenti mastera, profesori etfa -> { 10, 12.5, 15 }% popusta
+
+	clanarina
+		mjesecno / godisnje
+		fail -> zabrana izdavanja stvari
+
+	clan
+		ime
+		prezime
+		sifra -> generise se jedinstvena sifra nakon unosa
+		sifrazaposlenog
+		mat. broj
+		datum rodjenja
+		neki komentar
+		index vs sifra_zaposleno
+
+	biblioteka
+		pretraga po sifri, isbn, nazivu
+
+VIEW:
+	1. Registruj/Briši knjigu
+	2. Registruj/Briši člana
+	3. Iznajmi/Vrati knjigu
+	4. Pretraga
+	5. Analiza sadržaja
+	6. Izlaz
