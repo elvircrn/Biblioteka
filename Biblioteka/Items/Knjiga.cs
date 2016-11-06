@@ -17,5 +17,6 @@ namespace Biblioteka.Model
         public string Zanr { get; set; }
 
         public int GodinaIzdanja { get; set; }
+        public string ISBN { get; internal set; }
     }
 }

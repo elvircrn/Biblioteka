@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BibliotekaManager.cs" />
+    <Compile Include="LogItem.cs" />
     <Compile Include="Items\KnjigaManager.cs" />
     <Compile Include="Users\Clan.cs" />
     <Compile Include="Users\ClanManagerExtensions.cs" />

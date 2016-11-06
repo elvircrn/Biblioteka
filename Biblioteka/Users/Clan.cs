@@ -13,5 +13,21 @@ namespace Biblioteka.Model
         public string Comment { get; set; }
 
         public string Sifra { get; set; }
+
+        internal Clan Clone()
+        {
+            return new Clan
+            {
+                Ime = this.Ime,
+                Prezime = this.Prezime,
+                MaticniBroj = this.MaticniBroj,
+                DatumRodjenja = this.DatumRodjenja,
+                Role = this.Role,
+                WorkID = this.WorkID,
+                Popust = this.Popust,
+                Comment = this.Comment,
+                Sifra = this.Sifra
+            };
+        }
     }
 }

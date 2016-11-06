@@ -10,7 +10,7 @@ namespace Biblioteka.Model
     {
         public static readonly int SifraLength = 10;
 
-        public List<Clan> Clans { get; set; }
+        private List<Clan> Clans { get; set; }
 
         private string GenerateSifra()
         {
@@ -22,11 +22,23 @@ namespace Biblioteka.Model
             return sifra;
         }
 
-        Clan AddClan(Clan clan)
+        public Clan AddClan(Clan clan)
         {
             clan.Sifra = GenerateSifra();
             Clans.Add(clan);
             return clan;
+        }
+
+        public bool RemoveClan(Clan clan)
+        {
+            var query = Clans.Where(x => x == clan).FirstOrDefault();
+
+            if (query == null)
+                return false;
+
+            Clans.Remove(query);
+
+            return true;
         }
     }
 }

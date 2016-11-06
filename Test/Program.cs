@@ -114,7 +114,7 @@ namespace Test
             else if (CurrentMenu == Menus.PoISBN ||
                      CurrentMenu == Menus.PoNazivu)
             {
-                Buffer = Parser.GetUntilWhiteSpace();
+                Buffer = Console.ReadLine();
             }
 
             ValidateInput();
@@ -208,7 +208,7 @@ namespace Test
             }
             else if (CurrentMenu == Menus.PoISBN)
             {
-                throw new NotImplementedException("Pitaj asistenta");
+                
             }
             else if (CurrentMenu == Menus.PoNazivu)
             {

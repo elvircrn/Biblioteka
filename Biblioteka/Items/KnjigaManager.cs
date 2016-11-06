@@ -22,11 +22,21 @@ namespace Biblioteka.Model
             return sifra;
         }
 
-        Knjiga AddKnjiga(Knjiga knjiga)
+        public Knjiga AddKnjiga(Knjiga knjiga)
         {
             knjiga.Sifra = GenerateSifra();
             _knjige.Add(knjiga);
             return knjiga;
+        }
+
+        public Knjiga SearchByISBN(string isbn)
+        {
+            return _knjige.Where(x => x.ISBN == isbn).FirstOrDefault();
+        }
+
+        public Knjiga SearchByNaziv(string naziv)
+        {
+            return _knjige.Where(x => x.Naslov == naziv).FirstOrDefault();
         }
     }
 }
