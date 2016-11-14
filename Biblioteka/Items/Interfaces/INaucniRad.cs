@@ -4,12 +4,12 @@ namespace Biblioteka.Model
 {
     public interface INaucniRad
     {
-        string generalneInformacije();
+        string GeneralneInformacije();
 
-        List<string> autoriRada();
+        List<string> AutoriRada();
 
-        string oblastNauke();
+        string OblastNauke();
 
-        string oblikReferenciranja();
+        string OblikReferenciranja();
     }
 }

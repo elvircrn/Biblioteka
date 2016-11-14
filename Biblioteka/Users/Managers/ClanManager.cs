@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Biblioteka.Users;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteka.Model
 {
@@ -10,7 +8,12 @@ namespace Biblioteka.Model
     {
         public static readonly int SifraLength = 10;
 
-        private List<Clan> Clans { get; set; }
+        private List<IClan> Clans { get; set; }
+
+        public ClanManager()
+        {
+            Clans = new List<IClan>();
+        }
 
         private string GenerateSifra()
         {
@@ -22,14 +25,14 @@ namespace Biblioteka.Model
             return sifra;
         }
 
-        public Clan AddClan(Clan clan)
+        public IClan AddClan(IClan clan)
         {
             clan.Sifra = GenerateSifra();
             Clans.Add(clan);
             return clan;
         }
 
-        public bool RemoveClan(Clan clan)
+        public bool RemoveClan(IClan clan)
         {
             var query = Clans.Where(x => x == clan).FirstOrDefault();
 

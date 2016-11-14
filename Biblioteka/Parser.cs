@@ -20,6 +20,9 @@ namespace Biblioteka
                 c = (char)Console.Read();
             }
 
+            if (c == 13)
+                Console.ReadLine();
+
             return buffer;
         }
 
@@ -40,13 +43,13 @@ namespace Biblioteka
             return buffer;
         }
 
-        public static int GetNextNumber(bool force = false)
+        public static int GetNextNumber(bool force = false, int? minRange = null, int? maxRange = null)
         {
             int result = 0;
             if (!force)
             {
                 if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
-                    throw new Exception("Invalid input");
+                    throw new Exception("Invalidan input, ocekivan je broj!");
             }
             else
             {
@@ -57,12 +60,19 @@ namespace Biblioteka
                     try
                     {
                         if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
-                            throw new Exception("Invalid input");
+                            throw new Exception("Invalid input, ocekivan je broj");
+
+                        if (minRange != null && maxRange != null && (minRange > result || result > maxRange))
+                            throw new Exception("Invalid input, broj nije u trazenom opsegu");
+                        else if (minRange != null && result < minRange)
+                            throw new Exception("Invalid input, broj nije u trazenom opsegu");
+                        else if (maxRange != null && result > maxRange)
+                            throw new Exception("Invalid input, broj nije u trazenom opsegu");
                     }
-                    catch
+                    catch (Exception e)
                     {
                         ok = false;
-                        Console.WriteLine("Invalid input\n");
+                        Console.WriteLine(e.Message);
                     }
                 } while (!ok);
             }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteka.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,7 @@ namespace Biblioteka.Model
         private ClanManager _clanManager;
         private RoleManager<Role> _roleManager;
         private KnjigaManager _knjigaManager;
-        private List<Tuple<Knjiga, Clan>> _record;
+        private List<Tuple<Knjiga, IClan>> _record;
         private List<LogItem> _log;
 
         private DateTime CurrentDate
@@ -54,7 +55,7 @@ namespace Biblioteka.Model
             _clanManager = new ClanManager();
             _roleManager = new RoleManager<Role>();
             _knjigaManager = new KnjigaManager();
-            _record = new List<Tuple<Knjiga, Clan>>();
+            _record = new List<Tuple<Knjiga, IClan>>();
 
             InitRoles();
             InitBooks();
@@ -75,12 +76,12 @@ namespace Biblioteka.Model
             return _knjigaManager.SearchByISBN(isbn);
         }
 
-        public Knjiga SearchByNaziv(string naziv)
+        public List<Knjiga> SearchByNaziv(string naziv)
         {
             return _knjigaManager.SearchByNaziv(naziv);
         }
 
-        public bool TryIznajmi(Knjiga knjiga, Clan clan)
+        public bool TryIznajmi(Knjiga knjiga, IClan clan)
         {
             if (_record.Where(x => x.Item1 == knjiga).FirstOrDefault() != null)
                 return false;
@@ -88,17 +89,17 @@ namespace Biblioteka.Model
             _log.Add(new LogItem
             {
                 DateTime = CurrentDate,
-                Clan = clan.Clone(),
+                Clan = (IClan)clan.Clone(),
                 Knjiga = knjiga,
                 LogAction = LogItem.Action.Posudio
             });
 
-            _record.Add(new Tuple<Knjiga, Clan>(knjiga, clan));
+            _record.Add(new Tuple<Knjiga, IClan>(knjiga, clan));
 
             return true;
         }
 
-        public bool Vrati(Knjiga knjiga, Clan clan)
+        public bool Vrati(Knjiga knjiga, IClan clan)
         {
             var query = _record.Where(x => x.Item1 == knjiga).FirstOrDefault();
 
@@ -108,7 +109,7 @@ namespace Biblioteka.Model
             _log.Add(new LogItem
             {
                 DateTime = CurrentDate,
-                Clan = clan.Clone(),
+                Clan = (IClan)clan.Clone(),
                 Knjiga = knjiga,
                 LogAction = LogItem.Action.Vratio
             });
@@ -118,12 +119,12 @@ namespace Biblioteka.Model
             return true;
         }
 
-        public Clan AddClan(Clan clan)
+        public IClan AddClan(IClan clan)
         {
             return _clanManager.AddClan(clan);
         }
 
-        public bool RemoveClan(Clan clan)
+        public bool RemoveClan(IClan clan)
         {
             return _clanManager.RemoveClan(clan);
         }
@@ -137,6 +138,16 @@ namespace Biblioteka.Model
         {
             _knjigaManager.AddKnjiga(knjiga);
             return true;
+        }
+
+        public Knjiga GetKnjigaById(string id)
+        {
+            return _knjigaManager.GetById(id);
+        }
+
+        public bool RemoveKnjigaById(string id)
+        {
+            return _knjigaManager.RemoveKnjiga(GetKnjigaById(id));
         }
     }
 }

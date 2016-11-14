@@ -39,9 +39,19 @@ namespace Biblioteka.Model
             return _knjige.Where(x => x.ISBN == isbn).FirstOrDefault();
         }
 
-        public Knjiga SearchByNaziv(string naziv)
+        public List<Knjiga> SearchByNaziv(string naziv)
         {
-            return _knjige.Where(x => x.Naslov == naziv).FirstOrDefault();
+            return _knjige.Where(x => x.Naslov == naziv).ToList();
+        }
+
+        public Knjiga GetById(string id)
+        {
+            return _knjige.Where(x => x.Sifra == id).FirstOrDefault();
+        }
+
+        public bool RemoveKnjiga(Knjiga knjiga)
+        {
+            return _knjige.Remove(knjiga);
         }
     }
 }

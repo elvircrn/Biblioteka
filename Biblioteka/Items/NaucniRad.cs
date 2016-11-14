@@ -10,24 +10,22 @@ namespace Biblioteka.Model
     {
         public string Konferencija { get; set; }
 
-        public string OblastNauke { get; set; }
-
-        public string generalneInformacije()
+        public string GeneralneInformacije()
         {
             throw new NotImplementedException();
         }
 
-        public List<string> autoriRada()
+        public List<string> AutoriRada()
         {
             throw new NotImplementedException();
         }
 
-        public string oblastNauke()
+        public string OblastNauke()
         {
             throw new NotImplementedException();
         }
 
-        public string oblikReferenciranja()
+        public string OblikReferenciranja()
         {
             throw new NotImplementedException();
         }

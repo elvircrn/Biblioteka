@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteka.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -26,8 +27,9 @@ namespace Biblioteka.Model
             SpisakAutora = new List<string>();
         }
 
-        public Knjiga PromptInput()
+        protected virtual Knjiga PromptInput()
         {
+            Console.Clear();
             Console.Write("Unesi naslov: ");
             Naslov = Console.ReadLine();
 
@@ -46,10 +48,38 @@ namespace Biblioteka.Model
             Console.Write("Unesite godinu izdanja: ");
             GodinaIzdanja = Parser.GetNextNumber(true);
 
-            Console.Write("Unesite ISBN");
-            ISBN = Console.ReadLine();
+            Console.Write("Unesite validan ISBN: ");
+            while (!KnjigaValidator.IsISBNValid(ISBN = Console.ReadLine()))
+                Console.Write("Unesite validan ISBN: ");
 
             return this;
+        }
+
+        public virtual Knjiga GetValid(bool force = false)
+        {
+            PromptInput();
+
+            if (force)
+            {
+                List<string> errorMessages;
+                while (!this.IsValid(out errorMessages))
+                {
+                    Console.WriteLine("Input nije validan zato sto:");
+                    foreach (var error in errorMessages)
+                        Console.WriteLine(error);
+                    PromptInput();
+                }
+            }
+
+            return this;
+        }
+
+        public virtual void Print()
+        {
+            Console.WriteLine("Naslov: {0}", Naslov);
+            Console.WriteLine("Spisak autora\n");
+            foreach (string autor in SpisakAutora)
+                Console.WriteLine("    " + autor);
         }
     }
 }

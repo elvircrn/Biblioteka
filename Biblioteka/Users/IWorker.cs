@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka.Model
+namespace Biblioteka.Users
 {
-    public static class ClanManagerExtensions
+    public interface IWorker
     {
+        string WorkerID { get; set; }
     }
 }

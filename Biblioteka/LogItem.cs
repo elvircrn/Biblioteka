@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteka.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,6 @@ namespace Biblioteka.Model
 
         public Knjiga Knjiga { get; set; }
 
-        public Clan Clan { get; set; }
+        public IClan Clan { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Biblioteka.Model;
 using Biblioteka;
 using Biblioteka.Validation;
+using Biblioteka.Users;
 
 namespace Test
 {
@@ -35,36 +36,39 @@ namespace Test
 
         private static void Render()
         {
+            Console.Clear();
             if (CurrentMenu == Menus.Hello)
             {
-                Console.Write("Dobro došli u " + _bibliotekaManager.Ime + " biblioteku!\n");
+                Console.Write("Dobro došli u " +
+                              _bibliotekaManager.Ime +
+                              " biblioteku!\n");
             }
             else if (CurrentMenu == Menus.Main)
             {
-                Console.Write("1.Registruj / Briši knjigu\n" +
-                              "2.Registruj / Briši člana\n" +
-                              "3.Iznajmi / Vrati knjigu\n" +
-                              "4.Pretraga\n" +
-                              "5.Analiza sadržaja\n" +
-                              "6.Izlaz\n");
+                Console.Write("1. Registruj / Briši knjigu\n" +
+                              "2. Registruj / Briši člana\n" +
+                              "3. Iznajmi / Vrati knjigu\n" +
+                              "4. Pretraga\n" +
+                              "5. Analiza sadržaja\n" +
+                              "6. Izlaz\n");
             }
             else if (CurrentMenu == Menus.RegDelKnjiga)
             {
-                Console.Write("1.Registruj Knjigu\n" +
-                              "2.Briši knjigu\n" +
-                              "3.Nazad\n");
+                Console.Write("1. Registruj Knjigu\n" +
+                              "2. Briši knjigu\n" +
+                              "3. Nazad\n");
             }
             else if (CurrentMenu == Menus.RegDelClan)
             {
-                Console.Write("1.Registruj clana\n" +
-                              "2.Briši clana\n" +
-                              "3.Nazad\n");
+                Console.Write("1. Registruj clana\n" +
+                              "2. Briši clana\n" +
+                              "3. Nazad\n");
             }
             else if (CurrentMenu == Menus.IznajmiVrati)
             {
-                Console.Write("1.Iznajmi knjigu\n" +
-                              "2.Vrati knjigu\n" +
-                              "3.Nazad\n");
+                Console.Write("1. Iznajmi knjigu\n" +
+                              "2. Vrati knjigu\n" +
+                              "3. Nazad\n");
             }
             else if (CurrentMenu == Menus.IznKnjigu)
             {
@@ -79,7 +83,8 @@ namespace Test
                 Console.WriteLine("Koji tip?");
                 Console.WriteLine("1. Knjiga");
                 Console.WriteLine("2. Naucni rad");
-                Console.WriteLine("3. Knjiga");
+                Console.WriteLine("3. Strip");
+                Console.WriteLine("4. Nazad");
             }
             else if (CurrentMenu == Menus.DelKnjiga)
             {
@@ -87,9 +92,9 @@ namespace Test
             }
             else if (CurrentMenu == Menus.Pretraga)
             {
-                Console.Write("1.Po ISBN\n" +
-                              "2.Po Naizvu\n" +
-                              "3.Nazad\n");
+                Console.Write("1. Po ISBN\n" +
+                              "2. Po Naizvu\n" +
+                              "3. Nazad\n");
             }
             else if (CurrentMenu == Menus.PoNazivu)
             {
@@ -101,11 +106,6 @@ namespace Test
             }
         }
 
-        private static bool ValidateInput()
-        {
-            return false;
-        }
-
         private static void CollectInput()
         {
             if (CurrentMenu == Menus.Main ||
@@ -115,49 +115,16 @@ namespace Test
                 CurrentMenu == Menus.IznajmiVrati ||
                 CurrentMenu == Menus.RegKnjiga)
             {
-                bool ok = true;
-                do
-                {
-                    ok = true;
-                    try
-                    {
-                        Index = Parser.GetNextNumber();
-                    }
-                    catch (Exception e)
-                    {
-                        ok = false;
-                        Console.WriteLine("Invalid input\n");
-                    }
-                } while (!ok);
+                Index = Parser.GetNextNumber(true);
             }
             else if (CurrentMenu == Menus.PoISBN ||
                      CurrentMenu == Menus.PoNazivu)
             {
                 Buffer = Console.ReadLine();
             }
-            else if (CurrentMenu == Menus.KnjigaInput)
-            {
-                List<string> errorMessages;
-                Knjiga knjiga = new Knjiga();
-
-                knjiga.PromptInput();
-
-                while (!knjiga.IsValid(out errorMessages))
-                {
-                    Console.WriteLine("Input nije validan zato sto:\n");
-                    foreach (var error in errorMessages)
-                        Console.WriteLine(error);
-                    knjiga.PromptInput();
-                }
-
-                _bibliotekaManager.AddKnjiga(knjiga);
-            }
-        }
-
-        public static void DoStuff()
-        {
 
         }
+
 
         private static void ProcessInput()
         {
@@ -191,15 +158,46 @@ namespace Test
             }
             else if (CurrentMenu == Menus.RegKnjiga)
             {
-                Knjiga knjiga = new Knjiga();
-                knjiga.PromptInput();
-
-                _bibliotekaManager.AddKnjiga(knjiga);
+                if (Index == 1)
+                {
+                    History.Push(CurrentMenu);
+                    Knjiga knjiga = new Knjiga();
+                    knjiga.GetValid();
+                    _bibliotekaManager.AddKnjiga(knjiga);
+                    Nazad(true);
+                }
+                else if (Index == 2)
+                {
+                    History.Push(CurrentMenu);
+                    NaucniRad naucniRad = new NaucniRad();
+                    naucniRad.GetValid();
+                    _bibliotekaManager.AddKnjiga(naucniRad);
+                    Nazad(true);
+                }
+                else if (Index == 3)
+                {
+                    History.Push(CurrentMenu);
+                    Strip strip = new Strip();
+                    strip.GetValid();
+                    _bibliotekaManager.AddKnjiga(strip);
+                    Nazad(true);
+                }
+                else if (Index == 4)
+                {
+                    Nazad(true);
+                }
             }
             else if (CurrentMenu == Menus.DelKnjiga)
             {
                 History.Push(CurrentMenu);
-                throw new NotImplementedException("Pitaj asistenta");
+                Console.Write("Unesite sifru knjige koju zelite izbrisati: ");
+
+                string code = Console.ReadLine();
+                while (!_bibliotekaManager.RemoveKnjigaById(code))
+                {
+                    Console.WriteLine("Knjiga sa tom sifrom ne postoji, unesite ponovo: ");
+                    code = Console.ReadLine();
+                }
             }
             else if (CurrentMenu == Menus.RegDelClan)
             {
@@ -210,10 +208,6 @@ namespace Test
                     CurrentMenu = Menus.DelClan;
                 else if (Index == 3)
                     Nazad(true);
-            }
-            else if (CurrentMenu == Menus.RegClan)
-            {
-                throw new NotImplementedException("Pitaj asistenta");
             }
             else if (CurrentMenu == Menus.DelClan)
             {
@@ -262,6 +256,50 @@ namespace Test
             else if (CurrentMenu == Menus.RegKnjiga)
             {
 
+            }
+            else if (CurrentMenu == Menus.RegClan)
+            {
+                Console.WriteLine("Odaberite tip clana:");
+                Console.WriteLine("1. Obicni insan");
+                Console.WriteLine("2. Student (podaci o nivou studija studenta ce biti uneseni kasnije)");
+                Console.WriteLine("3. Profesor");
+                Console.WriteLine("4. Nazad");
+
+                int index = Parser.GetNextNumber(true, 1, 4);
+
+                if (index == 1)
+                {
+                    User user = new User();
+                    user.PromptInput();
+                    _bibliotekaManager.AddClan(user);
+                    Nazad(true);
+                }
+                else if (index == 2)
+                {
+                    Student student = new Student();
+                    student.PromptInput();
+                    _bibliotekaManager.AddClan(student);
+                    Nazad(true);
+                }
+                else if (index == 3)
+                {
+                    Profesor profesor = new Profesor();
+                    profesor.PromptInput();
+                    _bibliotekaManager.AddClan(profesor);
+                    Nazad(true);
+                }
+                else if (index == 4)
+                {
+                    Nazad(true);
+                }
+            }
+            else if (CurrentMenu == Menus.KnjigaInput)
+            {
+                Knjiga knjiga = new Knjiga();
+                knjiga.GetValid();
+
+                _bibliotekaManager.AddKnjiga(knjiga);
+                Nazad(true);
             }
 
             Console.Clear();
