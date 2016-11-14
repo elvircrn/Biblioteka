@@ -12,6 +12,11 @@ namespace Biblioteka.Model
 
         private List<Knjiga> _knjige;
 
+        public KnjigaManager()
+        {
+            _knjige = new List<Knjiga>();
+        }
+
         private string GenerateSifra()
         {
             string sifra;

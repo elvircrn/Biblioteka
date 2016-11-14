@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka.Model
+namespace Biblioteka.Users
 {
-    public class Clan : User
+    public interface IClan 
     {
-        public double Popust { get; set; }
+        double Popust { get; set; }
 
-        public string Comment { get; set; }
+        string Comment { get; set; }
 
-        public string Sifra { get; set; }
-
-        internal Clan Clone()
+        string Sifra { get; set; }
+        /*
         {
             return new Clan
             {
@@ -29,5 +28,6 @@ namespace Biblioteka.Model
                 Sifra = this.Sifra
             };
         }
+        */
     }
 }

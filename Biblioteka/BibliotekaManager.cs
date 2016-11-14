@@ -74,6 +74,7 @@ namespace Biblioteka.Model
         {
             return _knjigaManager.SearchByISBN(isbn);
         }
+
         public Knjiga SearchByNaziv(string naziv)
         {
             return _knjigaManager.SearchByNaziv(naziv);
@@ -130,6 +131,12 @@ namespace Biblioteka.Model
         public void Analyse()
         {
             throw new NotImplementedException("Pitaj asistenta");
+        }
+
+        public bool AddKnjiga(Knjiga knjiga)
+        {
+            _knjigaManager.AddKnjiga(knjiga);
+            return true;
         }
     }
 }

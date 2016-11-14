@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test
+namespace Biblioteka
 {
-    public static class Parser 
+    public static class Parser
     {
         public static string GetUntilWhiteSpace()
         {
@@ -39,12 +39,33 @@ namespace Test
 
             return buffer;
         }
-        
-        public static int GetNextNumber()
+
+        public static int GetNextNumber(bool force = false)
         {
-            int result;
-            if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
-                throw new Exception("Invalid input");
+            int result = 0;
+            if (!force)
+            {
+                if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
+                    throw new Exception("Invalid input");
+            }
+            else
+            {
+                bool ok;
+                do
+                {
+                    ok = true;
+                    try
+                    {
+                        if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
+                            throw new Exception("Invalid input");
+                    }
+                    catch
+                    {
+                        ok = false;
+                        Console.WriteLine("Invalid input\n");
+                    }
+                } while (!ok);
+            }
             return result;
         }
     }

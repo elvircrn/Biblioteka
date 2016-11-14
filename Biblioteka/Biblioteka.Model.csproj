@@ -49,6 +49,7 @@
     <Compile Include="BibliotekaManager.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Items\KnjigaManager.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Users\Clan.cs" />
     <Compile Include="Users\ClanManagerExtensions.cs" />
     <Compile Include="Items\Interfaces\INaucniRad.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Items\Strip.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\Managers\ClanManager.cs" />
+    <Compile Include="Validation\KnjigaValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

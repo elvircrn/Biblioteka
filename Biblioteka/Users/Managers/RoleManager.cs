@@ -10,7 +10,6 @@ namespace Biblioteka.Model
     {
         private List<Role> Roles;
 
-
         public RoleManager()
         {
             Roles = new List<Role>();

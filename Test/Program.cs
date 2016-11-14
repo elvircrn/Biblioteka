@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Biblioteka.Model;
+using Biblioteka;
+using Biblioteka.Validation;
 
 namespace Test
 {
@@ -39,7 +41,7 @@ namespace Test
             }
             else if (CurrentMenu == Menus.Main)
             {
-                Console.Write("1.Registruj/Briši knjigu\n" +
+                Console.Write("1.Registruj / Briši knjigu\n" +
                               "2.Registruj / Briši člana\n" +
                               "3.Iznajmi / Vrati knjigu\n" +
                               "4.Pretraga\n" +
@@ -66,15 +68,18 @@ namespace Test
             }
             else if (CurrentMenu == Menus.IznKnjigu)
             {
-                throw new NotImplementedException("Pitaj asistenta");
+                CollectInput();
             }
             else if (CurrentMenu == Menus.VraKnjigu)
             {
-                throw new NotImplementedException("Pitaj asistenta");
+                CollectInput();
             }
             else if (CurrentMenu == Menus.RegKnjiga)
             {
-                throw new NotImplementedException("Pitaj asistenta");
+                Console.WriteLine("Koji tip?");
+                Console.WriteLine("1. Knjiga");
+                Console.WriteLine("2. Naucni rad");
+                Console.WriteLine("3. Knjiga");
             }
             else if (CurrentMenu == Menus.DelKnjiga)
             {
@@ -96,9 +101,9 @@ namespace Test
             }
         }
 
-        private static void ValidateInput()
+        private static bool ValidateInput()
         {
-
+            return false;
         }
 
         private static void CollectInput()
@@ -107,17 +112,51 @@ namespace Test
                 CurrentMenu == Menus.RegDelKnjiga ||
                 CurrentMenu == Menus.RegDelClan ||
                 CurrentMenu == Menus.Pretraga ||
-                CurrentMenu == Menus.IznajmiVrati)
+                CurrentMenu == Menus.IznajmiVrati ||
+                CurrentMenu == Menus.RegKnjiga)
             {
-                Index = Parser.GetNextNumber();
+                bool ok = true;
+                do
+                {
+                    ok = true;
+                    try
+                    {
+                        Index = Parser.GetNextNumber();
+                    }
+                    catch (Exception e)
+                    {
+                        ok = false;
+                        Console.WriteLine("Invalid input\n");
+                    }
+                } while (!ok);
             }
             else if (CurrentMenu == Menus.PoISBN ||
                      CurrentMenu == Menus.PoNazivu)
             {
                 Buffer = Console.ReadLine();
             }
+            else if (CurrentMenu == Menus.KnjigaInput)
+            {
+                List<string> errorMessages;
+                Knjiga knjiga = new Knjiga();
 
-            ValidateInput();
+                knjiga.PromptInput();
+
+                while (!knjiga.IsValid(out errorMessages))
+                {
+                    Console.WriteLine("Input nije validan zato sto:\n");
+                    foreach (var error in errorMessages)
+                        Console.WriteLine(error);
+                    knjiga.PromptInput();
+                }
+
+                _bibliotekaManager.AddKnjiga(knjiga);
+            }
+        }
+
+        public static void DoStuff()
+        {
+
         }
 
         private static void ProcessInput()
@@ -152,8 +191,10 @@ namespace Test
             }
             else if (CurrentMenu == Menus.RegKnjiga)
             {
-                History.Push(CurrentMenu);
-                throw new NotImplementedException("Pitaj asistenta");
+                Knjiga knjiga = new Knjiga();
+                knjiga.PromptInput();
+
+                _bibliotekaManager.AddKnjiga(knjiga);
             }
             else if (CurrentMenu == Menus.DelKnjiga)
             {
@@ -208,7 +249,7 @@ namespace Test
             }
             else if (CurrentMenu == Menus.PoISBN)
             {
-                
+
             }
             else if (CurrentMenu == Menus.PoNazivu)
             {
@@ -217,6 +258,10 @@ namespace Test
             else if (CurrentMenu == Menus.Analiza)
             {
                 throw new NotImplementedException("Pitaj asistenta");
+            }
+            else if (CurrentMenu == Menus.RegKnjiga)
+            {
+
             }
 
             Console.Clear();
