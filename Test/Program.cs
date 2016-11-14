@@ -50,7 +50,9 @@ namespace Test
                               "3. Iznajmi / Vrati knjigu\n" +
                               "4. Pretraga\n" +
                               "5. Analiza sadržaja\n" +
-                              "6. Izlaz\n");
+                              "6. Printanje svih clanova\n" +
+                              "7. Printanje svih itema u biblioteci\n" +
+                              "8. Izlaz\n");
             }
             else if (CurrentMenu == Menus.RegDelKnjiga)
             {
@@ -143,7 +145,7 @@ namespace Test
                     CurrentMenu = Menus.Pretraga;
                 else if (Index == 5)
                     CurrentMenu = Menus.Analiza;
-                else if (Index == 6)
+                else if (Index == 8)
                     CurrentMenu = Menus.Izlaz;
             }
             else if (CurrentMenu == Menus.RegDelKnjiga)
@@ -307,6 +309,15 @@ namespace Test
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Imam jednu molbu:\n" + 
+                              "Prije pokretanja ove aplikacije bi bilo " + 
+                              "jako pozeljno procitati " + 
+                              "README file koji se nalazi na root-u.\n" +
+                              "Pritisnite enter da biste poceli koristiti ovu aplikaciju.");
+
+            Console.ReadLine();
+            Console.Clear();
+
             Init();
 
             Render();
@@ -325,6 +336,10 @@ namespace Test
             _bibliotekaManager = new BibliotekaManager("Crnjo");
             History = new Stack<Menus>();
             CurrentMenu = Menus.Hello;
+
+            Console.WriteLine("Dobrodosli u biblioteku " + _bibliotekaManager.Ime);
+            Console.ReadLine();
+            Console.Clear();
         }
     }
 }
