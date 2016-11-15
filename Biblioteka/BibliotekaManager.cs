@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteka.Model
 {
@@ -11,9 +9,6 @@ namespace Biblioteka.Model
     {
         #region Properties
 
-        private static readonly double BachelorPopust = 10.0;
-        private static readonly double MasterPopust = 12.5;
-        private static readonly double ProfesorPopust = 15.0;
         private static readonly double MonthlyDefault = 100.0;
 
         private ClanManager _clanManager;
@@ -21,6 +16,8 @@ namespace Biblioteka.Model
         private KnjigaManager _knjigaManager;
         private List<Tuple<Knjiga, IClan>> _record;
         private List<LogItem> _log;
+
+        public double MonthlyFee { get; set; } = MonthlyDefault;
 
         private DateTime CurrentDate
         {
@@ -30,7 +27,6 @@ namespace Biblioteka.Model
             }
         }
 
-        private double Monthly { get; set; }
 
         private double Cash { get; set; }
 
@@ -56,6 +52,7 @@ namespace Biblioteka.Model
             _roleManager = new RoleManager<Role>();
             _knjigaManager = new KnjigaManager();
             _record = new List<Tuple<Knjiga, IClan>>();
+            _log = new List<LogItem>();
 
             InitRoles();
             InitBooks();
@@ -65,9 +62,11 @@ namespace Biblioteka.Model
 
         public string Ime { get; set; }
 
-        public BibliotekaManager(string Ime)
+        public BibliotekaManager(string Ime, double? price = null)
         {
             this.Ime = Ime;
+            if (price != null)
+                MonthlyFee = (double)price;
             Init();
         }
 
@@ -76,47 +75,12 @@ namespace Biblioteka.Model
             return _knjigaManager.SearchByISBN(isbn);
         }
 
-        public List<Knjiga> SearchByNaziv(string naziv)
+        public List<Knjiga> SearchByNaziv(string naziv, bool strict = false)
         {
-            return _knjigaManager.SearchByNaziv(naziv);
-        }
-
-        public bool TryIznajmi(Knjiga knjiga, IClan clan)
-        {
-            if (_record.Where(x => x.Item1 == knjiga).FirstOrDefault() != null)
-                return false;
-
-            _log.Add(new LogItem
-            {
-                DateTime = CurrentDate,
-                Clan = (IClan)clan.Clone(),
-                Knjiga = knjiga,
-                LogAction = LogItem.Action.Posudio
-            });
-
-            _record.Add(new Tuple<Knjiga, IClan>(knjiga, clan));
-
-            return true;
-        }
-
-        public bool Vrati(Knjiga knjiga, IClan clan)
-        {
-            var query = _record.Where(x => x.Item1 == knjiga).FirstOrDefault();
-
-            if (query == null)
-                return false;
-
-            _log.Add(new LogItem
-            {
-                DateTime = CurrentDate,
-                Clan = (IClan)clan.Clone(),
-                Knjiga = knjiga,
-                LogAction = LogItem.Action.Vratio
-            });
-
-            _record.Remove(query);
-
-            return true;
+            if (strict)
+                return _knjigaManager.SearchByNaziv(naziv, (Knjiga x) => x.Naslov.Contains(naziv));
+            else
+                return _knjigaManager.SearchByNaziv(naziv);
         }
 
         public IClan AddClan(IClan clan)
@@ -131,7 +95,6 @@ namespace Biblioteka.Model
 
         public void Analyse()
         {
-            throw new NotImplementedException("Pitaj asistenta");
         }
 
         public bool AddKnjiga(Knjiga knjiga)
@@ -147,7 +110,123 @@ namespace Biblioteka.Model
 
         public bool RemoveKnjigaById(string id)
         {
+            _record.RemoveAll(x => x.Item1.Sifra == id);
             return _knjigaManager.RemoveKnjiga(GetKnjigaById(id));
+        }
+
+        public void PrintKnjige()
+        {
+            _knjigaManager.Print();
+        }
+
+        public void PrintClanova()
+        {
+            _clanManager.Print();
+        }
+
+        public bool VratiKnjigu(string clanId, string sifra)
+        {
+            var query = _record.Where(x => x.Item2.Sifra == clanId && x.Item1.Sifra == sifra) 
+                               .FirstOrDefault();
+            
+            if (query == null)
+                return false;
+
+            query.Item1.Taken = false;
+
+            _log.Add(new LogItem
+            {
+                DateTime = CurrentDate,
+                Clan = query.Item2,
+                Knjiga = query.Item1,
+                LogAction = LogItem.Action.Vratio
+            });
+
+            _record.Remove(query);
+
+            return true;
+        }
+
+        public void RazduziSve(IClan clan)
+        {
+            var knjige = _record.Where(x => x.Item2.Sifra == clan.Sifra)
+                                .ToList()
+                                .Select(x => x.Item1)
+                                .ToList();
+
+            foreach (Knjiga knjiga in knjige)
+            {
+                knjiga.Taken = false;
+                _log.Add(new LogItem
+                {
+                    DateTime = CurrentDate,
+                    Clan = clan,
+                    Knjiga = knjiga,
+                    LogAction = LogItem.Action.Vratio
+                });
+            }
+
+            _record.RemoveAll(x => x.Item2.Sifra == clan.Sifra);
+        }
+
+        public bool Iznajmi(string clanId, string knjigaId, out List<string> errorMessages)
+        {
+            bool ok = true;
+            IClan clan = _clanManager.GetById(clanId);
+            Knjiga knjiga = _knjigaManager.GetById(knjigaId);
+        
+            errorMessages = new List<string>();
+
+            if (clan == null)
+            {
+                ok = false;
+                errorMessages.Add("Taj clan ne postoji.");
+            }
+
+            if (knjiga == null)
+            {
+                ok = false;
+                errorMessages.Add("Ta knjiga ne postoji.");
+            }
+            else if (knjiga.Taken)
+            {
+                ok = false;
+                errorMessages.Add("Ta knjiga je zauzeta.");
+            }
+
+            if (clan?.State == States.Banned)
+            {
+                ok = false;
+                errorMessages.Add("User je banovan!");
+            }
+
+            if (ok)
+            {
+                knjiga.Taken = true;
+                _record.Add(new Tuple<Knjiga, IClan>(knjiga, clan));
+                _log.Add(new LogItem
+                {
+                    DateTime = CurrentDate,
+                    Clan = clan,
+                    Knjiga = knjiga,
+                    LogAction = LogItem.Action.Posudio
+                });
+            }
+
+            return ok;
+        }
+
+        public List<IClan> Naplati()
+        {
+            List<IClan> banList = _clanManager.Take(MonthlyFee);
+
+            foreach (User clan in banList)
+            {
+                clan.State = States.Banned;
+                RazduziSve(clan);
+            }
+
+            return banList;
         }
     }
 }

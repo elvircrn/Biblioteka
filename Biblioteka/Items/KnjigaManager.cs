@@ -39,9 +39,14 @@ namespace Biblioteka.Model
             return _knjige.Where(x => x.ISBN == isbn).FirstOrDefault();
         }
 
-        public List<Knjiga> SearchByNaziv(string naziv)
+        public delegate bool Comparator(Knjiga knjiga);
+
+        public List<Knjiga> SearchByNaziv(string naziv, Comparator comparator = null)
         {
-            return _knjige.Where(x => x.Naslov == naziv).ToList();
+            if (comparator != null)
+                return _knjige.Where(x => comparator(x)).ToList();
+            else
+                return _knjige.Where(x => x.Naslov == naziv).ToList();
         }
 
         public Knjiga GetById(string id)
@@ -52,6 +57,19 @@ namespace Biblioteka.Model
         public bool RemoveKnjiga(Knjiga knjiga)
         {
             return _knjige.Remove(knjiga);
+        }
+
+        internal void Print()
+        {
+            if (_knjige.Count == 0)
+                Console.WriteLine("Nema knjiga.");
+            else
+            {
+                Console.WriteLine("Spisak knjiga:");
+                foreach (Knjiga knjiga in _knjige)
+                    knjiga.Print();
+                Console.WriteLine();
+            }
         }
     }
 }

@@ -29,5 +29,11 @@ namespace Biblioteka.Model
         {
             throw new NotImplementedException();
         }
+
+        public override void Print()
+        {
+            base.Print();
+            Console.WriteLine("Konferencija: {0}", Konferencija);
+        }
     }
 }

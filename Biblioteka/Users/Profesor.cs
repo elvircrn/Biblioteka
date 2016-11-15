@@ -16,25 +16,17 @@ namespace Biblioteka.Users
             get { return 0.15; }
         }
 
-        public override object Clone()
-        {
-            return new Profesor 
-            {
-                Ime = Ime,
-                Prezime = Prezime,
-                MaticniBroj = MaticniBroj,
-                DatumRodjenja = DatumRodjenja,
-                Comment = Comment,
-                Sifra = Sifra,
-                WorkerID = WorkerID
-            };
-        }
-
         public override void PromptInput()
         {
             base.PromptInput();
             Console.Write("Unesite WorkID: ");
             WorkerID = Console.ReadLine();
+        }
+
+        public override void Print()
+        {
+            base.Print();
+            Console.WriteLine("WorkerID: {0}", WorkerID);
         }
     }
 }

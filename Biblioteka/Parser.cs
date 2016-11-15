@@ -78,5 +78,12 @@ namespace Biblioteka
             }
             return result;
         }
+
+        public static void Stall(bool clear = false)
+        {
+            Console.ReadLine();
+            if (clear)
+                Console.Clear();
+        }
     }
 }

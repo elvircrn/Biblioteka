@@ -45,5 +45,16 @@ namespace Biblioteka.Model
 
             return this;
         }
+
+        public override void Print()
+        {
+            base.Print();
+            Console.WriteLine("Animatorska kuca: {0}", AnimatorskaKuca);
+            Console.WriteLine("Spisak umjetnika:");
+            foreach (string umjetnik in SpisakUmjetnika)
+                Console.WriteLine(umjetnik);
+            Console.WriteLine("Broj izdanja: {0}", BrojIzdanja);
+            Console.WriteLine("Specijalno: {0}", Specijalno ? "Jeste" : "Nije");
+        }
     }
 }

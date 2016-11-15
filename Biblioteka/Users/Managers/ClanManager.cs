@@ -1,6 +1,7 @@
 ﻿using Biblioteka.Users;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Biblioteka.Model
 {
@@ -42,6 +43,37 @@ namespace Biblioteka.Model
             Clans.Remove(query);
 
             return true;
+        }
+
+        public void Print()
+        {
+            if (Clans.Count == 0)
+                Console.WriteLine("Nema clanova.");
+            foreach (IClan clan in Clans)
+            {
+                clan.Print();
+                Console.WriteLine();
+            }
+        }
+
+        public List<IClan> Take(double monthlyFee)
+        {
+            List<IClan> delta = new List<IClan>();
+
+            foreach (User user in Clans)
+            {
+                if (user.Cash > 0 && user.Cash - monthlyFee < 0)
+                    delta.Add(user);
+
+                user.Cash -= monthlyFee;
+            }
+
+            return delta;
+        }
+
+        public IClan GetById(string id)
+        {
+            return Clans.Where(x => x.Sifra == id).FirstOrDefault();
         }
     }
 }

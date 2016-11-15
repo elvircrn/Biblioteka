@@ -28,17 +28,24 @@ namespace Biblioteka.Model
 
         public string Sifra { get; set; }
 
-        public virtual object Clone()
+        public States State { get; set; }
+
+        public double Cash { get; set; }
+
+        public User()
         {
-            return new User
-            {
-                Ime = Ime,
-                Prezime = Prezime,
-                MaticniBroj = MaticniBroj,
-                DatumRodjenja = DatumRodjenja,
-                Comment = Comment,
-                Sifra = Sifra
-            };
+            State = States.OK;
+            Cash = NumberGenerator.GetRandomNumber(10, 1000);
+        }
+
+        public virtual void Print()
+        {
+            Console.WriteLine("Ime: {0}", Ime);
+            Console.WriteLine("Prezime: {0}", Prezime);
+            Console.WriteLine("Maticni broj: {0}", MaticniBroj);
+            Console.WriteLine("Sifra: {0}", Sifra);
+            Console.WriteLine("Comment: {0}", Comment);
+            Console.WriteLine("Cash: {0}", Cash);
         }
 
         public virtual void PromptInput()

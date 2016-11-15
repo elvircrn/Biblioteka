@@ -15,7 +15,7 @@ namespace Biblioteka.Model
         {
             if (_rand == null)
                 _rand = new Random();
-            return (new String(' ', length)).Select(x => _pool[_rand.Next(_pool.Length)]).ToString();
+            return (new String(' ', length)).Select(x => _pool[_rand.Next(_pool.Length)]).ToList().Aggregate("", (x, y) => x += y);
         }
     }
 }

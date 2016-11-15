@@ -20,11 +20,14 @@ namespace Biblioteka.Model
 
         public int GodinaIzdanja { get; set; }
 
-        public string ISBN { get; internal set; }
+        public string ISBN { get; set; }
+
+        public bool Taken { get; set; }
 
         public Knjiga()
         {
             SpisakAutora = new List<string>();
+            Taken = false;
         }
 
         protected virtual Knjiga PromptInput()
@@ -80,6 +83,11 @@ namespace Biblioteka.Model
             Console.WriteLine("Spisak autora\n");
             foreach (string autor in SpisakAutora)
                 Console.WriteLine("    " + autor);
+            Console.WriteLine("Sifra: {0}", Sifra);
+            Console.WriteLine("Zanr: {0}", Zanr);
+            Console.WriteLine("Godina izdanja: {0}", GodinaIzdanja);
+            Console.WriteLine("ISBN: {0}", ISBN);
+            Console.WriteLine("Zauzeto: {0}", Taken ? "Da" : "Ne");
         }
     }
 }

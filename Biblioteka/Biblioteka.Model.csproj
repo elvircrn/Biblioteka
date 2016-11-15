@@ -49,6 +49,7 @@
     <Compile Include="BibliotekaManager.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="Items\KnjigaManager.cs" />
+    <Compile Include="NumberGenerator.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Users\ClanManagerExtensions.cs" />
     <Compile Include="Items\Interfaces\INaucniRad.cs" />

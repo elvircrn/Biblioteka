@@ -18,3 +18,17 @@
 ### Analiza podataka
 	Obzirom na to da se sve radnje u biblioteci logiraju, moguce je lahko doci do 
 	relevantnih analiza pomocu LINQa.
+	LINQ ftw!
+
+### Delegat
+	Primjer koristenja delegata se moze vidjeti u klasi KnjigaManager.cs, tacnije
+	u metodi SearchByNaziv.
+
+### Kolekcije podataka
+	Koriste se posvuda. :)
+	
+### Placanje clanarine
+	Svakoj osobi je napocetku dodjeljena nasumicna kolocina novca u opsegu od 10 do 1000KM.
+	Nadalje, pozivom metode Naplati u klasi BibliotekaManager, trazimo od svakog 
+	korisnika da isplati izvjsnu sumu novca. Ako on to ne moze uciniti, vraca sve knjige
+	koje trenuto posjeduje i postaje zauvijek banovan iz biblioteke.

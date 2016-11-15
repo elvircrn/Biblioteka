@@ -21,21 +21,6 @@ namespace Biblioteka.Users
             get { return (Level == Levels.Bachelor) ? 0.1 : 0.125; }
         }
 
-        public override object Clone()
-        {
-            return new Student
-            {
-                Ime = Ime,
-                Prezime = Prezime,
-                MaticniBroj = MaticniBroj,
-                DatumRodjenja = DatumRodjenja,
-                Comment = Comment,
-                Sifra = Sifra,
-                Index = Index,
-                Level = Level
-            };
-        }
-
         public override void PromptInput()
         {
             base.PromptInput();
@@ -56,6 +41,13 @@ namespace Biblioteka.Users
                 Console.WriteLine("Index nije validan, unesite ponovo: ");
                 Index = Console.ReadLine();
             }
+        }
+
+        public override void Print()
+        {
+            base.Print();
+            Console.WriteLine("Index: {0}", Index);
+            Console.WriteLine("Nivo studija: {0}", (Level == Levels.Bachelor) ? "Bachelor" : "Master");
         }
     }
 }
