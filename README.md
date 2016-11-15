@@ -4,11 +4,8 @@
 ## Nekoliko napomena:
 
 
-### Odabir itema
-	Za sljedece iteme u biblioteci:
-	* Clanovi
-	* Knjige
-	se odabir vrsi prema njihovoj jedinstvenoj sifri generisanoj. Npr, pri
+### Za clanove i knjige vrijedi sljedece:
+	Odabir ovih objekata se vrsi prema njihovoj jedinstvenoj generisanoj sifri. Npr, pri
 	brisanju knjige iz biblioteke, unosi se sifra knjige koje se zeli izbrisati
 	te se potom brise odgovarajuci item iz biblioteke. Ovo je opravdano cinjenicom
 	da je korisnik u svakom trenutku u stanju dobiti listu svih objekata zajedno
