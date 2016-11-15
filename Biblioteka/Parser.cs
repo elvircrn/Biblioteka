@@ -57,22 +57,26 @@ namespace Biblioteka
                 do
                 {
                     ok = true;
-                    try
+                    if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
                     {
-                        if (!Int32.TryParse(GetUntilWhiteSpace(), out result))
-                            throw new Exception("Invalid input, ocekivan je broj");
-
-                        if (minRange != null && maxRange != null && (minRange > result || result > maxRange))
-                            throw new Exception("Invalid input, broj nije u trazenom opsegu");
-                        else if (minRange != null && result < minRange)
-                            throw new Exception("Invalid input, broj nije u trazenom opsegu");
-                        else if (maxRange != null && result > maxRange)
-                            throw new Exception("Invalid input, broj nije u trazenom opsegu");
+                        Console.WriteLine("Invalidan input, ocekivan je broj!");
+                        ok = false;
                     }
-                    catch (Exception e)
+
+                    if (minRange != null && maxRange != null && (minRange > result || result > maxRange))
                     {
                         ok = false;
-                        Console.WriteLine(e.Message);
+                        Console.WriteLine("Invalid input, broj nije u trazenom opsegu");
+                    }
+                    else if (minRange != null && result < minRange)
+                    {
+                        ok = false;
+                        Console.WriteLine("Invalid input, broj nije u trazenom opsegu");
+                    }
+                    else if (maxRange != null && result > maxRange)
+                    {
+                        ok = false;
+                        Console.WriteLine("Invalid input, broj nije u trazenom opsegu");
                     }
                 } while (!ok);
             }
