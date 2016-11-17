@@ -62,7 +62,8 @@ namespace Biblioteka.Model
 
             foreach (User user in Clans)
             {
-                if (user.Cash > 0 && user.Cash - monthlyFee < 0)
+                Console.WriteLine(user.Popust);
+                if (user.Cash > 0 && user.Cash - (monthlyFee * (1 - user.Popust)) < 0)
                     delta.Add(user);
 
                 user.Cash -= monthlyFee;
@@ -74,6 +75,17 @@ namespace Biblioteka.Model
         public IClan GetById(string id)
         {
             return Clans.Where(x => x.Sifra == id).FirstOrDefault();
+        }
+
+        public List<IClan> Search(Func<IClan, bool> f)
+        {
+            return Clans.Where(x => f(x)).ToList();
+        }
+
+
+        public List<IClan> GetClans()
+        {
+            return Clans;
         }
     }
 }

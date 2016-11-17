@@ -13,11 +13,8 @@ namespace Biblioteka.Validation
         {
             if (String.IsNullOrEmpty(maticni) || maticni.Length != 13 || maticni.Any(x => !Char.IsDigit(x)))
                 return false;
-            return true;
-            /*
-            int zbir = 0;
 
-            int mult = 7;
+            int zbir = 0, mult = 7;
             for (int i = 0; i < 6; i++)
                 zbir += (mult--) * (maticni[i] - 0x30) + (maticni[i + 6] - 0x30);
 
@@ -25,12 +22,11 @@ namespace Biblioteka.Validation
             int razlika = 11 - ostatak;
 
             if (ostatak == 1)
-                return false;
+                return true;
             else if (ostatak == 0)
-                return (maticni[12] == 0x30);
+                return !(maticni[12] == 0x30);
 
-            return (razlika == (maticni[12] - 0x30));
-            */
+            return !(razlika == (maticni[12] - 0x30));
         }
 
 

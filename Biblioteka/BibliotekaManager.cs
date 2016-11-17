@@ -93,8 +93,55 @@ namespace Biblioteka.Model
             return _clanManager.RemoveClan(clan);
         }
 
+
+        /*
+         * Obzirom na to da se sva desavanja u biblioteci logiraju,
+         * broj mogucih kverija je jako velik i lahko se moze doci
+         * do zeljenih informacija pomocu LINQa. */
         public void Analyse()
         {
+            Console.WriteLine("Lista najcitanijih zanrova:");
+
+            // Uradi se grupisanje po zanru, pa se onda oni soritraju po broju iznajmljivanja
+            foreach (var line in _log.Where(x => x.LogAction == LogItem.Action.Posudio)
+                                     .ToList()
+                                     .GroupBy(x => x.Knjiga.Zanr)
+                                     .Select(group => new
+                                     {
+                                         Metric = group.Key,
+                                         Count = group.Count()
+                                     })
+                                     .OrderByDescending(x => x.Count))
+            {
+                Console.WriteLine("{0} {1}", line.Metric, line.Count);
+            }
+
+            Console.WriteLine("Liga mladih lingvista (top-lista vrijednih citalaca):");
+            foreach (var line in _log.Where(x => x.LogAction == LogItem.Action.Posudio)
+                                     .ToList()
+                                     .GroupBy(x => x.Clan.Sifra)
+                                     .Select(group => new
+                                     {
+                                         Metric = group.Key,
+                                         Count = group.Count()
+                                     })
+                                     .OrderByDescending(x => x.Count))
+            {
+                Console.WriteLine("{0} {1}", line.Metric, line.Count);
+            }
+
+            Console.WriteLine("Struktura citaoca po godinama");
+            foreach (var line in _clanManager.GetClans()
+                                     .GroupBy(x => ((User)x).DatumRodjenja.Year)
+                                     .Select(group => new
+                                     {
+                                         Metric = group.Key,
+                                         Count = group.Count()
+                                     })
+                                     .OrderByDescending(x => x.Count))
+            {
+                Console.WriteLine("{0} {1}", DateTime.Now.Year - line.Metric, line.Count);
+            }
         }
 
         public bool AddKnjiga(Knjiga knjiga)
@@ -126,9 +173,9 @@ namespace Biblioteka.Model
 
         public bool VratiKnjigu(string clanId, string sifra)
         {
-            var query = _record.Where(x => x.Item2.Sifra == clanId && x.Item1.Sifra == sifra) 
+            var query = _record.Where(x => x.Item2.Sifra == clanId && x.Item1.Sifra == sifra)
                                .FirstOrDefault();
-            
+
             if (query == null)
                 return false;
 
@@ -174,7 +221,7 @@ namespace Biblioteka.Model
             bool ok = true;
             IClan clan = _clanManager.GetById(clanId);
             Knjiga knjiga = _knjigaManager.GetById(knjigaId);
-        
+
             errorMessages = new List<string>();
 
             if (clan == null)
@@ -220,13 +267,30 @@ namespace Biblioteka.Model
         {
             List<IClan> banList = _clanManager.Take(MonthlyFee);
 
-            foreach (User clan in banList)
+            foreach (IClan clan in banList)
             {
                 clan.State = States.Banned;
                 RazduziSve(clan);
             }
 
             return banList;
+        }
+
+        public IClan SearchClanBySifra(string id)
+        {
+            return _clanManager.GetById(id);
+        }
+
+        public List<IClan> SearchBy(Func<IClan, bool> f)
+        {
+            return _clanManager.Search(f);
+        }
+
+        public bool RemoveClanById(string id)
+        {
+            IClan clan = SearchClanBySifra(id);
+
+            return _clanManager.RemoveClan(clan);
         }
     }
 }

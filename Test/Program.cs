@@ -8,12 +8,13 @@ using Biblioteka.Model;
 using Biblioteka;
 using Biblioteka.Validation;
 using Biblioteka.Users;
+using IO;
 
 namespace Test
 {
     class Program
     {
-        private enum Menus { Naplati, PrintClanova, PrintKnjiga, RegDelClan, Main, Hello, Izlaz, KnjigaInput, RegDelKnjiga, ClanInput, IznajmiVrati, Analiza, Pretraga, RegKnjiga, DelKnjiga, RegClan, DelClan, IznKnjigu, VraKnjigu, PoISBN, PoNazivu };
+        private enum Menus { Naplati, PrintClanova, PrintKnjiga, RegDelClan, Main, Hello, Izlaz, KnjigaInput, RegDelKnjiga, ClanInput, IznajmiVrati, Analiza, Pretraga, RegKnjiga, DelKnjiga, RegClan, DelClan, IznKnjigu, VraKnjigu, PoISBN, PoNazivu, PoSifri, PoImenu };
 
         static Stack<Menus> History { get; set; }
 
@@ -54,7 +55,7 @@ namespace Test
                               "5. Analiza sadržaja\n" +
                               "6. Printanje svih clanova\n" +
                               "7. Printanje svih itema u biblioteci\n" +
-                              "8. Naplati\n" +
+                              "8. Naplati \n" +
                               "9. Izlaz\n");
             }
             else if (CurrentMenu == Menus.RegDelKnjiga)
@@ -91,23 +92,21 @@ namespace Test
                 Console.WriteLine("3. Strip");
                 Console.WriteLine("4. Nazad");
             }
-            else if (CurrentMenu == Menus.DelKnjiga)
-            {
-                throw new NotImplementedException("Pitaj asistenta");
-            }
             else if (CurrentMenu == Menus.Pretraga)
             {
-                Console.Write("1. Po ISBN\n" +
-                              "2. Po Naizvu\n" +
-                              "3. Nazad\n");
+                Console.Write("1. Trazi knjigu po ISBN\n" +
+                              "2. Trazi knjigu po naizvu\n" +
+                              "3. Trazi usera po sifri\n" +
+                              "4. Trazi usera po imenu\n" +
+                              "5. Nazad\n");
             }
             else if (CurrentMenu == Menus.PoNazivu)
             {
-                Console.Write("Unesite naziv: ");
+                Console.Write("Unesite naziv (q za nazad): ");
             }
             else if (CurrentMenu == Menus.PoISBN)
             {
-                Console.Write("Unesite ISBN: ");
+                Console.Write("Unesite ISBN (q za nazad): ");
             }
         }
 
@@ -121,11 +120,6 @@ namespace Test
                 CurrentMenu == Menus.RegKnjiga)
             {
                 Index = Parser.GetNextNumber(true);
-            }
-            else if (CurrentMenu == Menus.PoISBN ||
-                     CurrentMenu == Menus.PoNazivu)
-            {
-                Buffer = Console.ReadLine();
             }
         }
 
@@ -199,14 +193,21 @@ namespace Test
             else if (CurrentMenu == Menus.DelKnjiga)
             {
                 History.Push(CurrentMenu);
-                Console.Write("Unesite sifru knjige koju zelite izbrisati: ");
+                Console.Write("Unesite sifru knjige koju zelite izbrisati (q za nazad): ");
 
                 string code = Console.ReadLine();
-                while (!_bibliotekaManager.RemoveKnjigaById(code))
+                if (code != "q")
                 {
-                    Console.WriteLine("Knjiga sa tom sifrom ne postoji, unesite ponovo: ");
-                    code = Console.ReadLine();
+                    while (!_bibliotekaManager.RemoveKnjigaById(code))
+                    {
+                        Console.WriteLine("Knjiga sa tom sifrom ne postoji, unesite ponovo: ");
+                        code = Console.ReadLine();
+                        if (code == "q")
+                            break;
+                    }
                 }
+
+                Nazad(true);
             }
             else if (CurrentMenu == Menus.RegDelClan)
             {
@@ -220,7 +221,22 @@ namespace Test
             }
             else if (CurrentMenu == Menus.DelClan)
             {
-                throw new NotImplementedException("Pitaj asistenta");
+                History.Push(CurrentMenu);
+                Console.Write("Unesite sifru clana kojeg zelite izbrisati (q za nazad): ");
+
+                string id = Console.ReadLine();
+                if (id != "q")
+                {
+                    while (!_bibliotekaManager.RemoveClanById(id))
+                    {
+                        Console.WriteLine("Clan sa tom sifrom ne postoji, unesite ponovo (q za nazad): ");
+                        id = Console.ReadLine();
+                        if (id == "q")
+                            break;
+                    }
+                }
+
+                Nazad(true);
             }
             else if (CurrentMenu == Menus.IznajmiVrati)
             {
@@ -237,9 +253,13 @@ namespace Test
                 History.Push(CurrentMenu);
                 if (Index == 1)
                     CurrentMenu = Menus.PoISBN;
-                else if (Index == 1)
+                else if (Index == 2)
                     CurrentMenu = Menus.PoNazivu;
                 else if (Index == 3)
+                    CurrentMenu = Menus.PoSifri;
+                else if (Index == 4)
+                    CurrentMenu = Menus.PoImenu;
+                else if (Index == 5)
                     Nazad(true);
             }
             else if (CurrentMenu == Menus.PrintKnjiga)
@@ -298,37 +318,80 @@ namespace Test
                 History.Push(CurrentMenu);
                 string isbn;
 
-                Console.WriteLine("Unesite validan ISBN: ");
                 while (!KnjigaValidator.IsISBNValid(isbn = Console.ReadLine()))
-                    Console.Write("Unesite validan ISBN: ");
-
-                Knjiga knjiga = _bibliotekaManager.SearchByISBN(isbn);
-
-                if (knjiga == null)
-                    Console.WriteLine("Ne postoji knjiga sa tim ISBNom.");
-                else
                 {
-                    Console.WriteLine("Rezultat pretrage:");
-                    knjiga.Print();
+                    if (isbn == "q")
+                        break;
+                    else
+                        Console.Write("Unesite validan ISBN (q za nazad): ");
+                }
+
+                if (isbn != "q")
+                {
+                    Knjiga knjiga = _bibliotekaManager.SearchByISBN(isbn);
+
+                    if (knjiga == null)
+                        Console.WriteLine("Ne postoji knjiga sa tim ISBNom.");
+                    else
+                    {
+                        Console.WriteLine("Rezultat pretrage:");
+                        knjiga.Print();
+                    }
                 }
 
                 Nazad(true);
+            }
+            else if (CurrentMenu == Menus.PoSifri)
+            {
+                History.Push(CurrentMenu);
+                Console.Write("Unesite sifru: ");
+                string sifra = Console.ReadLine();
+                IClan result = _bibliotekaManager.SearchClanBySifra(sifra);
+
+                if (result == null)
+                    Console.WriteLine("Nije pronadjen clan sa tom sifrom.");
+                else
+                    result.Print();
+                Parser.Stall();
+
+                Nazad(true);
+            }
+            else if (CurrentMenu == Menus.PoImenu)
+            {
+                History.Push(CurrentMenu);
+                Console.Write("Unesite ime clana: ");
+                string ime = Console.ReadLine();
+                List<IClan> result = _bibliotekaManager.SearchBy(x => ((User)x).Ime == ime);
+                
+                if (result.Count == 0)
+                    Console.WriteLine("Nije pronadjen clan sa tim imenom.");
+                else
+                    foreach (IClan clan in result)
+                        clan.Print();
+
+                Parser.Stall();
+                Nazad(true);
+                
             }
             else if (CurrentMenu == Menus.PoNazivu)
             {
                 History.Push(CurrentMenu);
                 string naziv = Console.ReadLine();
-                List<Knjiga> knjige = _bibliotekaManager.SearchByNaziv(naziv);
 
-                if (knjige == null)
-                    Console.WriteLine("Ne postoji knjiga sa tim nazivom.");
-                else
+                if (naziv != "q")
                 {
-                    Console.WriteLine("Rezultat pretrage:");
-                    foreach (Knjiga knjiga in knjige)
+                    List<Knjiga> knjige = _bibliotekaManager.SearchByNaziv(naziv);
+
+                    if (knjige == null)
+                        Console.WriteLine("Ne postoji knjiga sa tim nazivom.");
+                    else
                     {
-                        knjiga.Print();
-                        Console.WriteLine();
+                        Console.WriteLine("Rezultat pretrage:");
+                        foreach (Knjiga knjiga in knjige)
+                        {
+                            knjiga.Print();
+                            Console.WriteLine();
+                        }
                     }
                 }
 
@@ -336,7 +399,12 @@ namespace Test
             }
             else if (CurrentMenu == Menus.Analiza)
             {
-                throw new NotImplementedException("Pitaj asistenta");
+                History.Push(CurrentMenu);
+
+                _bibliotekaManager.Analyse();
+
+                Parser.Stall();
+                Nazad(true);
             }
             else if (CurrentMenu == Menus.RegClan)
             {
@@ -437,7 +505,6 @@ namespace Test
             Console.WriteLine("Dobrodosli u biblioteku " + _bibliotekaManager.Ime);
             Console.ReadLine();
             Console.Clear();
-
 
             Console.Write("Da li zelite da seedam biblioteku sa nekim pocetnim podacima? (Y/N): ");
             string buffer = Console.ReadLine();

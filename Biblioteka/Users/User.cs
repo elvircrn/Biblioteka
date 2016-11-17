@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Biblioteka.Model
 {
-    public class User : IClan
+    public class User : UselessAbstract, IClan
     {
         public string Ime { get; set; }
 
@@ -44,7 +44,6 @@ namespace Biblioteka.Model
             Console.WriteLine("Prezime: {0}", Prezime);
             Console.WriteLine("Maticni broj: {0}", MaticniBroj);
             Console.WriteLine("Sifra: {0}", Sifra);
-            Console.WriteLine("Comment: {0}", Comment);
             Console.WriteLine("Cash: {0}", Cash);
         }
 
