@@ -16,37 +16,37 @@ namespace Test
     {
         private enum Menus { Naplati, PrintClanova, PrintKnjiga, RegDelClan, Main, Hello, Izlaz, KnjigaInput, RegDelKnjiga, ClanInput, IznajmiVrati, Analiza, Pretraga, RegKnjiga, DelKnjiga, RegClan, DelClan, IznKnjigu, VraKnjigu, PoISBN, PoNazivu, PoSifri, PoImenu };
 
-        static Stack<Menus> History { get; set; }
+        static Stack<Menus> History17455 { get; set; }
 
-        private static Menus CurrentMenu { get; set; }
+        private static Menus CurrentMenu17455 { get; set; }
 
-        private static int Index { get; set; }
+        private static int Index17455 { get; set; }
 
-        private static string Buffer { get; set; }
+        private static string Buffer17455 { get; set; }
 
-        private static BibliotekaManager _bibliotekaManager;
+        private static BibliotekaManager _bibliotekaManager17455;
 
         private static void Nazad(bool ClearCurrent = false)
         {
             if (ClearCurrent)
-                History.Pop();
+                History17455.Pop();
 
-            if (History.Count == 0)
+            if (History17455.Count == 0)
                 throw new Exception("Can't go back");
-            CurrentMenu = History.Peek();
-            History.Pop();
+            CurrentMenu17455 = History17455.Peek();
+            History17455.Pop();
         }
 
         private static void Render()
         {
             Console.Clear();
-            if (CurrentMenu == Menus.Hello)
+            if (CurrentMenu17455 == Menus.Hello)
             {
                 Console.Write("Dobro došli u " +
-                              _bibliotekaManager.Ime +
+                              _bibliotekaManager17455.Ime +
                               " biblioteku!\n");
             }
-            else if (CurrentMenu == Menus.Main)
+            else if (CurrentMenu17455 == Menus.Main)
             {
                 Console.Write("1. Registruj / Briši knjigu\n" +
                               "2. Registruj / Briši člana\n" +
@@ -58,33 +58,33 @@ namespace Test
                               "8. Naplati \n" +
                               "9. Izlaz\n");
             }
-            else if (CurrentMenu == Menus.RegDelKnjiga)
+            else if (CurrentMenu17455 == Menus.RegDelKnjiga)
             {
                 Console.Write("1. Registruj Knjigu\n" +
                               "2. Briši knjigu\n" +
                               "3. Nazad\n");
             }
-            else if (CurrentMenu == Menus.RegDelClan)
+            else if (CurrentMenu17455 == Menus.RegDelClan)
             {
                 Console.Write("1. Registruj clana\n" +
                               "2. Briši clana\n" +
                               "3. Nazad\n");
             }
-            else if (CurrentMenu == Menus.IznajmiVrati)
+            else if (CurrentMenu17455 == Menus.IznajmiVrati)
             {
                 Console.Write("1. Iznajmi knjigu\n" +
                               "2. Vrati knjigu\n" +
                               "3. Nazad\n");
             }
-            else if (CurrentMenu == Menus.IznKnjigu)
+            else if (CurrentMenu17455 == Menus.IznKnjigu)
             {
                 CollectInput();
             }
-            else if (CurrentMenu == Menus.VraKnjigu)
+            else if (CurrentMenu17455 == Menus.VraKnjigu)
             {
                 CollectInput();
             }
-            else if (CurrentMenu == Menus.RegKnjiga)
+            else if (CurrentMenu17455 == Menus.RegKnjiga)
             {
                 Console.WriteLine("Koji tip?");
                 Console.WriteLine("1. Knjiga");
@@ -92,7 +92,7 @@ namespace Test
                 Console.WriteLine("3. Strip");
                 Console.WriteLine("4. Nazad");
             }
-            else if (CurrentMenu == Menus.Pretraga)
+            else if (CurrentMenu17455 == Menus.Pretraga)
             {
                 Console.Write("1. Trazi knjigu po ISBN\n" +
                               "2. Trazi knjigu po naizvu\n" +
@@ -100,11 +100,11 @@ namespace Test
                               "4. Trazi usera po imenu\n" +
                               "5. Nazad\n");
             }
-            else if (CurrentMenu == Menus.PoNazivu)
+            else if (CurrentMenu17455 == Menus.PoNazivu)
             {
                 Console.Write("Unesite naziv (q za nazad): ");
             }
-            else if (CurrentMenu == Menus.PoISBN)
+            else if (CurrentMenu17455 == Menus.PoISBN)
             {
                 Console.Write("Unesite ISBN (q za nazad): ");
             }
@@ -112,93 +112,93 @@ namespace Test
 
         private static void CollectInput()
         {
-            if (CurrentMenu == Menus.Main ||
-                CurrentMenu == Menus.RegDelKnjiga ||
-                CurrentMenu == Menus.RegDelClan ||
-                CurrentMenu == Menus.Pretraga ||
-                CurrentMenu == Menus.IznajmiVrati ||
-                CurrentMenu == Menus.RegKnjiga)
+            if (CurrentMenu17455 == Menus.Main ||
+                CurrentMenu17455 == Menus.RegDelKnjiga ||
+                CurrentMenu17455 == Menus.RegDelClan ||
+                CurrentMenu17455 == Menus.Pretraga ||
+                CurrentMenu17455 == Menus.IznajmiVrati ||
+                CurrentMenu17455 == Menus.RegKnjiga)
             {
-                Index = Parser.GetNextNumber(true);
+                Index17455 = Parser.GetNextNumber(true);
             }
         }
 
         private static void ProcessInput()
         {
-            if (CurrentMenu == Menus.Izlaz)
+            if (CurrentMenu17455 == Menus.Izlaz)
                 System.Environment.Exit(0);
-            else if (CurrentMenu == Menus.Main)
+            else if (CurrentMenu17455 == Menus.Main)
             {
-                History.Push(CurrentMenu);
-                if (Index == 1)
-                    CurrentMenu = Menus.RegDelKnjiga;
-                else if (Index == 2)
-                    CurrentMenu = Menus.RegDelClan;
-                else if (Index == 3)
-                    CurrentMenu = Menus.IznajmiVrati;
-                else if (Index == 4)
-                    CurrentMenu = Menus.Pretraga;
-                else if (Index == 5)
-                    CurrentMenu = Menus.Analiza;
-                else if (Index == 6)
-                    CurrentMenu = Menus.PrintClanova;
-                else if (Index == 7)
-                    CurrentMenu = Menus.PrintKnjiga;
-                else if (Index == 8)
-                    CurrentMenu = Menus.Naplati;
-                else if (Index == 9)
-                    CurrentMenu = Menus.Izlaz;
+                History17455.Push(CurrentMenu17455);
+                if (Index17455 == 1)
+                    CurrentMenu17455 = Menus.RegDelKnjiga;
+                else if (Index17455 == 2)
+                    CurrentMenu17455 = Menus.RegDelClan;
+                else if (Index17455 == 3)
+                    CurrentMenu17455 = Menus.IznajmiVrati;
+                else if (Index17455 == 4)
+                    CurrentMenu17455 = Menus.Pretraga;
+                else if (Index17455 == 5)
+                    CurrentMenu17455 = Menus.Analiza;
+                else if (Index17455 == 6)
+                    CurrentMenu17455 = Menus.PrintClanova;
+                else if (Index17455 == 7)
+                    CurrentMenu17455 = Menus.PrintKnjiga;
+                else if (Index17455 == 8)
+                    CurrentMenu17455 = Menus.Naplati;
+                else if (Index17455 == 9)
+                    CurrentMenu17455 = Menus.Izlaz;
             }
-            else if (CurrentMenu == Menus.RegDelKnjiga)
+            else if (CurrentMenu17455 == Menus.RegDelKnjiga)
             {
-                History.Push(CurrentMenu);
-                if (Index == 1)
-                    CurrentMenu = Menus.RegKnjiga;
-                else if (Index == 2)
-                    CurrentMenu = Menus.DelKnjiga;
-                else if (Index == 3)
+                History17455.Push(CurrentMenu17455);
+                if (Index17455 == 1)
+                    CurrentMenu17455 = Menus.RegKnjiga;
+                else if (Index17455 == 2)
+                    CurrentMenu17455 = Menus.DelKnjiga;
+                else if (Index17455 == 3)
                     Nazad(true);
             }
-            else if (CurrentMenu == Menus.RegKnjiga)
+            else if (CurrentMenu17455 == Menus.RegKnjiga)
             {
-                if (Index == 1)
+                if (Index17455 == 1)
                 {
-                    History.Push(CurrentMenu);
+                    History17455.Push(CurrentMenu17455);
                     Knjiga knjiga = new Knjiga();
                     knjiga.GetValid();
-                    _bibliotekaManager.AddKnjiga(knjiga);
+                    _bibliotekaManager17455.AddKnjiga(knjiga);
                     Nazad(true);
                 }
-                else if (Index == 2)
+                else if (Index17455 == 2)
                 {
-                    History.Push(CurrentMenu);
+                    History17455.Push(CurrentMenu17455);
                     NaucniRad naucniRad = new NaucniRad();
                     naucniRad.GetValid();
-                    _bibliotekaManager.AddKnjiga(naucniRad);
+                    _bibliotekaManager17455.AddKnjiga(naucniRad);
                     Nazad(true);
                 }
-                else if (Index == 3)
+                else if (Index17455 == 3)
                 {
-                    History.Push(CurrentMenu);
+                    History17455.Push(CurrentMenu17455);
                     Strip strip = new Strip();
                     strip.GetValid();
-                    _bibliotekaManager.AddKnjiga(strip);
+                    _bibliotekaManager17455.AddKnjiga(strip);
                     Nazad(true);
                 }
-                else if (Index == 4)
+                else if (Index17455 == 4)
                 {
                     Nazad(true);
                 }
             }
-            else if (CurrentMenu == Menus.DelKnjiga)
+            else if (CurrentMenu17455 == Menus.DelKnjiga)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 Console.Write("Unesite sifru knjige koju zelite izbrisati (q za nazad): ");
 
                 string code = Console.ReadLine();
                 if (code != "q")
                 {
-                    while (!_bibliotekaManager.RemoveKnjigaById(code))
+                    while (!_bibliotekaManager17455.RemoveKnjigaById(code))
                     {
                         Console.WriteLine("Knjiga sa tom sifrom ne postoji, unesite ponovo: ");
                         code = Console.ReadLine();
@@ -209,25 +209,25 @@ namespace Test
 
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.RegDelClan)
+            else if (CurrentMenu17455 == Menus.RegDelClan)
             {
-                History.Push(CurrentMenu);
-                if (Index == 1)
-                    CurrentMenu = Menus.RegClan;
-                else if (Index == 2)
-                    CurrentMenu = Menus.DelClan;
-                else if (Index == 3)
+                History17455.Push(CurrentMenu17455);
+                if (Index17455 == 1)
+                    CurrentMenu17455 = Menus.RegClan;
+                else if (Index17455 == 2)
+                    CurrentMenu17455 = Menus.DelClan;
+                else if (Index17455 == 3)
                     Nazad(true);
             }
-            else if (CurrentMenu == Menus.DelClan)
+            else if (CurrentMenu17455 == Menus.DelClan)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 Console.Write("Unesite sifru clana kojeg zelite izbrisati (q za nazad): ");
 
                 string id = Console.ReadLine();
                 if (id != "q")
                 {
-                    while (!_bibliotekaManager.RemoveClanById(id))
+                    while (!_bibliotekaManager17455.RemoveClanById(id))
                     {
                         Console.WriteLine("Clan sa tom sifrom ne postoji, unesite ponovo (q za nazad): ");
                         id = Console.ReadLine();
@@ -238,54 +238,54 @@ namespace Test
 
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.IznajmiVrati)
+            else if (CurrentMenu17455 == Menus.IznajmiVrati)
             {
-                History.Push(CurrentMenu);
-                if (Index == 1)
-                    CurrentMenu = Menus.IznKnjigu;
-                else if (Index == 2)
-                    CurrentMenu = Menus.VraKnjigu;
-                else if (Index == 3)
+                History17455.Push(CurrentMenu17455);
+                if (Index17455 == 1)
+                    CurrentMenu17455 = Menus.IznKnjigu;
+                else if (Index17455 == 2)
+                    CurrentMenu17455 = Menus.VraKnjigu;
+                else if (Index17455 == 3)
                     Nazad(true);
             }
-            else if (CurrentMenu == Menus.Pretraga)
+            else if (CurrentMenu17455 == Menus.Pretraga)
             {
-                History.Push(CurrentMenu);
-                if (Index == 1)
-                    CurrentMenu = Menus.PoISBN;
-                else if (Index == 2)
-                    CurrentMenu = Menus.PoNazivu;
-                else if (Index == 3)
-                    CurrentMenu = Menus.PoSifri;
-                else if (Index == 4)
-                    CurrentMenu = Menus.PoImenu;
-                else if (Index == 5)
+                History17455.Push(CurrentMenu17455);
+                if (Index17455 == 1)
+                    CurrentMenu17455 = Menus.PoISBN;
+                else if (Index17455 == 2)
+                    CurrentMenu17455 = Menus.PoNazivu;
+                else if (Index17455 == 3)
+                    CurrentMenu17455 = Menus.PoSifri;
+                else if (Index17455 == 4)
+                    CurrentMenu17455 = Menus.PoImenu;
+                else if (Index17455 == 5)
                     Nazad(true);
             }
-            else if (CurrentMenu == Menus.PrintKnjiga)
+            else if (CurrentMenu17455 == Menus.PrintKnjiga)
             {
-                History.Push(CurrentMenu);
-                _bibliotekaManager.PrintKnjige();
+                History17455.Push(CurrentMenu17455);
+                _bibliotekaManager17455.PrintKnjige();
                 Parser.Stall(true);
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.PrintClanova)
+            else if (CurrentMenu17455 == Menus.PrintClanova)
             {
-                History.Push(CurrentMenu);
-                _bibliotekaManager.PrintClanova();
+                History17455.Push(CurrentMenu17455);
+                _bibliotekaManager17455.PrintClanova();
                 Parser.Stall(true);
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.IznKnjigu)
+            else if (CurrentMenu17455 == Menus.IznKnjigu)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 Console.Write("Unesi sifru knjige: ");
                 string knjigaId = Console.ReadLine();
                 Console.Write("Unesi sifru clana: ");
                 string clanId = Console.ReadLine();
 
                 List<string> errorMessages = null;
-                if (!_bibliotekaManager.Iznajmi(clanId, knjigaId, out errorMessages))
+                if (!_bibliotekaManager17455.Iznajmi(clanId, knjigaId, out errorMessages))
                 {
                     Console.WriteLine("Nije moguce iznajmniti zato sto:");
                     foreach (string error in errorMessages)
@@ -295,16 +295,16 @@ namespace Test
 
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.VraKnjigu)
+            else if (CurrentMenu17455 == Menus.VraKnjigu)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
 
                 Console.Write("Unesi sifru clana: ");
                 string clanId = Console.ReadLine();
                 Console.Write("Unesi sifru knjige: ");
                 string knjigaId = Console.ReadLine();
 
-                if (!_bibliotekaManager.VratiKnjigu(clanId, knjigaId))
+                if (!_bibliotekaManager17455.VratiKnjigu(clanId, knjigaId))
                 {
                     Console.WriteLine("Nije moguce vratiti knjigu.");
                     Parser.Stall();
@@ -313,9 +313,9 @@ namespace Test
                 Nazad(true);
 
             }
-            else if (CurrentMenu == Menus.PoISBN)
+            else if (CurrentMenu17455 == Menus.PoISBN)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 string isbn;
 
                 while (!KnjigaValidator.IsISBNValid(isbn = Console.ReadLine()))
@@ -328,7 +328,7 @@ namespace Test
 
                 if (isbn != "q")
                 {
-                    Knjiga knjiga = _bibliotekaManager.SearchByISBN(isbn);
+                    Knjiga knjiga = _bibliotekaManager17455.SearchByISBN(isbn);
 
                     if (knjiga == null)
                         Console.WriteLine("Ne postoji knjiga sa tim ISBNom.");
@@ -341,12 +341,12 @@ namespace Test
 
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.PoSifri)
+            else if (CurrentMenu17455 == Menus.PoSifri)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 Console.Write("Unesite sifru: ");
                 string sifra = Console.ReadLine();
-                IClan result = _bibliotekaManager.SearchClanBySifra(sifra);
+                IClan result = _bibliotekaManager17455.SearchClanBySifra(sifra);
 
                 if (result == null)
                     Console.WriteLine("Nije pronadjen clan sa tom sifrom.");
@@ -356,12 +356,12 @@ namespace Test
 
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.PoImenu)
+            else if (CurrentMenu17455 == Menus.PoImenu)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 Console.Write("Unesite ime clana: ");
                 string ime = Console.ReadLine();
-                List<IClan> result = _bibliotekaManager.SearchBy(x => ((User)x).Ime == ime);
+                List<IClan> result = _bibliotekaManager17455.SearchBy(x => ((User)x).Ime == ime);
                 
                 if (result.Count == 0)
                     Console.WriteLine("Nije pronadjen clan sa tim imenom.");
@@ -373,14 +373,14 @@ namespace Test
                 Nazad(true);
                 
             }
-            else if (CurrentMenu == Menus.PoNazivu)
+            else if (CurrentMenu17455 == Menus.PoNazivu)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
                 string naziv = Console.ReadLine();
 
                 if (naziv != "q")
                 {
-                    List<Knjiga> knjige = _bibliotekaManager.SearchByNaziv(naziv);
+                    List<Knjiga> knjige = _bibliotekaManager17455.SearchByNaziv(naziv);
 
                     if (knjige == null)
                         Console.WriteLine("Ne postoji knjiga sa tim nazivom.");
@@ -397,16 +397,16 @@ namespace Test
 
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.Analiza)
+            else if (CurrentMenu17455 == Menus.Analiza)
             {
-                History.Push(CurrentMenu);
+                History17455.Push(CurrentMenu17455);
 
-                _bibliotekaManager.Analyse();
+                _bibliotekaManager17455.Analyse();
 
                 Parser.Stall();
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.RegClan)
+            else if (CurrentMenu17455 == Menus.RegClan)
             {
                 Console.WriteLine("Odaberite tip clana:");
                 Console.WriteLine("1. Obicni insan");
@@ -420,21 +420,21 @@ namespace Test
                 {
                     User user = new User();
                     user.PromptInput();
-                    _bibliotekaManager.AddClan(user);
+                    _bibliotekaManager17455.AddClan(user);
                     Nazad(true);
                 }
                 else if (index == 2)
                 {
                     Student student = new Student();
                     student.PromptInput();
-                    _bibliotekaManager.AddClan(student);
+                    _bibliotekaManager17455.AddClan(student);
                     Nazad(true);
                 }
                 else if (index == 3)
                 {
                     Profesor profesor = new Profesor();
                     profesor.PromptInput();
-                    _bibliotekaManager.AddClan(profesor);
+                    _bibliotekaManager17455.AddClan(profesor);
                     Nazad(true);
                 }
                 else if (index == 4)
@@ -442,18 +442,18 @@ namespace Test
                     Nazad(true);
                 }
             }
-            else if (CurrentMenu == Menus.KnjigaInput)
+            else if (CurrentMenu17455 == Menus.KnjigaInput)
             {
                 Knjiga knjiga = new Knjiga();
                 knjiga.GetValid();
 
-                _bibliotekaManager.AddKnjiga(knjiga);
+                _bibliotekaManager17455.AddKnjiga(knjiga);
                 Nazad(true);
             }
-            else if (CurrentMenu == Menus.Naplati)
+            else if (CurrentMenu17455 == Menus.Naplati)
             {
-                History.Push(CurrentMenu);
-                var bannedList = _bibliotekaManager.Naplati();
+                History17455.Push(CurrentMenu17455);
+                var bannedList = _bibliotekaManager17455.Naplati();
 
                 if (bannedList?.Count > 0)
                 {
@@ -486,7 +486,7 @@ namespace Test
             Init();
 
             Render();
-            CurrentMenu = Menus.Main;
+            CurrentMenu17455 = Menus.Main;
 
             while (true)
             {
@@ -498,11 +498,11 @@ namespace Test
 
         private static void Init()
         {
-            _bibliotekaManager = new BibliotekaManager("Crnjo");
-            History = new Stack<Menus>();
-            CurrentMenu = Menus.Hello;
+            _bibliotekaManager17455 = new BibliotekaManager("Crnjo");
+            History17455 = new Stack<Menus>();
+            CurrentMenu17455 = Menus.Hello;
 
-            Console.WriteLine("Dobrodosli u biblioteku " + _bibliotekaManager.Ime);
+            Console.WriteLine("Dobrodosli u biblioteku " + _bibliotekaManager17455.Ime);
             Console.ReadLine();
             Console.Clear();
 
@@ -522,7 +522,7 @@ namespace Test
         {
             for (int i = 1; i <= 9; i++)
             {
-                _bibliotekaManager.AddKnjiga(new Knjiga
+                _bibliotekaManager17455.AddKnjiga(new Knjiga
                 {
                     Naslov = "Naslov1",
                     GodinaIzdanja = 1233,
@@ -534,7 +534,7 @@ namespace Test
                 
                 if (i <= 4)
                 {
-                    _bibliotekaManager.AddClan(new Student
+                    _bibliotekaManager17455.AddClan(new Student
                     {
                         Ime = "Ime" + i.ToString(),
                         Prezime = "Prezime" + i.ToString(),

@@ -3,6 +3,10 @@
 
 ## Nekoliko napomena:
 
+### Aplikacija
+	Konzolna aplikacija je implementirana u projektu 'Test' koji bi trebao biti start-up
+	project.
+
 ### Za clanove i knjige vrijedi sljedece:
 	Odabir ovih objekata se vrsi prema njihovoj jedinstvenoj generisanoj sifri. Npr, pri
 	brisanju knjige iz biblioteke, unosi se sifra knjige koje se zeli izbrisati
@@ -36,4 +40,4 @@
 	Nadalje, pozivom metode Naplati u klasi BibliotekaManager, trazimo od svakog 
 	korisnika da isplati izvjsnu sumu novca. Ako on to ne moze uciniti, vraca sve knjige
 	koje trenuto posjeduje i postaje zauvijek banovan iz biblioteke. Svaka pretpostavlja
-	da je prosao odgovarajuci period da bi ona bila validna.
+	da je prosao odgovarajuci period da bi ona bila validn
