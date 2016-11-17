@@ -13,7 +13,8 @@
 ### Eksterni dll
 	Klasa parser (ciji je kod u potpunosti dostupan u folderu), je klasa cija 
 	je svrha olaksavanje parsiranja podataka sa standardnog ulaza. Implementacija klase
-	Paser.cs se nalazi u folderu 'Helpers'.
+	Paser.cs se nalazi u folderu 'Helpers'. Naziv biblioteke koju sam implementirao je 'IO',
+	tj. IO.dll.
 
 ### Analiza podataka
 	Obzirom na to da se sve radnje u biblioteci logiraju, moguce je lahko doci do 
