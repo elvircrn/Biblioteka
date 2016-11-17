@@ -3,6 +3,9 @@
 
 ## Nekoliko napomena:
 
+### Broj indeksa: 17455
+	Varijable u Program.cs su promijenjene u skladu sa requirementom.
+
 ### Aplikacija
 	Konzolna aplikacija je implementirana u projektu 'Test' koji bi trebao biti start-up
 	project.
