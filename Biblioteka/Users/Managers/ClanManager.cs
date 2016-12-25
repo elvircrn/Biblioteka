@@ -45,22 +45,11 @@ namespace Biblioteka.Model
             return true;
         }
 
-        public void Print()
-        {
-            if (Clans.Count == 0)
-                Console.WriteLine("Nema clanova.");
-            foreach (IClan clan in Clans)
-            {
-                clan.Print();
-                Console.WriteLine();
-            }
-        }
-
         public List<IClan> Take(double monthlyFee)
         {
             List<IClan> delta = new List<IClan>();
 
-            foreach (User user in Clans)
+            foreach (Clan user in Clans)
             {
                 Console.WriteLine(user.Popust);
                 if (user.Cash > 0 && user.Cash - (monthlyFee * (1 - user.Popust)) < 0)

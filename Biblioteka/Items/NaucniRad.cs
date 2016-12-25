@@ -34,26 +34,5 @@ namespace Biblioteka.Model
             return _oblikReferenciranja;
         }
 
-        public override void Print()
-        {
-            base.Print();
-            Console.WriteLine(GeneralneInformacije());
-        }
-
-        protected override Knjiga PromptInput()
-        {
-            base.PromptInput();
-
-            Console.Write("Unesite oblik referenciranja: ");
-            _oblikReferenciranja = Console.ReadLine();
-            
-            Console.Write("Unesite oblast nauke: ");
-            _oblastNauke = Console.ReadLine();
-
-            Console.Write("Unesite konferenciju: ");
-            Konferencija = Console.ReadLine();
-
-            return this;
-        }
     }
 }

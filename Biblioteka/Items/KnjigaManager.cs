@@ -58,18 +58,5 @@ namespace Biblioteka.Model
         {
             return _knjige.Remove(knjiga);
         }
-
-        internal void Print()
-        {
-            if (_knjige.Count == 0)
-                Console.WriteLine("Nema knjiga.");
-            else
-            {
-                Console.WriteLine("Spisak knjiga:");
-                foreach (Knjiga knjiga in _knjige)
-                    knjiga.Print();
-                Console.WriteLine();
-            }
-        }
     }
 }

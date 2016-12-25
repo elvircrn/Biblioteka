@@ -30,7 +30,7 @@ namespace Biblioteka.Validation
         }
 
 
-        public static bool ValidateUser(this User user, out List<string> errorMessages)
+        public static bool ValidateUser(this Clan user, out List<string> errorMessages)
         {
             bool result = true;
             errorMessages = new List<string>();

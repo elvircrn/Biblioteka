@@ -12,7 +12,5 @@ namespace Biblioteka.Users
         string Comment { get; set; }
 
         string Sifra { get; set; }
-
-        void Print();
     }
 }

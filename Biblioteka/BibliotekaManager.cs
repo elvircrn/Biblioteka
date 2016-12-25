@@ -100,10 +100,10 @@ namespace Biblioteka.Model
          * do zeljenih informacija pomocu LINQa. */
         public void Analyse()
         {
-            Console.WriteLine("Lista najcitanijih zanrova:");
-
             // Uradi se grupisanje po zanru, pa se onda oni soritraju po broju iznajmljivanja
-            foreach (var line in _log.Where(x => x.LogAction == LogItem.Action.Posudio)
+
+
+            var list1 = _log.Where(x => x.LogAction == LogItem.Action.Posudio)
                                      .ToList()
                                      .GroupBy(x => x.Knjiga.Zanr)
                                      .Select(group => new
@@ -111,13 +111,9 @@ namespace Biblioteka.Model
                                          Metric = group.Key,
                                          Count = group.Count()
                                      })
-                                     .OrderByDescending(x => x.Count))
-            {
-                Console.WriteLine("{0} {1}", line.Metric, line.Count);
-            }
+                                     .OrderByDescending(x => x.Count);
 
-            Console.WriteLine("Liga mladih lingvista (top-lista vrijednih citalaca):");
-            foreach (var line in _log.Where(x => x.LogAction == LogItem.Action.Posudio)
+            var list2 = _log.Where(x => x.LogAction == LogItem.Action.Posudio)
                                      .ToList()
                                      .GroupBy(x => x.Clan.Sifra)
                                      .Select(group => new
@@ -125,23 +121,16 @@ namespace Biblioteka.Model
                                          Metric = group.Key,
                                          Count = group.Count()
                                      })
-                                     .OrderByDescending(x => x.Count))
-            {
-                Console.WriteLine("{0} {1}", line.Metric, line.Count);
-            }
+                                     .OrderByDescending(x => x.Count);
 
-            Console.WriteLine("Struktura citaoca po godinama");
-            foreach (var line in _clanManager.GetClans()
-                                     .GroupBy(x => ((User)x).DatumRodjenja.Year)
+            var list3 = _clanManager.GetClans()
+                                     .GroupBy(x => ((Clan)x).DatumRodjenja.Year)
                                      .Select(group => new
                                      {
                                          Metric = group.Key,
                                          Count = group.Count()
                                      })
-                                     .OrderByDescending(x => x.Count))
-            {
-                Console.WriteLine("{0} {1}", DateTime.Now.Year - line.Metric, line.Count);
-            }
+                                     .OrderByDescending(x => x.Count);
         }
 
         public bool AddKnjiga(Knjiga knjiga)
@@ -159,16 +148,6 @@ namespace Biblioteka.Model
         {
             _record.RemoveAll(x => x.Item1.Sifra == id);
             return _knjigaManager.RemoveKnjiga(GetKnjigaById(id));
-        }
-
-        public void PrintKnjige()
-        {
-            _knjigaManager.Print();
-        }
-
-        public void PrintClanova()
-        {
-            _clanManager.Print();
         }
 
         public bool VratiKnjigu(string clanId, string sifra)
