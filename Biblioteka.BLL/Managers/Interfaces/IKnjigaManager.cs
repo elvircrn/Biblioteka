@@ -11,5 +11,6 @@ namespace Biblioteka.BLL.Interfaces
         Knjiga SearchByISBN(string isbn);
         List<Knjiga> SearchByNaziv(string naziv, KnjigaManager.Comparator comparator = null);
         List<Knjiga> SearchByKeyword(string keyword);
+        List<Knjiga> GetKnjige();
     }
 }

@@ -52,7 +52,7 @@
             this.Rola = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dodajWorker = new System.Windows.Forms.Button();
             this.knjigeTab = new System.Windows.Forms.TabPage();
-            this.knjigeTreeView = new System.Windows.Forms.TreeView();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.AnalizaTab = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -309,7 +309,7 @@
             // 
             // knjigeTab
             // 
-            this.knjigeTab.Controls.Add(this.knjigeTreeView);
+            this.knjigeTab.Controls.Add(this.treeView1);
             this.knjigeTab.Location = new System.Drawing.Point(4, 25);
             this.knjigeTab.Name = "knjigeTab";
             this.knjigeTab.Padding = new System.Windows.Forms.Padding(3);
@@ -318,12 +318,13 @@
             this.knjigeTab.Text = "Knjige";
             this.knjigeTab.UseVisualStyleBackColor = true;
             // 
-            // knjigeTreeView
+            // treeView1
             // 
-            this.knjigeTreeView.Location = new System.Drawing.Point(0, 0);
-            this.knjigeTreeView.Name = "knjigeTreeView";
-            this.knjigeTreeView.Size = new System.Drawing.Size(1044, 391);
-            this.knjigeTreeView.TabIndex = 0;
+            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(1044, 391);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.knjigeTreeView_AfterSelect);
             // 
             // AnalizaTab
             // 
@@ -475,7 +476,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Button urediClanaButton;
         private System.Windows.Forms.TabPage knjigeTab;
-        private System.Windows.Forms.TreeView knjigeTreeView;
+        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.TabPage AnalizaTab;
         private System.Windows.Forms.PictureBox pictureBox1;
     }

@@ -98,5 +98,10 @@ namespace Biblioteka.BLL
         {
             return _knjige.Where(x => x.ToString().Contains(keyword)).ToList();
         }
+
+        public List<Knjiga> GetKnjige()
+        {
+            return _knjige;
+        }
     }
 }

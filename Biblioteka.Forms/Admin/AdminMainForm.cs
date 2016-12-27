@@ -28,6 +28,60 @@ namespace Biblioteka.Forms
             InitializeComponent();
         }
 
+        void LoadKnjige()
+        {
+            treeView1.Nodes.Clear();
+            foreach (var item in _data.KnjigaAPI.GetKnjige())
+            {
+                ContextMenu bookCM;
+                bookCM = new ContextMenu(new MenuItem[]
+                {
+                    new MenuItem("Izbrisi"),
+                    new MenuItem("Kloniraj")
+                });
+
+                TreeNode node = treeView1.Nodes.Add(item.Naslov + " (" + item.GodinaIzdanja.ToString());
+                node.ContextMenu = bookCM;
+                node.ContextMenu.MenuItems[0].Click += delegate (object sender, EventArgs e)
+                {
+                    _data.KnjigaAPI.RemoveKnjiga(item);
+                    treeView1.Nodes.Remove(node);
+                };
+                node.ContextMenu.MenuItems[1].Click += delegate (object sender, EventArgs e)
+                {
+                    _data.KnjigaAPI.AddKnjiga(item);
+                };
+                TreeNode spisakAutoraNode = node.Nodes.Add("Spisak autora");
+                foreach (string autor in item.SpisakAutora)
+                    spisakAutoraNode.Nodes.Add(autor);
+                node.Nodes.AddRange(new TreeNode[]
+                {
+                    new TreeNode("Datum isteka: " + item.ToString()),
+                    new TreeNode("Zanr: " + item.Zanr),
+                    new TreeNode("ISBN: " + item.ISBN)
+                });
+
+                if (item is Strip)
+                {
+                    Strip strip = (Strip)item;
+                    node.Nodes.AddRange(new TreeNode[]
+                    {
+                        new TreeNode("Animatorska kuca: " + item.Zanr),
+                        new TreeNode("Broj izdanja: " + item.ISBN)
+                    });
+                }
+                else if (item is NaucniRad)
+                {
+                    NaucniRad naucniRad = (NaucniRad)item;
+                    node.Nodes.AddRange(new TreeNode[]
+                    {
+                        new TreeNode("Informacije: " + naucniRad.GeneralneInformacije()),
+                    });
+                }
+            }
+
+        }
+
         public AdminMainForm(DataAPI data) : this()
         {
             this._data = data;
@@ -74,6 +128,7 @@ namespace Biblioteka.Forms
             if (_data.SessionAPI.CurrentUser.IsInRole("ADMIN"))
                 LoadWorkers();
             LoadClanovi();
+            LoadKnjige();
             InitPie();
         }
 
@@ -257,6 +312,11 @@ namespace Biblioteka.Forms
         private void Bibliotekar_Click(object sender, EventArgs e)
         {
             InitPie();
+        }
+
+        private void knjigeTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }
