@@ -17,5 +17,13 @@ namespace Biblioteka.Model
 
         public bool Specijalno { get; set; }
 
+        public override string ToString()
+        {
+            string ret = base.ToString();
+            ret += AnimatorskaKuca;
+            foreach (string spisakUmjetnika in SpisakUmjetnika)
+                ret += spisakUmjetnika;
+            return ret;
+        }
     }
 }

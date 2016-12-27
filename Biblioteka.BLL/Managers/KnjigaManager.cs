@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Biblioteka.BLL;
+using Biblioteka.BLL.Interfaces;
+using Biblioteka.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka.Model
+namespace Biblioteka.BLL
 {
-    public class KnjigaManager
+    public class KnjigaManager : IKnjigaManager
     {
         private static readonly int SifraLength = 10;
 
@@ -49,6 +52,26 @@ namespace Biblioteka.Model
                 return _knjige.Where(x => x.Naslov == naziv).ToList();
         }
 
+        public static KnjigaManager Seed()
+        {
+            KnjigaManager knjigaManager = new KnjigaManager();
+
+            for (int i = 1; i <= 9; i++)
+            {
+                knjigaManager.AddKnjiga(new Knjiga
+                {
+                    Naslov = "Naslov1",
+                    GodinaIzdanja = 1233,
+                    ISBN = "ISBN-13 978-3-642-11746-" + i.ToString(),
+                    SpisakAutora = (new List<string>(3)).Select(x => "Autor " + i.ToString()).ToList(),
+                    Taken = false,
+                    Zanr = "Zanr" + i.ToString()
+                });
+            }
+
+            return knjigaManager;
+        }
+
         public Knjiga GetById(string id)
         {
             return _knjige.Where(x => x.Sifra == id).FirstOrDefault();
@@ -57,6 +80,11 @@ namespace Biblioteka.Model
         public bool RemoveKnjiga(Knjiga knjiga)
         {
             return _knjige.Remove(knjiga);
+        }
+
+        public List<Knjiga> SearchByKeyword(string keyword)
+        {
+            return _knjige.Where(x => x.ToString().Contains(keyword)).ToList();
         }
     }
 }

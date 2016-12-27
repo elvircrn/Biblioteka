@@ -1,5 +1,4 @@
-﻿using Biblioteka.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -31,5 +30,15 @@ namespace Biblioteka.Model
             Taken = false;
         }
 
+        public override string ToString()
+        {
+            string ret = "";
+            ret += Naslov;
+            foreach (string autor in SpisakAutora)
+                ret += autor;
+            ret += Zanr;
+            ret += ISBN;
+            return ret;
+        }
     }
 }

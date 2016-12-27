@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka
+namespace Biblioteka.DTO
 {
-    public abstract class UselessAbstract
+    public class Class1
     {
-        public bool JeLiZiv { get { return true; } }
     }
 }

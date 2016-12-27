@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka.Users
+namespace Biblioteka.DTO
 {
-    public interface IWorker
+    public class WishListItem
     {
-        string WorkerID { get; set; }
+        
     }
 }

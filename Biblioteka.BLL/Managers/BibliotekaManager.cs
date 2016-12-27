@@ -1,20 +1,23 @@
-﻿using Biblioteka.Users;
+﻿using Biblioteka.BLL;
+using Biblioteka.BLL.Interfaces;
+using Biblioteka.BLL.Managers;
+using Biblioteka.Model;
+using Biblioteka.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Biblioteka.Model
+namespace Biblioteka.BLL.Managers
 {
-    public class BibliotekaManager
+    public class BibliotekaManager : IBibliotekaManager
     {
         #region Properties
 
         private static readonly double MonthlyDefault = 100.0;
 
-        private ClanManager _clanManager;
-        private RoleManager<Role> _roleManager;
-        private KnjigaManager _knjigaManager;
-        private List<Tuple<Knjiga, IClan>> _record;
+        private IClanManager _clanManager;
+        private IKnjigaManager _knjigaManager;
+        private List<Tuple<Knjiga, IClan, DateTime>> _record;
         private List<LogItem> _log;
 
         public double MonthlyFee { get; set; } = MonthlyDefault;
@@ -34,40 +37,49 @@ namespace Biblioteka.Model
 
         #endregion
 
-        private void InitBooks()
+
+
+        // Dependency injection :P
+        private void Inject(IClanManager clanManager,
+                          IKnjigaManager knjigaManager)
         {
-
-        }
-
-        private void InitRoles()
-        {
-            _roleManager.AddRole(new Role("BACHELOR"));
-            _roleManager.AddRole(new Role("MASTER"));
-            _roleManager.AddRole(new Role("PROFESOR"));
-        }
-
-        private void Init()
-        {
-            _clanManager = new ClanManager();
-            _roleManager = new RoleManager<Role>();
-            _knjigaManager = new KnjigaManager();
-            _record = new List<Tuple<Knjiga, IClan>>();
-            _log = new List<LogItem>();
-
-            InitRoles();
-            InitBooks();
-
-            Cash = 0.0;
+            _clanManager = clanManager;
+            _knjigaManager = knjigaManager;
         }
 
         public string Ime { get; set; }
 
-        public BibliotekaManager(string Ime, double? price = null)
+        public BibliotekaManager(string Ime, 
+                                 IClanManager clanManager,
+                                 IKnjigaManager knjigaManager, 
+                                 double? price = null)
         {
+            Inject(clanManager, knjigaManager);
+
             this.Ime = Ime;
+
             if (price != null)
                 MonthlyFee = (double)price;
-            Init();
+
+            _record = new List<Tuple<Knjiga, IClan, DateTime>>();
+            _log = new List<LogItem>();
+
+            Cash = 0.0;
+        }
+
+        public static IBibliotekaManager Seed(IClanManager clanManager, IKnjigaManager knjigaManager)
+        {
+            IBibliotekaManager bibliotekaManager = new BibliotekaManager("Dobrinja", clanManager, knjigaManager, 20);
+
+            IClan clan = clanManager.GetClans()[0];
+
+            int adv = 0;
+
+            List<string> errorList = new List<string>();
+            foreach (var knjiga in knjigaManager.SearchByNaziv("Naslov1"))
+                bibliotekaManager.Iznajmi(clan.Sifra, knjiga.Sifra, DateTime.Now.AddDays(adv++), out errorList);
+
+            return bibliotekaManager;
         }
 
         public Knjiga SearchByISBN(string isbn)
@@ -85,6 +97,7 @@ namespace Biblioteka.Model
 
         public IClan AddClan(IClan clan)
         {
+            clan.State = States.OK;
             return _clanManager.AddClan(clan);
         }
 
@@ -195,7 +208,7 @@ namespace Biblioteka.Model
             _record.RemoveAll(x => x.Item2.Sifra == clan.Sifra);
         }
 
-        public bool Iznajmi(string clanId, string knjigaId, out List<string> errorMessages)
+        public bool Iznajmi(string clanId, string knjigaId, DateTime deadline, out List<string> errorMessages)
         {
             bool ok = true;
             IClan clan = _clanManager.GetById(clanId);
@@ -229,7 +242,7 @@ namespace Biblioteka.Model
             if (ok)
             {
                 knjiga.Taken = true;
-                _record.Add(new Tuple<Knjiga, IClan>(knjiga, clan));
+                _record.Add(new Tuple<Knjiga, IClan, DateTime>(knjiga, clan, deadline));
                 _log.Add(new LogItem
                 {
                     DateTime = CurrentDate,
@@ -271,5 +284,11 @@ namespace Biblioteka.Model
 
             return _clanManager.RemoveClan(clan);
         }
+
+        public List<Tuple<Knjiga, DateTime>> GetZaduzenja(IClan clan)
+        {
+            return _record.Where(x => x.Item2.Sifra == clan.Sifra).Select(x => new Tuple<Knjiga, DateTime>(x.Item1, x.Item3)).ToList();
+        }
     }
 }
+

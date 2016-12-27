@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Biblioteka.Model;
+using Biblioteka.BLL.Managers;
+using Biblioteka.Common.Security;
+using Biblioteka.BLL.Interfaces;
 
-namespace Biblioteka.Model
+namespace Biblioteka.BLL.Managers
 {
-    public sealed class ClanManager
+    public sealed class ClanManager : IClanManager
     {
         public static readonly int SifraLength = 10;
 
@@ -71,10 +75,32 @@ namespace Biblioteka.Model
             return Clans.Where(x => f(x)).ToList();
         }
 
-
         public List<IClan> GetClans()
         {
             return Clans;
+        }
+
+        public static ClanManager Seed(IUserManager userManager, IRoleManager roleManager)
+        {
+            ClanManager clanManager = new ClanManager();
+            for (int i = 0; i < 10; i++)
+            {
+                Clan clan = new Clan
+                {
+                    Ime = "ClanIme" + i.ToString(),
+                    Prezime = "ClanPrezime" + i.ToString(),
+                    DatumRodjenja = new DateTime(1996, 7, i + 1),
+                    MaticniBroj = "123456789123" + i.ToString(),
+                    UserName = "clan" + i.ToString(),
+                    PasswordHash = Hash.Encode("aaa"),
+                    Sifra = i.ToString(),
+                    Roles = new List<IRole>() { roleManager.GetRoleByName("CLAN") },
+                    WishList = new List<Knjiga>()
+                };
+                clanManager.AddClan(clan);
+                userManager.AddUser((User)clan);
+            }
+            return clanManager;
         }
     }
 }

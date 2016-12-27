@@ -34,5 +34,9 @@ namespace Biblioteka.Model
             return _oblikReferenciranja;
         }
 
+        public override string ToString()
+        {
+            return base.ToString() + GeneralneInformacije();
+        }
     }
 }

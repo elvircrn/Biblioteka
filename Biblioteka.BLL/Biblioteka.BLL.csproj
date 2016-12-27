@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99BE4478-A4A5-4AFC-8C2D-9FCFC1088B5A}</ProjectGuid>
+    <ProjectGuid>{BA9EB53C-5D70-4123-8EB8-84780E72F749}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Biblioteka</RootNamespace>
-    <AssemblyName>Biblioteka</AssemblyName>
+    <RootNamespace>Biblioteka.BLL</RootNamespace>
+    <AssemblyName>Biblioteka.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,13 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IO">
-      <HintPath>.\IO.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -50,27 +41,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Items\Interfaces\INaucniRad.cs" />
-    <Compile Include="Roles\Interfaces\IRole.cs" />
-    <Compile Include="Items\Knjiga.cs" />
-    <Compile Include="Items\NaucniRad.cs" />
+    <Compile Include="Managers\BibliotekaManager.cs" />
+    <Compile Include="Managers\Interfaces\IBibliotekaManager.cs" />
+    <Compile Include="Managers\Interfaces\IKnjigaManager.cs" />
+    <Compile Include="Managers\Interfaces\ISessionService.cs" />
+    <Compile Include="Managers\KnjigaManager.cs" />
+    <Compile Include="Managers\ClanManager.cs" />
+    <Compile Include="Managers\Interfaces\IClanManager.cs" />
+    <Compile Include="Managers\Interfaces\IRoleManager.cs" />
+    <Compile Include="Managers\Interfaces\IUserManager.cs" />
+    <Compile Include="Managers\Interfaces\IWorkerManager.cs" />
+    <Compile Include="Managers\IWorkerManger.cs" />
+    <Compile Include="Managers\RoleManager.cs" />
+    <Compile Include="Managers\SessionService.cs" />
+    <Compile Include="Managers\UserManager.cs" />
+    <Compile Include="Managers\WorkerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Users\Interfaces\IClan.cs" />
-    <Compile Include="Users\Interfaces\IWorker.cs" />
-    <Compile Include="Items\Strip.cs" />
-    <Compile Include="Users\Profesor.cs" />
-    <Compile Include="Users\Student.cs" />
-    <Compile Include="Users\Clan.cs" />
-    <Compile Include="Users\User.cs" />
-    <Compile Include="Users\Worker.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <ProjectReference Include="..\Biblioteka.Common\Biblioteka.Common.csproj">
+      <Project>{A216B346-78BE-42DC-B5A1-62E8C36D0718}</Project>
+      <Name>Biblioteka.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Biblioteka\Biblioteka.Model.csproj">
+      <Project>{99BE4478-A4A5-4AFC-8C2D-9FCFC1088B5A}</Project>
+      <Name>Biblioteka.Model</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="text.txt" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
