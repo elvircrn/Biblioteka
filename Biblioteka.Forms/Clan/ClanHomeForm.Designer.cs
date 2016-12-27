@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.wishCheckList = new System.Windows.Forms.CheckedListBox();
             this.zaduzenjaGrid = new System.Windows.Forms.DataGridView();
             this.Sifra = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,10 +44,10 @@
             this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.viewProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.zaduzenjaGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.knjigaBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iKnjigaManagerBindingSource)).BeginInit();
@@ -114,9 +114,9 @@
             // 
             // RokVracanja
             // 
-            dataGridViewCellStyle11.Format = "d";
-            dataGridViewCellStyle11.NullValue = null;
-            this.RokVracanja.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.RokVracanja.DefaultCellStyle = dataGridViewCellStyle1;
             this.RokVracanja.HeaderText = "Rok Vracanja";
             this.RokVracanja.Name = "RokVracanja";
             this.RokVracanja.ReadOnly = true;
@@ -163,6 +163,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(1029, 28);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // exitToolStripMenuItem
             // 
@@ -175,6 +176,17 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.exitToolStripMenuItem.Text = "Actions";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // viewProfileToolStripMenuItem
+            // 
+            this.viewProfileToolStripMenuItem.Name = "viewProfileToolStripMenuItem";
+            this.viewProfileToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.viewProfileToolStripMenuItem.Text = "View Profile";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
             // 
             // exitToolStripMenuItem1
             // 
@@ -189,17 +201,6 @@
             this.exitToolStripMenuItem2.Size = new System.Drawing.Size(181, 26);
             this.exitToolStripMenuItem2.Text = "Exit";
             this.exitToolStripMenuItem2.Click += new System.EventHandler(this.exitToolStripMenuItem2_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
-            // 
-            // viewProfileToolStripMenuItem
-            // 
-            this.viewProfileToolStripMenuItem.Name = "viewProfileToolStripMenuItem";
-            this.viewProfileToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.viewProfileToolStripMenuItem.Text = "View Profile";
             // 
             // ClanHomeForm
             // 

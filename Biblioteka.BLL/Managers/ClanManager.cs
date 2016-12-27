@@ -55,7 +55,6 @@ namespace Biblioteka.BLL.Managers
 
             foreach (Clan user in Clans)
             {
-                Console.WriteLine(user.Popust);
                 if (user.Cash > 0 && user.Cash - (monthlyFee * (1 - user.Popust)) < 0)
                     delta.Add(user);
 

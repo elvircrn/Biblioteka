@@ -1,5 +1,6 @@
 ﻿using Biblioteka.BLL.Interfaces;
 using Biblioteka.Common.Security;
+using Biblioteka.Model;
 using Biblioteka.Users;
 using System;
 using System.Collections.Generic;
@@ -37,7 +38,7 @@ namespace Biblioteka.BLL.Managers
             return user;
         }
 
-        public static UserManager Seed()
+        public static UserManager Seed(IRoleManager roleManager)
         {
             UserManager userManager = new UserManager();
 
@@ -48,7 +49,8 @@ namespace Biblioteka.BLL.Managers
                 DatumRodjenja = new DateTime(1996, 7, 2),
                 MaticniBroj = "123456789123",
                 UserName = "admin",
-                PasswordHash = Hash.Encode("admin")
+                PasswordHash = Hash.Encode("admin"),
+                Roles = new List<IRole>() { roleManager.GetRoleByName("ADMIN") },
             });
 
             return userManager;

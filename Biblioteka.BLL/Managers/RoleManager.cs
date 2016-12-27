@@ -42,9 +42,10 @@ namespace Biblioteka.BLL.Managers
         {
             RoleManager roleManager = new RoleManager();
 
-            roleManager.AddRole(new Role("ADMIN"));
-            roleManager.AddRole(new Role("WORKER"));
-            roleManager.AddRole(new Role("CLAN"));
+            roleManager.AddRole(new Role("ADMIN", "Admin"));
+            roleManager.AddRole(new Role("WORKER", "Bibliotekar"));
+            roleManager.AddRole(new Role("CLAN", "Clan"));
+            roleManager.AddRole(new Role("TECH", "Tehnicar"));
 
             return roleManager;
         }

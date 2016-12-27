@@ -40,5 +40,20 @@ namespace Biblioteka.Model
             ret += ISBN;
             return ret;
         }
+
+        public virtual bool IsSame(Knjiga knjiga)
+        {
+            SpisakAutora.Sort();
+            knjiga.SpisakAutora.Sort();
+            if (Naslov != knjiga.Naslov)
+                return false;
+            else if (!SpisakAutora.SequenceEqual(knjiga.SpisakAutora))
+                return false;
+            else if (Zanr != knjiga.Zanr)
+                return false;
+            else if (GodinaIzdanja != knjiga.GodinaIzdanja)
+                return false;
+            return true;
+        }
     }
 }

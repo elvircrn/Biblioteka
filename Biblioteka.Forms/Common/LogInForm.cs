@@ -46,6 +46,15 @@ namespace Biblioteka.Forms
                 clForm.FormClosed += delegate { this.Show(); };
                 this.Hide();
             }
+            else if (data.SessionAPI.CurrentUser.IsInRole(RoleManager.ADMIN))
+            {
+                AdminMainForm adminForm = new AdminMainForm(data);
+                adminForm.Show();
+                adminForm.Activate();
+                adminForm.BringToFront();
+                adminForm.FormClosed += delegate { this.Show(); };
+                this.Hide();
+            }
         }
 
         private void LogInForm_Load(object sender, EventArgs e)

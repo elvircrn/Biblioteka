@@ -38,5 +38,14 @@ namespace Biblioteka.Model
         {
             return base.ToString() + GeneralneInformacije();
         }
+
+        public bool IsSame(NaucniRad naucniRad)
+        {
+            if (!base.IsSame(naucniRad))
+                return false;
+            else if (GeneralneInformacije() != naucniRad.GeneralneInformacije())
+                return false;            
+            return true;
+        }
     }
 }

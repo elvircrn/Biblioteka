@@ -10,11 +10,14 @@ namespace Biblioteka.Common.Identity
     public class Role : IRole
     {
         public string Name { get; set; }
+        public string DisplayName { get; set; }
 
         public Role() { }
-        public Role(string Name)
+
+        public Role(string Name, string DisplayName)
         {
             this.Name = Name;
+            this.DisplayName = DisplayName;
         }
     }
 }

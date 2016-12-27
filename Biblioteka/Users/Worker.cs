@@ -9,7 +9,7 @@ namespace Biblioteka.Users
 {
     public class Worker : User, IWorker
     {
-        public Bitmap ProfileImage { get; set; }
+        public ImageData ImageData { get; set; }
 
         public string Occupation { get; set; }
 

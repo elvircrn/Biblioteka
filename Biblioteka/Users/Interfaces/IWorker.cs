@@ -11,10 +11,10 @@ namespace Biblioteka.Users
     {
         string WorkerID { get; set; }
 
-        Bitmap ProfileImage { get; set; }
-
         string Occupation { get; set; }
         
         double Salary { get; set; }
+
+        ImageData ImageData { get; set; }
     }
 }

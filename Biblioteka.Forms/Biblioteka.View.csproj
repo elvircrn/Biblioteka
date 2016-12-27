@@ -46,34 +46,61 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClanHomeForm.cs">
+    <Compile Include="Admin\AdminMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ClanHomeForm.Designer.cs">
+    <Compile Include="Admin\AdminMainForm.Designer.cs">
+      <DependentUpon>AdminMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Clan\ClanHomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Clan\ClanHomeForm.Designer.cs">
       <DependentUpon>ClanHomeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataAPI.cs" />
-    <Compile Include="LogInForm.cs">
+    <Compile Include="ImagePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImagePicker.Designer.cs">
+      <DependentUpon>ImagePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Worker\ClanProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogInForm.Designer.cs">
+    <Compile Include="Worker\ClanProfileForm.Designer.cs">
+      <DependentUpon>ClanProfileForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAPI.cs" />
+    <Compile Include="Common\LogInForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewWishListItemForml.cs">
+    <Compile Include="Clan\NewWishListItemForml.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewWishListItemForml.Designer.cs">
+    <Compile Include="Clan\NewWishListItemForml.Designer.cs">
       <DependentUpon>NewWishListItemForml.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ClanHomeForm.resx">
+    <EmbeddedResource Include="Admin\AdminMainForm.resx">
+      <DependentUpon>AdminMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clan\ClanHomeForm.resx">
       <DependentUpon>ClanHomeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogInForm.resx">
+    <EmbeddedResource Include="ImagePicker.resx">
+      <DependentUpon>ImagePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Worker\ClanProfileForm.resx">
+      <DependentUpon>ClanProfileForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewWishListItemForml.resx">
+    <EmbeddedResource Include="Clan\NewWishListItemForml.resx">
       <DependentUpon>NewWishListItemForml.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

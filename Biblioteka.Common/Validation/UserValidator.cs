@@ -29,7 +29,6 @@ namespace Biblioteka.Validation
             return !(razlika == (maticni[12] - 0x30));
         }
 
-
         public static bool ValidateUser(this Clan user, out List<string> errorMessages)
         {
             bool result = true;

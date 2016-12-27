@@ -39,7 +39,7 @@ namespace Biblioteka.Forms
 
             dataAPI.RoleAPI = RoleManager.Seed();
 
-            dataAPI.UserAPI = UserManager.Seed();
+            dataAPI.UserAPI = UserManager.Seed(dataAPI.RoleAPI);
 
             dataAPI.ClanAPI = ClanManager.Seed(dataAPI.UserAPI, dataAPI.RoleAPI);
 
