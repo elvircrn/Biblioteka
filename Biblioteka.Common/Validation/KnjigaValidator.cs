@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Biblioteka.Model;
 using System.Text.RegularExpressions;
 
-namespace Biblioteka.Validation
+namespace Biblioteka.Common.Validation
 {
     public static class KnjigaValidator
     {

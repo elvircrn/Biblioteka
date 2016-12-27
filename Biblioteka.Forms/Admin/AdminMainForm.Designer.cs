@@ -30,33 +30,42 @@
         {
             this.Bibliotekar = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zaposleniciTab = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.addClanButton = new System.Windows.Forms.Button();
             this.clanoviDataGrid = new System.Windows.Forms.DataGridView();
             this.Sifra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Prezime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EMail = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.addClanButton = new System.Windows.Forms.Button();
-            this.dodajWorker = new System.Windows.Forms.Button();
+            this.zaposleniciTab = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.workersDataGrid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Rola = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dodajWorker = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.urediClanaButton = new System.Windows.Forms.Button();
             this.Bibliotekar.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.zaposleniciTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clanoviDataGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.zaposleniciTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.workersDataGrid)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Bibliotekar
@@ -66,7 +75,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Bibliotekar.Controls.Add(this.tabPage2);
             this.Bibliotekar.Controls.Add(this.zaposleniciTab);
-            this.Bibliotekar.Controls.Add(this.tabPage3);
             this.Bibliotekar.Location = new System.Drawing.Point(0, 31);
             this.Bibliotekar.Name = "Bibliotekar";
             this.Bibliotekar.SelectedIndex = 0;
@@ -75,6 +83,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.urediClanaButton);
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.button3);
+            this.tabPage2.Controls.Add(this.textBox2);
             this.tabPage2.Controls.Add(this.addClanButton);
             this.tabPage2.Controls.Add(this.clanoviDataGrid);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
@@ -85,63 +97,21 @@
             this.tabPage2.Text = "Clanovi";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
+            // addClanButton
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.actionsToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1052, 28);
-            this.menuStrip1.TabIndex = 1;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // actionsToolStripMenuItem
-            // 
-            this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.signOutToolStripMenuItem,
-            this.exitToolStripMenuItem});
-            this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
-            this.actionsToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
-            this.actionsToolStripMenuItem.Text = "Actions";
-            // 
-            // signOutToolStripMenuItem
-            // 
-            this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.signOutToolStripMenuItem.Text = "Sign Out";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.exitToolStripMenuItem.Text = "Exit";
-            // 
-            // zaposleniciTab
-            // 
-            this.zaposleniciTab.Controls.Add(this.dodajWorker);
-            this.zaposleniciTab.Controls.Add(this.dataGridView1);
-            this.zaposleniciTab.Location = new System.Drawing.Point(4, 25);
-            this.zaposleniciTab.Name = "zaposleniciTab";
-            this.zaposleniciTab.Padding = new System.Windows.Forms.Padding(3);
-            this.zaposleniciTab.Size = new System.Drawing.Size(1044, 391);
-            this.zaposleniciTab.TabIndex = 2;
-            this.zaposleniciTab.Text = "Zaposlenici";
-            this.zaposleniciTab.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(784, 399);
-            this.tabPage3.TabIndex = 3;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.addClanButton.Location = new System.Drawing.Point(895, 343);
+            this.addClanButton.Name = "addClanButton";
+            this.addClanButton.Size = new System.Drawing.Size(141, 42);
+            this.addClanButton.TabIndex = 1;
+            this.addClanButton.Text = "Dodaj Clana";
+            this.addClanButton.UseVisualStyleBackColor = true;
             // 
             // clanoviDataGrid
             // 
             this.clanoviDataGrid.AllowUserToResizeRows = false;
+            this.clanoviDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.clanoviDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.clanoviDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.clanoviDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -155,8 +125,9 @@
             this.clanoviDataGrid.Name = "clanoviDataGrid";
             this.clanoviDataGrid.ReadOnly = true;
             this.clanoviDataGrid.RowTemplate.Height = 24;
-            this.clanoviDataGrid.Size = new System.Drawing.Size(1044, 354);
+            this.clanoviDataGrid.Size = new System.Drawing.Size(1044, 337);
             this.clanoviDataGrid.TabIndex = 0;
+            this.clanoviDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clanoviDataGrid_CellContentClick);
             // 
             // Sifra
             // 
@@ -188,52 +159,119 @@
             this.Comment.Name = "Comment";
             this.Comment.ReadOnly = true;
             // 
-            // dataGridView1
+            // zaposleniciTab
             // 
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.zaposleniciTab.Controls.Add(this.button2);
+            this.zaposleniciTab.Controls.Add(this.textBox1);
+            this.zaposleniciTab.Controls.Add(this.button1);
+            this.zaposleniciTab.Controls.Add(this.workersDataGrid);
+            this.zaposleniciTab.Controls.Add(this.dodajWorker);
+            this.zaposleniciTab.Location = new System.Drawing.Point(4, 25);
+            this.zaposleniciTab.Name = "zaposleniciTab";
+            this.zaposleniciTab.Padding = new System.Windows.Forms.Padding(3);
+            this.zaposleniciTab.Size = new System.Drawing.Size(1044, 391);
+            this.zaposleniciTab.TabIndex = 2;
+            this.zaposleniciTab.Text = "Zaposlenici";
+            this.zaposleniciTab.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(741, 344);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 40);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Izbrisi randika";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // workersDataGrid
+            // 
+            this.workersDataGrid.AllowUserToResizeRows = false;
+            this.workersDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
+            this.workersDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.workersDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.workersDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
             this.Rola});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.MultiSelect = false;
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1038, 346);
-            this.dataGridView1.TabIndex = 1;
+            this.workersDataGrid.Location = new System.Drawing.Point(0, 0);
+            this.workersDataGrid.MultiSelect = false;
+            this.workersDataGrid.Name = "workersDataGrid";
+            this.workersDataGrid.ReadOnly = true;
+            this.workersDataGrid.RowTemplate.Height = 24;
+            this.workersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.workersDataGrid.Size = new System.Drawing.Size(1044, 338);
+            this.workersDataGrid.TabIndex = 3;
+            this.workersDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.workersDataGrid_CellContentClick);
             // 
-            // dataGridViewTextBoxColumn1
+            // dataGridViewTextBoxColumn7
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Sifra";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Ime";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn2
+            // dataGridViewTextBoxColumn8
             // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Ime";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Prezime";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn3
+            // dataGridViewTextBoxColumn9
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Prezime";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.HeaderText = "EMail";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // Rola
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "EMail";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.Rola.HeaderText = "Rola";
+            this.Rola.Name = "Rola";
+            this.Rola.ReadOnly = true;
+            // 
+            // dodajWorker
+            // 
+            this.dodajWorker.Location = new System.Drawing.Point(897, 343);
+            this.dodajWorker.Name = "dodajWorker";
+            this.dodajWorker.Size = new System.Drawing.Size(141, 41);
+            this.dodajWorker.TabIndex = 2;
+            this.dodajWorker.Text = "Dodaj radnika";
+            this.dodajWorker.UseVisualStyleBackColor = true;
+            this.dodajWorker.Click += new System.EventHandler(this.dodajWorker_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.actionsToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1052, 28);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // actionsToolStripMenuItem
+            // 
+            this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.signOutToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
+            this.actionsToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
+            this.actionsToolStripMenuItem.Text = "Actions";
+            // 
+            // signOutToolStripMenuItem
+            // 
+            this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.signOutToolStripMenuItem.Text = "Sign Out";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -241,30 +279,84 @@
             this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
             this.dataGridViewTextBoxColumn5.ReadOnly = true;
             // 
-            // addClanButton
+            // dataGridViewTextBoxColumn4
             // 
-            this.addClanButton.Location = new System.Drawing.Point(895, 360);
-            this.addClanButton.Name = "addClanButton";
-            this.addClanButton.Size = new System.Drawing.Size(141, 23);
-            this.addClanButton.TabIndex = 1;
-            this.addClanButton.Text = "Dodaj Clana";
-            this.addClanButton.UseVisualStyleBackColor = true;
+            this.dataGridViewTextBoxColumn4.HeaderText = "EMail";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
-            // dodajWorker
+            // dataGridViewTextBoxColumn3
             // 
-            this.dodajWorker.Location = new System.Drawing.Point(876, 362);
-            this.dodajWorker.Name = "dodajWorker";
-            this.dodajWorker.Size = new System.Drawing.Size(141, 23);
-            this.dodajWorker.TabIndex = 2;
-            this.dodajWorker.Text = "Dodaj radnika";
-            this.dodajWorker.UseVisualStyleBackColor = true;
-            this.dodajWorker.Click += new System.EventHandler(this.dodajWorker_Click);
+            this.dataGridViewTextBoxColumn3.HeaderText = "Prezime";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // Rola
+            // dataGridViewTextBoxColumn2
             // 
-            this.Rola.HeaderText = "Rola";
-            this.Rola.Name = "Rola";
-            this.Rola.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Ime";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Sifra";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(8, 349);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(359, 22);
+            this.textBox1.TabIndex = 5;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(377, 350);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(96, 33);
+            this.button2.TabIndex = 6;
+            this.button2.Text = "Pokreni";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(8, 352);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(249, 22);
+            this.textBox2.TabIndex = 2;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(274, 343);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(120, 42);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Pretraga";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(769, 343);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(120, 42);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Brisi Clana";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // urediClanaButton
+            // 
+            this.urediClanaButton.Location = new System.Drawing.Point(570, 344);
+            this.urediClanaButton.Name = "urediClanaButton";
+            this.urediClanaButton.Size = new System.Drawing.Size(193, 41);
+            this.urediClanaButton.TabIndex = 5;
+            this.urediClanaButton.Text = "Uredi odabranog clana";
+            this.urediClanaButton.UseVisualStyleBackColor = true;
+            this.urediClanaButton.Click += new System.EventHandler(this.urediClanaButton_Click);
             // 
             // AdminMainForm
             // 
@@ -279,11 +371,13 @@
             this.Load += new System.EventHandler(this.AdminMainForm_Load);
             this.Bibliotekar.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.clanoviDataGrid)).EndInit();
+            this.zaposleniciTab.ResumeLayout(false);
+            this.zaposleniciTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.workersDataGrid)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.zaposleniciTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.clanoviDataGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -297,8 +391,6 @@
         private System.Windows.Forms.ToolStripMenuItem actionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem signOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TabPage zaposleniciTab;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.DataGridView clanoviDataGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sifra;
         private System.Windows.Forms.DataGridViewTextBoxColumn Ime;
@@ -306,13 +398,24 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EMail;
         private System.Windows.Forms.DataGridViewTextBoxColumn Comment;
         private System.Windows.Forms.Button addClanButton;
+        private System.Windows.Forms.TabPage zaposleniciTab;
         private System.Windows.Forms.Button dodajWorker;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridView workersDataGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Rola;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button urediClanaButton;
     }
 }

@@ -38,6 +38,11 @@ namespace Biblioteka.BLL.Managers
             return user;
         }
 
+        public bool UsernameTaken(string username)
+        {
+            return (_users.Where(x => x.UserName == username).FirstOrDefault() != null);
+        }
+
         public static UserManager Seed(IRoleManager roleManager)
         {
             UserManager userManager = new UserManager();

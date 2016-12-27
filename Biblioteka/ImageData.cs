@@ -12,5 +12,16 @@ namespace Biblioteka
         public DateTime ImageDate { get; set; }
 
         public Bitmap Image { get; set; }
+
+        public ImageData()
+        {
+        }
+
+        public ImageData(Bitmap Image, DateTime? ImageDate = null)
+        {
+            if (ImageDate == null)
+                ImageDate = DateTime.Now;
+            this.Image = Image;
+        }
     }
 }

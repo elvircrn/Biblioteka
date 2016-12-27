@@ -25,5 +25,10 @@ namespace Biblioteka.Model
         public double Cash { get; set; }
 
         public List<Knjiga> WishList { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + Sifra + Comment;
+        }
     }
 }

@@ -16,5 +16,10 @@ namespace Biblioteka.Users
         public string WorkerID { get; set; }
 
         public double Salary { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + Occupation;
+        }
     }
 }

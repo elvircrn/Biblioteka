@@ -29,5 +29,10 @@ namespace Biblioteka.Users
         {
             Roles = new List<IRole>();
         }
+
+        public override string ToString()
+        {
+            return Ime + Prezime + Email + MaticniBroj;
+        }
     }
 }

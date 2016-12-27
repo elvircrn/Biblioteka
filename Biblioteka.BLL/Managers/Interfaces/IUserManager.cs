@@ -9,5 +9,7 @@ namespace Biblioteka.BLL.Interfaces
         User AddUser(User user);
 
         User CurrentUser { get; set; }
+
+        bool UsernameTaken(string username);
     }
 }

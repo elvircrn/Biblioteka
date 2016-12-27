@@ -34,9 +34,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(19, 13);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(186, 141);
+            this.pictureBox1.Size = new System.Drawing.Size(185, 152);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -44,7 +44,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(417, 241);
+            this.ClientSize = new System.Drawing.Size(669, 316);
             this.Controls.Add(this.pictureBox1);
             this.Name = "ClanProfileForm";
             this.Text = "ClanProfileForm";

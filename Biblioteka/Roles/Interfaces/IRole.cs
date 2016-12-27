@@ -9,5 +9,7 @@ namespace Biblioteka.Model
     public interface IRole
     {
         string Name { get; set; }
+
+        string DisplayName { get; set; }
     }
 }

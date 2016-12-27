@@ -16,8 +16,8 @@ namespace Biblioteka.Forms
 
         public ImagePicker()
         {
-            ImageData = new ImageData();
             InitializeComponent();
+            ImageData = new ImageData();
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -58,6 +58,16 @@ namespace Biblioteka.Forms
         }
 
         private void ImagePicker_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }

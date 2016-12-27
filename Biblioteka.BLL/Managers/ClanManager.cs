@@ -79,6 +79,14 @@ namespace Biblioteka.BLL.Managers
             return Clans;
         }
 
+        public List<IClan> GetClans(string keywords = "")
+        {
+            if (keywords != "")
+                return Clans.Where(x => x.ToString().Contains(keywords)).ToList();
+            else
+                return Clans;
+        }
+
         public static ClanManager Seed(IUserManager userManager, IRoleManager roleManager)
         {
             ClanManager clanManager = new ClanManager();
@@ -100,6 +108,11 @@ namespace Biblioteka.BLL.Managers
                 userManager.AddUser((User)clan);
             }
             return clanManager;
+        }
+
+        public bool RemoveClanById(string clanId)
+        {
+            return Clans.Remove(Clans.Where(x => x.Sifra == clanId).FirstOrDefault());
         }
     }
 }

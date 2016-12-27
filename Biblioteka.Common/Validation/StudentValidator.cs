@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka.Validation
+namespace Biblioteka.Common.Validation
 {
     public static class StudentValidator
     {

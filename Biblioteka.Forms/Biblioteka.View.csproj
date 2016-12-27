@@ -52,6 +52,18 @@
     <Compile Include="Admin\AdminMainForm.Designer.cs">
       <DependentUpon>AdminMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Admin\EditClan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\EditClan.Designer.cs">
+      <DependentUpon>EditClan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\NewWorker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin\NewWorker.Designer.cs">
+      <DependentUpon>NewWorker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clan\ClanHomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +75,18 @@
     </Compile>
     <Compile Include="ImagePicker.Designer.cs">
       <DependentUpon>ImagePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
     <Compile Include="Worker\ClanProfileForm.cs">
       <SubType>Form</SubType>
@@ -88,11 +112,23 @@
     <EmbeddedResource Include="Admin\AdminMainForm.resx">
       <DependentUpon>AdminMainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Admin\EditClan.resx">
+      <DependentUpon>EditClan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\NewWorker.resx">
+      <DependentUpon>NewWorker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Clan\ClanHomeForm.resx">
       <DependentUpon>ClanHomeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImagePicker.resx">
       <DependentUpon>ImagePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Worker\ClanProfileForm.resx">
       <DependentUpon>ClanProfileForm.cs</DependentUpon>

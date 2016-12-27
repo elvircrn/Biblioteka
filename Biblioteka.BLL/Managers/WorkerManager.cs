@@ -39,7 +39,7 @@ namespace Biblioteka.BLL.Managers
                 Salary = 9999999,
                 Occupation = "admin",
                 WorkerID = "100",
-                ProfileImage = new System.Drawing.Bitmap(200, 200), // Consider not doing this here
+                ImageData = new ImageData(new System.Drawing.Bitmap(200, 200)), // Consider not doing this here
                 Roles = new List<IRole>() { roleManager.GetRoleByName("ADMIN") }
             };
 
@@ -59,7 +59,7 @@ namespace Biblioteka.BLL.Managers
                     WorkerID = i.ToString(),
                     Occupation = "Bibliotekar",
                     Salary = NumberGenerator.GetRandomNumber(1000),
-                    ProfileImage = new System.Drawing.Bitmap(200, 200), // Consider not doing this here
+                    ImageData = new ImageData(new System.Drawing.Bitmap(200, 200)), // Consider not doing this here
                     Roles = new List<IRole>() { roleManager.GetRoleByName("WORKER") }
                 };
                 workerManager.AddWorker(worker);
@@ -79,7 +79,7 @@ namespace Biblioteka.BLL.Managers
                     WorkerID = i.ToString(),
                     Occupation = "Domar",
                     Salary = NumberGenerator.GetRandomNumber(1000),
-                    ProfileImage = new System.Drawing.Bitmap(200, 200), // Consider not doing this here
+                    ImageData = new ImageData(new System.Drawing.Bitmap(200, 200)), // Consider not doing this here
                     Roles = new List<IRole>()
                 };
                 workerManager.AddWorker(worker);
@@ -87,6 +87,24 @@ namespace Biblioteka.BLL.Managers
             }
 
             return workerManager;
+        }
+
+        public List<IWorker> GetWorkers()
+        {
+            return _workers;
+        }
+
+        public void RemoveWorker(string workerId)
+        {
+            _workers.Remove(_workers.Where(x => x.WorkerID == workerId).FirstOrDefault());
+        }
+
+        public List<IWorker> GetWorkers(string keywords)
+        {
+            if (keywords == "")
+                return GetWorkers();
+            else
+                return _workers.Where(x => x.ToString().Contains(keywords)).ToList();
         }
     }
 }

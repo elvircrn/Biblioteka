@@ -10,5 +10,11 @@ namespace Biblioteka.BLL.Interfaces
     public interface IWorkerManager
     {
         IWorker AddWorker(IWorker worker);
+
+        List<IWorker> GetWorkers();
+
+        void RemoveWorker(string workerId);
+
+        List<IWorker> GetWorkers(string keywords);
     }
 }
