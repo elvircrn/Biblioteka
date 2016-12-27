@@ -12,7 +12,7 @@ using Biblioteka.Model;
 
 namespace Biblioteka.Forms
 {
-    public partial class NewWishListItemForm : Form
+    public partial class SelectKnjigaForm : Form
     {
         private DataAPI data;
 
@@ -20,14 +20,21 @@ namespace Biblioteka.Forms
 
         List<Knjiga> knjige;
 
-        public NewWishListItemForm()
+        public delegate bool Restriction(Knjiga knjiga);
+
+        private Restriction _restriction;
+
+        private bool taut(Knjiga knjiga) { return true; }
+
+        public SelectKnjigaForm()
         {
             InitializeComponent();
             SelectedKnjiga = null;
         }
 
-        public NewWishListItemForm(DataAPI data) : this()
+        public SelectKnjigaForm(DataAPI data, Restriction restriction = null) : this()
         {
+            _restriction = restriction ?? taut;
             this.data = data;
         }
 
@@ -41,7 +48,8 @@ namespace Biblioteka.Forms
             knjigeSearchResult.Rows.Clear();
 
             knjige = data.KnjigaAPI.SearchByKeyword(searchText.Text)
-                                   .Where(x => !data.SessionAPI.CurrentClan.WishList.Contains(x))
+                                   .Where(x => _restriction(x) 
+                                   && (data.SessionAPI.CurrentClan == null || !data.SessionAPI.CurrentClan.WishList.Contains(x)))
                                    .ToList();
 
             knjige.ForEach(x => knjigeSearchResult.Rows.Add(

@@ -32,11 +32,25 @@ namespace Biblioteka.Forms.Admin
             LoadZaduzenja();
         }
 
+
         void LoadZaduzenja()
         {
+            treeView1.Nodes.Clear();
             foreach (var item in _data.BibliotekaAPI.GetZaduzenja(_clan))
             {
+                ContextMenu bookCM;
+                bookCM = new ContextMenu(new MenuItem[]
+                {
+                    new MenuItem("Raduzi")
+                });
+
                 TreeNode node = treeView1.Nodes.Add(item.Item1.Naslov + " (" + item.Item1.GodinaIzdanja.ToString());
+                node.ContextMenu = bookCM;
+                node.ContextMenu.MenuItems[0].Click += delegate (object sender, EventArgs e)
+                {
+                    _data.BibliotekaAPI.VratiKnjigu(_clan.Sifra, item.Item1.Sifra);
+                    treeView1.Nodes.Remove(node);
+                };
                 TreeNode spisakAutoraNode = node.Nodes.Add("Spisak autora");
                 foreach (string autor in item.Item1.SpisakAutora)
                     spisakAutoraNode.Nodes.Add(autor);
@@ -69,6 +83,26 @@ namespace Biblioteka.Forms.Admin
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SelectKnjigaForm selectKnjiga = new SelectKnjigaForm(_data, (Knjiga x) => !x.Taken ); // heheh
+            selectKnjiga.Show();
+            selectKnjiga.FormClosed += delegate
+            {
+                if (selectKnjiga.SelectedKnjiga != null)
+                {
+                    List<string> errorList = new List<String>();
+                    _data.BibliotekaAPI.Iznajmi(_clan.Sifra, selectKnjiga.SelectedKnjiga.Sifra, DateTime.Now, out errorList);
+                    LoadZaduzenja();
+                }
+            };
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }

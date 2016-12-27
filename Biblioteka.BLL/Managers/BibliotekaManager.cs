@@ -106,17 +106,18 @@ namespace Biblioteka.BLL.Managers
             return _clanManager.RemoveClan(clan);
         }
 
+        void Analyse() { }
 
         /*
          * Obzirom na to da se sva desavanja u biblioteci logiraju,
          * broj mogucih kverija je jako velik i lahko se moze doci
          * do zeljenih informacija pomocu LINQa. */
-        public void Analyse()
+        public List<Tuple<int, string>> Analyze()
         {
             // Uradi se grupisanje po zanru, pa se onda oni soritraju po broju iznajmljivanja
 
 
-            var list1 = _log.Where(x => x.LogAction == LogItem.Action.Posudio)
+            var res = _log.Where(x => x.LogAction == LogItem.Action.Posudio)
                                      .ToList()
                                      .GroupBy(x => x.Knjiga.Zanr)
                                      .Select(group => new
@@ -124,7 +125,10 @@ namespace Biblioteka.BLL.Managers
                                          Metric = group.Key,
                                          Count = group.Count()
                                      })
-                                     .OrderByDescending(x => x.Count);
+                                     .OrderByDescending(x => x.Count)
+                                     .ToList()
+                                     .Select(x => new Tuple<int, string>(x.Count, x.Metric))
+                                     .ToList();
 
             var list2 = _log.Where(x => x.LogAction == LogItem.Action.Posudio)
                                      .ToList()
@@ -144,6 +148,7 @@ namespace Biblioteka.BLL.Managers
                                          Count = group.Count()
                                      })
                                      .OrderByDescending(x => x.Count);
+            return res;
         }
 
         public bool AddKnjiga(Knjiga knjiga)
@@ -288,6 +293,11 @@ namespace Biblioteka.BLL.Managers
         public List<Tuple<Knjiga, DateTime>> GetZaduzenja(IClan clan)
         {
             return _record.Where(x => x.Item2.Sifra == clan.Sifra).Select(x => new Tuple<Knjiga, DateTime>(x.Item1, x.Item3)).ToList();
+        }
+
+        void IBibliotekaManager.Analyse()
+        {
+            throw new NotImplementedException();
         }
     }
 }

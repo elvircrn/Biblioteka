@@ -15,7 +15,7 @@ namespace Biblioteka.Forms
 {
     public partial class ClanHomeForm : Form
     {
-        private NewWishListItemForm AddWishListItemControl;
+        private SelectKnjigaForm AddWishListItemControl;
         private DataAPI data;
 
         public ClanHomeForm()
@@ -82,7 +82,7 @@ namespace Biblioteka.Forms
 
         private void AddWishListItem(object sender, EventArgs e)
         {
-            NewWishListItemForm wishListForm = new NewWishListItemForm(data);
+            SelectKnjigaForm wishListForm = new SelectKnjigaForm(data);
 
             wishListForm.Show();
             

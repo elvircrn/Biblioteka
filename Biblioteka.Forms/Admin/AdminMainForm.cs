@@ -32,7 +32,7 @@ namespace Biblioteka.Forms
         {
             this._data = data;
             if (!_data.SessionAPI.CurrentUser.IsInRole("ADMIN"))
-                Bibliotekar.TabPages.Remove(tabPage2);
+                Bibliotekar.TabPages.Remove(zaposleniciTab);
         }
 
         void LoadClanovi(string keywords = "")
@@ -56,11 +56,25 @@ namespace Biblioteka.Forms
                         });
         }
 
+        void InitPie()
+        {
+            sliceList = _data.BibliotekaAPI.Analyze()
+                                           .Select(x => new SliceData
+                                           {
+                                               share = x.Item1,
+                                               clr = Color.FromArgb(NumberGenerator.GetRandomNumber(0, 254),
+                                                                    NumberGenerator.GetRandomNumber(0, 254),
+                                                                    NumberGenerator.GetRandomNumber(0, 254)),
+                                               name = x.Item2
+                                           }).ToList();
+        }
+
         private void AdminMainForm_Load(object sender, EventArgs e)
         {
             if (_data.SessionAPI.CurrentUser.IsInRole("ADMIN"))
                 LoadWorkers();
             LoadClanovi();
+            InitPie();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -164,6 +178,85 @@ namespace Biblioteka.Forms
             Clan clan = (Clan)_data.ClanAPI.GetById(_clanIds[clanoviDataGrid.SelectedRows[0].Index]);
             EditClan editClanForm = new EditClan(_data, clan);
             editClanForm.ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        struct SliceData
+        {
+            public int share;
+            public Color clr;
+            public string name;
+        };
+
+        private Rectangle rect = new Rectangle(250, 150, 200, 200);
+        private List<SliceData> sliceList = new List<SliceData>();
+
+
+        private Color curClr = Color.Black;
+
+        private void DrawPieChart(bool flMode, Graphics g)
+        {
+            g.Clear(this.BackColor);
+            Rectangle rect = new Rectangle(0, 0, 300, 300);
+            float angle = 0;
+            float sweep = 0;
+            int shareTotal = sliceList.Sum(x => x.share);
+
+            int adv = 0;
+
+            foreach (var dt in sliceList)
+            {
+                sweep = 360f * dt.share / shareTotal;
+
+                if (flMode)
+                    g.FillPie(new SolidBrush(dt.clr), rect, angle, sweep);
+                else
+                    g.DrawPie(new Pen(dt.clr), rect, angle, sweep);
+                angle += sweep;
+
+                int y = (adv++) * 10;
+                int x = 300;
+
+                System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(dt.clr);
+                g.FillRectangle(myBrush, new Rectangle(x, y, 10, 10));
+
+                System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 7);
+                System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
+                System.Drawing.StringFormat drawFormat = new System.Drawing.StringFormat();
+                g.DrawString(dt.name, drawFont, drawBrush, x + 20, y, drawFormat);
+
+                y += 20;
+            }
+        }
+
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            DrawPieChart(true, e.Graphics);
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void Bibliotekar_Click(object sender, EventArgs e)
+        {
+            InitPie();
         }
     }
 }

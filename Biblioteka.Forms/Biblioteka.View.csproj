@@ -101,11 +101,11 @@
     <Compile Include="Common\LogInForm.Designer.cs">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clan\NewWishListItemForml.cs">
+    <Compile Include="Clan\SelectKnjigaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Clan\NewWishListItemForml.Designer.cs">
-      <DependentUpon>NewWishListItemForml.cs</DependentUpon>
+    <Compile Include="Clan\SelectKnjigaForm.Designer.cs">
+      <DependentUpon>SelectKnjigaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,8 +136,8 @@
     <EmbeddedResource Include="Common\LogInForm.resx">
       <DependentUpon>LogInForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Clan\NewWishListItemForml.resx">
-      <DependentUpon>NewWishListItemForml.cs</DependentUpon>
+    <EmbeddedResource Include="Clan\SelectKnjigaForm.resx">
+      <DependentUpon>SelectKnjigaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -68,6 +68,18 @@ namespace Biblioteka.BLL
                     Zanr = "Zanr" + i.ToString()
                 });
             }
+            for (int i = 1; i <= 9; i++)
+            {
+                knjigaManager.AddKnjiga(new Knjiga
+                {
+                    Naslov = "Naslov1" + i.ToString(),
+                    GodinaIzdanja = 1233,
+                    ISBN = "ISBN-13 978-3-642-11746-" + i.ToString(),
+                    SpisakAutora = (new List<string>(3)).Select(x => "Autor " + i.ToString()).ToList(),
+                    Taken = false,
+                    Zanr = "Zanr" + i.ToString()
+                });
+            }
 
             return knjigaManager;
         }

@@ -2,7 +2,7 @@
 
 namespace Biblioteka.Forms
 {
-    partial class NewWishListItemForm : Form
+    partial class SelectKnjigaForm : Form
     {
         /// <summary> 
         /// Required designer variable.

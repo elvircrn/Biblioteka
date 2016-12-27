@@ -14,6 +14,7 @@ namespace Biblioteka.BLL.Interfaces
         IClan AddClan(IClan clan);
         bool AddKnjiga(Knjiga knjiga);
         void Analyse();
+        List<Tuple<int, string>> Analyze();
         Knjiga GetKnjigaById(string id);
         bool Iznajmi(string clanId, string knjigaId, DateTime dateTime, out List<string> errorMessages);
         List<IClan> Naplati();
