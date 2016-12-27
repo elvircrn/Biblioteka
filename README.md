@@ -1,3 +1,8 @@
+# NOVI README
+https://gist.github.com/elvircrn/64805e34520c4909120419c7229d01d1
+
+
+
 # RPR Biblioteka
 ---
 
