@@ -16,6 +16,8 @@ namespace Biblioteka.Forms.Admin
         private DataAPI _data;
         private Clan _clan;
 
+        public string Komentar { get; set; }
+
         public EditClan()
         {
             InitializeComponent();
@@ -30,8 +32,8 @@ namespace Biblioteka.Forms.Admin
         private void EditClan_Load(object sender, EventArgs e)
         {
             LoadZaduzenja();
+            textBox1.Text = _clan.Comment;
         }
-
 
         void LoadZaduzenja()
         {
@@ -105,6 +107,11 @@ namespace Biblioteka.Forms.Admin
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            _clan.Comment = textBox1.Text;
         }
     }
 }

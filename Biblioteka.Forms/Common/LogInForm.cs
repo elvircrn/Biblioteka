@@ -72,10 +72,10 @@ namespace Biblioteka.Forms
         {
 
             System.Drawing.Graphics formGraphics = e.Graphics;
-            string drawString = "DOBRINJA";
+            string drawString = "Biblioteka dobrinja - Mi povezujemo ideje";
             System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 16);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Black);
-            float x = this.Width / 2 - 60;
+            float x = this.Width / 2 - 120;
             float y = this.Height / 2;
             System.Drawing.StringFormat drawFormat = new System.Drawing.StringFormat();
             formGraphics.DrawString(drawString, drawFont, drawBrush, x, y, drawFormat);

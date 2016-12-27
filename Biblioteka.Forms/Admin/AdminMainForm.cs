@@ -44,12 +44,13 @@ namespace Biblioteka.Forms
                 node.ContextMenu = bookCM;
                 node.ContextMenu.MenuItems[0].Click += delegate (object sender, EventArgs e)
                 {
-                    _data.KnjigaAPI.RemoveKnjiga(item);
+                    _data.BibliotekaAPI.RemoveKnjigaById(item.Sifra);
                     treeView1.Nodes.Remove(node);
                 };
                 node.ContextMenu.MenuItems[1].Click += delegate (object sender, EventArgs e)
                 {
                     _data.KnjigaAPI.AddKnjiga(item);
+                    LoadKnjige();
                 };
                 TreeNode spisakAutoraNode = node.Nodes.Add("Spisak autora");
                 foreach (string autor in item.SpisakAutora)
@@ -79,7 +80,6 @@ namespace Biblioteka.Forms
                     });
                 }
             }
-
         }
 
         public AdminMainForm(DataAPI data) : this()
@@ -232,7 +232,11 @@ namespace Biblioteka.Forms
 
             Clan clan = (Clan)_data.ClanAPI.GetById(_clanIds[clanoviDataGrid.SelectedRows[0].Index]);
             EditClan editClanForm = new EditClan(_data, clan);
-            editClanForm.ShowDialog();
+            editClanForm.Show();
+            editClanForm.FormClosed += delegate
+            {
+                LoadClanovi();
+            };
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -317,6 +321,11 @@ namespace Biblioteka.Forms
         private void knjigeTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
+        }
+
+        private void addClanButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

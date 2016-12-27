@@ -30,6 +30,8 @@
         {
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.KomentarL = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // treeView1
@@ -54,17 +56,37 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(87, 306);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(318, 22);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // KomentarL
+            // 
+            this.KomentarL.AutoSize = true;
+            this.KomentarL.Location = new System.Drawing.Point(12, 309);
+            this.KomentarL.Name = "KomentarL";
+            this.KomentarL.Size = new System.Drawing.Size(69, 17);
+            this.KomentarL.TabIndex = 3;
+            this.KomentarL.Text = "Komentar";
+            // 
             // EditClan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 350);
+            this.Controls.Add(this.KomentarL);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.treeView1);
             this.Name = "EditClan";
             this.Text = "EditClan";
             this.Load += new System.EventHandler(this.EditClan_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -72,5 +94,7 @@
 
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label KomentarL;
     }
 }

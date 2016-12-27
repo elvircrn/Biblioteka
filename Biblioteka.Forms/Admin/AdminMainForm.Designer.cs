@@ -152,6 +152,7 @@
             this.addClanButton.TabIndex = 1;
             this.addClanButton.Text = "Dodaj Clana";
             this.addClanButton.UseVisualStyleBackColor = true;
+            this.addClanButton.Click += new System.EventHandler(this.addClanButton_Click);
             // 
             // clanoviDataGrid
             // 
