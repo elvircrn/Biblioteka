@@ -6,8 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Biblioteka.Users
+namespace Biblioteka.Model
 {
+
     public sealed class Profesor : Clan
     {
         public string UniWorkerID { get; set; }
@@ -17,6 +18,5 @@ namespace Biblioteka.Users
             get { return 0.15; }
         }
 
-        public Bitmap ProfileImage { get; set; }
     }
 }

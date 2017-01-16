@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IO;
 
-namespace Biblioteka.Users
+namespace Biblioteka.Model
 {
     public class Student : Clan
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Biblioteka.Users
+namespace Biblioteka.Model
 {
     public enum States { OK, Banned }
 
@@ -16,6 +16,6 @@ namespace Biblioteka.Users
 
         string Sifra { get; set; }
 
-        List<Knjiga> WishList { get; set; }
+        ICollection<Knjiga> WishList { get; set; }
     }
 }

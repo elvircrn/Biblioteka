@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Biblioteka.Users
+namespace Biblioteka.Model
 {
     public class Worker : User, IWorker
     {
+        [Key]
+        public int WorkerId { get; set; }
+
+        public int? ImageDataId { get; set; }
+        [ForeignKey("ImageDataId")]
         public ImageData ImageData { get; set; }
 
         public string Occupation { get; set; }

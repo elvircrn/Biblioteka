@@ -1,7 +1,6 @@
 ﻿using Biblioteka.Common;
 using Biblioteka.Forms.Admin;
 using Biblioteka.Model;
-using Biblioteka.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -53,8 +52,8 @@ namespace Biblioteka.Forms
                     LoadKnjige();
                 };
                 TreeNode spisakAutoraNode = node.Nodes.Add("Spisak autora");
-                foreach (string autor in item.SpisakAutora)
-                    spisakAutoraNode.Nodes.Add(autor);
+                foreach (Author autor in item.SpisakAutora)
+                    spisakAutoraNode.Nodes.Add(autor.Name);
                 node.Nodes.AddRange(new TreeNode[]
                 {
                     new TreeNode("Datum isteka: " + item.ToString()),

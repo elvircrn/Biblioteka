@@ -2,7 +2,6 @@
 using Biblioteka.BLL.Interfaces;
 using Biblioteka.BLL.Managers;
 using Biblioteka.Model;
-using Biblioteka.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +38,6 @@ namespace Biblioteka.BLL.Managers
 
 
 
-        // Dependency injection :P
         private void Inject(IClanManager clanManager,
                           IKnjigaManager knjigaManager)
         {
@@ -65,21 +63,6 @@ namespace Biblioteka.BLL.Managers
             _log = new List<LogItem>();
 
             Cash = 0.0;
-        }
-
-        public static IBibliotekaManager Seed(IClanManager clanManager, IKnjigaManager knjigaManager)
-        {
-            IBibliotekaManager bibliotekaManager = new BibliotekaManager("Dobrinja", clanManager, knjigaManager, 20);
-
-            IClan clan = clanManager.GetClans()[0];
-
-            int adv = 0;
-
-            List<string> errorList = new List<string>();
-            foreach (var knjiga in knjigaManager.SearchByNaziv("Naslov1"))
-                bibliotekaManager.Iznajmi(clan.Sifra, knjiga.Sifra, DateTime.Now.AddDays(adv++), out errorList);
-
-            return bibliotekaManager;
         }
 
         public Knjiga SearchByISBN(string isbn)

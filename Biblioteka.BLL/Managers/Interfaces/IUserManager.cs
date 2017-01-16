@@ -1,4 +1,5 @@
-﻿using Biblioteka.Users;
+﻿
+using Biblioteka.Model;
 
 namespace Biblioteka.BLL.Interfaces
 {

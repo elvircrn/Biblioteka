@@ -1,6 +1,4 @@
-﻿using Biblioteka.Common.Identity;
-using Biblioteka.Model;
-using Biblioteka.Users;
+﻿using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

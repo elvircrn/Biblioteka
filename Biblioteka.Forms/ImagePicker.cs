@@ -48,7 +48,7 @@ namespace Biblioteka.Forms
                 try
                 {
                     pictureBox1.BackgroundImage = Image.FromFile(ofd.FileName);
-                    ImageData.Image = (Bitmap)Image.FromFile(ofd.FileName);
+                    ImageData.Image = ImageData.ImageToByte((Bitmap)Image.FromFile(ofd.FileName));
                 }
                 catch
                 {

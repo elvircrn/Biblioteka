@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
@@ -63,16 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="ASD.cs" />
-    <Compile Include="EMPLOYEE.cs" />
-    <Compile Include="Migrations\201701151519231_test.cs" />
-    <Compile Include="Migrations\201701151519231_test.Designer.cs">
-      <DependentUpon>201701151519231_test.cs</DependentUpon>
+    <Compile Include="Migrations\201701161503463_test.cs" />
+    <Compile Include="Migrations\201701161503463_test.Designer.cs">
+      <DependentUpon>201701161503463_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TEST.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -81,8 +79,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701151519231_test.resx">
-      <DependentUpon>201701151519231_test.cs</DependentUpon>
+    <ProjectReference Include="..\Biblioteka.Common\Biblioteka.Common.csproj">
+      <Project>{A216B346-78BE-42DC-B5A1-62E8C36D0718}</Project>
+      <Name>Biblioteka.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Biblioteka\Biblioteka.Model.csproj">
+      <Project>{99BE4478-A4A5-4AFC-8C2D-9FCFC1088B5A}</Project>
+      <Name>Biblioteka.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201701161503463_test.resx">
+      <DependentUpon>201701161503463_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -21,7 +21,7 @@ namespace Biblioteka.Model
 
         public List<string> AutoriRada()
         {
-            return SpisakAutora;
+            return SpisakAutora.Select(x => x.Name).ToList();
         }
 
         public string OblastNauke()
@@ -41,10 +41,6 @@ namespace Biblioteka.Model
 
         public bool IsSame(NaucniRad naucniRad)
         {
-            if (!base.IsSame(naucniRad))
-                return false;
-            else if (GeneralneInformacije() != naucniRad.GeneralneInformacije())
-                return false;            
             return true;
         }
     }

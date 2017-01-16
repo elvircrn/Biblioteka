@@ -1,16 +1,15 @@
 ﻿using Biblioteka;
 using Biblioteka.BLL.Managers;
-using Biblioteka.Common.Identity;
 using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Biblioteka.Users;
 using Biblioteka.BLL.Interfaces;
 using Biblioteka.BLL;
 using Biblioteka.BLL.Managers.Interfaces;
+using Biblioteka.DAL;
 
 namespace Biblioteka.Forms
 {
@@ -33,22 +32,14 @@ namespace Biblioteka.Forms
 
         public ISessionService SessionAPI { get; set; }
 
-        public static DataAPI Seed()
+        public static DataAPI Inject(ApplicationDbContext context)
         {
             DataAPI dataAPI = new DataAPI();
 
-            dataAPI.RoleAPI = RoleManager.Seed();
-
-            dataAPI.UserAPI = UserManager.Seed(dataAPI.RoleAPI);
-
-            dataAPI.ClanAPI = ClanManager.Seed(dataAPI.UserAPI, dataAPI.RoleAPI);
-
-            dataAPI.WorkerAPI = WorkerManager.Seed(dataAPI.UserAPI, dataAPI.RoleAPI);
-
-            dataAPI.KnjigaAPI = KnjigaManager.Seed();
-
-            dataAPI.BibliotekaAPI = BibliotekaManager.Seed(dataAPI.ClanAPI, dataAPI.KnjigaAPI);
-
+            dataAPI.UserAPI = new UserManager(context);
+            dataAPI.ClanAPI = new ClanManager(context);
+            dataAPI.RoleAPI = new RoleManager(context);
+            dataAPI.KnjigaAPI = new KnjigaManager(context);
             dataAPI.SessionAPI = new SessionService();
 
             return dataAPI;

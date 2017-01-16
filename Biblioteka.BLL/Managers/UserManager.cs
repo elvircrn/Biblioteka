@@ -1,7 +1,7 @@
 ﻿using Biblioteka.BLL.Interfaces;
 using Biblioteka.Common.Security;
+using Biblioteka.DAL;
 using Biblioteka.Model;
-using Biblioteka.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +12,24 @@ namespace Biblioteka.BLL.Managers
 {
     public class UserManager : IUserManager
     {
-        private List<User> _users;
+        private List<User> _usersCache;
+        private ApplicationDbContext _context;
+
+        private List<User> _users
+        {
+            get
+            {
+                if (_usersCache == null)
+                    _usersCache = _context.Users.ToList();
+                return _usersCache;
+            }
+        }
 
         public User CurrentUser { get; set; }
 
-        public UserManager()
+        public UserManager(ApplicationDbContext context)
         {
-            _users = new List<User>();
+            _context = context;
         }
 
         public User LogIn(string username, string password)
@@ -43,23 +54,6 @@ namespace Biblioteka.BLL.Managers
             return (_users.Where(x => x.UserName == username).FirstOrDefault() != null);
         }
 
-        public static UserManager Seed(IRoleManager roleManager)
-        {
-            UserManager userManager = new UserManager();
-
-            userManager.AddUser(new User
-            {
-                Ime = "admin",
-                Prezime = "admin",
-                DatumRodjenja = new DateTime(1996, 7, 2),
-                MaticniBroj = "123456789123",
-                UserName = "admin",
-                PasswordHash = Hash.Encode("admin"),
-                Roles = new List<IRole>() { roleManager.GetRoleByName("ADMIN") },
-            });
-
-            return userManager;
-        }
 
     }
 }

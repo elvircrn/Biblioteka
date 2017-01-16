@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Biblioteka.Users;
 using Biblioteka.Model;
 
 namespace Biblioteka.BLL.Interfaces

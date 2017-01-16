@@ -54,8 +54,8 @@ namespace Biblioteka.Forms.Admin
                     treeView1.Nodes.Remove(node);
                 };
                 TreeNode spisakAutoraNode = node.Nodes.Add("Spisak autora");
-                foreach (string autor in item.Item1.SpisakAutora)
-                    spisakAutoraNode.Nodes.Add(autor);
+                foreach (Author autor in item.Item1.SpisakAutora)
+                    spisakAutoraNode.Nodes.Add(autor.Name);
                 node.Nodes.AddRange(new TreeNode[]
                 {
                     new TreeNode("Datum isteka: " + item.Item2.ToString()),

@@ -25,18 +25,5 @@ namespace Biblioteka.Model
                 ret += spisakUmjetnika;
             return ret;
         }
-
-        public bool IsSame(Strip strip)
-        {
-            if (base.IsSame(strip))
-                return false;
-            else if (AnimatorskaKuca != strip.AnimatorskaKuca)
-                return false;
-            else if (BrojIzdanja != strip.BrojIzdanja)
-                return false;
-            else if (Specijalno != strip.Specijalno)
-                return false;
-            return true;
-        }
     }
 }

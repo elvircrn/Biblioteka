@@ -1,5 +1,4 @@
 ﻿using Biblioteka;
-using Biblioteka.Users;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,6 +10,8 @@ namespace Biblioteka.Model
 {
     public class Clan : User, IClan
     {
+        public int ClanId { get; set; }
+
         public virtual double Popust
         {
             get { return 0; }
@@ -24,7 +25,7 @@ namespace Biblioteka.Model
 
         public double Cash { get; set; }
 
-        public List<Knjiga> WishList { get; set; }
+        public ICollection<Knjiga> WishList { get; set; }
 
         public override string ToString()
         {

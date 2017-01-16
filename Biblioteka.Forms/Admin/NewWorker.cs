@@ -1,6 +1,6 @@
 ﻿using Biblioteka.Common.Security;
 using Biblioteka.Common.Validation;
-using Biblioteka.Users;
+using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -77,7 +77,7 @@ namespace Biblioteka.Forms.Admin
                 toolStripStatusLabel1.Text += "; Username vec postoji";
 
             if (comboBox1.SelectedIndex == 0)
-                workerTmp.Roles.Add(_data.RoleAPI.GetRoleByName("WORKER"));
+                workerTmp.Roles.Add((Role)_data.RoleAPI.GetRoleByName("WORKER"));
 
             if (valid)
             {

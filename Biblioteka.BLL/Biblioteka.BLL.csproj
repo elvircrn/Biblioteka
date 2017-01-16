@@ -30,7 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
@@ -63,10 +72,18 @@
       <Project>{A216B346-78BE-42DC-B5A1-62E8C36D0718}</Project>
       <Name>Biblioteka.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Biblioteka.DAL\Biblioteka.DAL.csproj">
+      <Project>{7F483311-82E2-4B0B-BB0D-684AE6933FDA}</Project>
+      <Name>Biblioteka.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Biblioteka\Biblioteka.Model.csproj">
       <Project>{99BE4478-A4A5-4AFC-8C2D-9FCFC1088B5A}</Project>
       <Name>Biblioteka.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

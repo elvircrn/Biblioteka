@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteka.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,10 @@ namespace Biblioteka.Forms
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LogInForm(DataAPI.Seed()));
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                Application.Run(new LogInForm(DataAPI.Inject(context)));
+            }
         }
     }
 }

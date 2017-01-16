@@ -1,5 +1,5 @@
 ﻿using Biblioteka.BLL.Interfaces;
-using Biblioteka.Common.Identity;
+using Biblioteka.DAL;
 using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,18 @@ namespace Biblioteka.BLL.Managers
 {
     public sealed class RoleManager : IRoleManager
     {
-        private List<IRole> Roles;
+        private ApplicationDbContext _context;
+        private List<IRole> rolesCache;
+
+        private List<IRole> Roles
+        {
+            get
+            {
+                if (rolesCache == null)
+                    rolesCache = _context.Roles.ToList().Select(x => (IRole)x).ToList();
+                return rolesCache;
+            }
+        }
 
         public static string ADMIN { get { return "ADMIN"; } }
 
@@ -19,35 +30,23 @@ namespace Biblioteka.BLL.Managers
 
         public static string CLAN { get { return "CLAN"; } }
 
-        public RoleManager()
+        public RoleManager(ApplicationDbContext context)
         {
-            Roles = new List<IRole>();
+            context = _context;
         }
 
-        public void AddRole(IRole role)
+        public void AddRole(Model.IRole role)
         {
             Roles.Add(role);
         }
 
         public IRole GetRoleByName(string name)
         {
-            var role = Roles.Where(x => x.Name == name).FirstOrDefault();
+            IRole role = Roles.Where(x => x.Name == name).FirstOrDefault();
             if (role == null)
                 throw new Exception("Role not found");
             else
                 return role;
-        }
-
-        public static RoleManager Seed()
-        {
-            RoleManager roleManager = new RoleManager();
-
-            roleManager.AddRole(new Role("ADMIN", "Admin"));
-            roleManager.AddRole(new Role("WORKER", "Bibliotekar"));
-            roleManager.AddRole(new Role("CLAN", "Clan"));
-            roleManager.AddRole(new Role("TECH", "Tehnicar"));
-
-            return roleManager;
         }
     }
 }

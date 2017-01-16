@@ -1,5 +1,6 @@
 ﻿using Biblioteka.BLL;
 using Biblioteka.BLL.Interfaces;
+using Biblioteka.DAL;
 using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
@@ -11,13 +12,25 @@ namespace Biblioteka.BLL
 {
     public class KnjigaManager : IKnjigaManager
     {
+        ApplicationDbContext _context;
         private static readonly int SifraLength = 10;
 
-        private List<Knjiga> _knjige;
+        private List<Knjiga> _knjigasCache;
 
-        public KnjigaManager()
+        private List<Knjiga> _knjige
         {
-            _knjige = new List<Knjiga>();
+            get
+            {
+                if (_knjigasCache == null)
+                    return _knjigasCache = _context.Knjigas.ToList();
+                else
+                    return _knjigasCache;
+            }
+        }
+
+        public KnjigaManager(ApplicationDbContext context)
+        {
+            _context = context;
         }
 
         private string GenerateSifra()
@@ -50,38 +63,6 @@ namespace Biblioteka.BLL
                 return _knjige.Where(x => comparator(x)).ToList();
             else
                 return _knjige.Where(x => x.Naslov == naziv).ToList();
-        }
-
-        public static KnjigaManager Seed()
-        {
-            KnjigaManager knjigaManager = new KnjigaManager();
-
-            for (int i = 1; i <= 9; i++)
-            {
-                knjigaManager.AddKnjiga(new Knjiga
-                {
-                    Naslov = "Naslov1",
-                    GodinaIzdanja = 1233,
-                    ISBN = "ISBN-13 978-3-642-11746-" + i.ToString(),
-                    SpisakAutora = (new List<string>(3)).Select(x => "Autor " + i.ToString()).ToList(),
-                    Taken = false,
-                    Zanr = "Zanr" + i.ToString()
-                });
-            }
-            for (int i = 1; i <= 9; i++)
-            {
-                knjigaManager.AddKnjiga(new Knjiga
-                {
-                    Naslov = "Naslov1" + i.ToString(),
-                    GodinaIzdanja = 1233,
-                    ISBN = "ISBN-13 978-3-642-11746-" + i.ToString(),
-                    SpisakAutora = (new List<string>(3)).Select(x => "Autor " + i.ToString()).ToList(),
-                    Taken = false,
-                    Zanr = "Zanr" + i.ToString()
-                });
-            }
-
-            return knjigaManager;
         }
 
         public Knjiga GetById(string id)
