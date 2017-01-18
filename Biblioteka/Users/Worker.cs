@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace Biblioteka.Model
 {
+    // XML - Ready
+    // Binary - not ready
     public class Worker : User, IWorker
     {
         [Key]

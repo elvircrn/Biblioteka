@@ -1,5 +1,7 @@
 ﻿using Biblioteka.BLL.Managers;
 using Biblioteka.Common;
+using Biblioteka.Common.Serialization;
+using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,6 +58,7 @@ namespace Biblioteka.Forms
             else if (data.SessionAPI.CurrentUser.IsInRole(RoleManager.ADMIN) ||
                      data.SessionAPI.CurrentUser.IsInRole(RoleManager.WORKER))
             {
+                var str = XMLSerializer.SerializeToXmlString<User>(data.SessionAPI.CurrentUser);
                 AdminMainForm adminForm = new AdminMainForm(data);
                 adminForm.Show();
                 adminForm.Activate();

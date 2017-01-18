@@ -2,7 +2,9 @@
 using Biblioteka.Items;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -12,10 +14,10 @@ using System.Xml.Serialization;
 
 namespace Biblioteka.Model
 {
+    // XML - READY
+    // Binary - NOT READY
     public class Clan : User, IClan
     {
-        [XmlIgnore]
-        [IgnoreDataMember]
         public int ClanId { get; set; }
 
         public virtual double Popust
@@ -37,6 +39,10 @@ namespace Biblioteka.Model
         [IgnoreDataMember]
         public ICollection<Knjiga> WishList { get; set; }
 
+        [NotMapped]
+        [XmlElement, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        public List<Knjiga> WishListXml { get { return WishList?.ToList() ?? new List<Knjiga>(); } set { WishList = value; } }
+
         public Clan()
         {
             WishList = new List<Knjiga>();
@@ -45,6 +51,10 @@ namespace Biblioteka.Model
         [XmlIgnore]
         [IgnoreDataMember]
         public ICollection<Record> Records { get; set; }
+
+        [NotMapped]
+        [XmlElement, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        public List<Record> RecordsXml { get { return Records?.ToList() ?? new List<Record>(); } set { Records = value; } }
 
         public override string ToString()
         {

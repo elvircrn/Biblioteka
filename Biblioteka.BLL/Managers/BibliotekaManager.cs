@@ -22,7 +22,6 @@ namespace Biblioteka.BLL.Managers
         private IKnjigaManager _knjigaManager;
         private List<LogItem> _log;
 
-        //private List<Tuple<Knjiga, IClan, DateTime>> _recordCache;
         private List<Record> _recordCache;
 
         private List<Record> _record

@@ -16,7 +16,6 @@ namespace Biblioteka.Forms
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             using (ApplicationDbContext context = new ApplicationDbContext())

@@ -9,9 +9,11 @@ using System.ComponentModel.DataAnnotations;
 using Biblioteka.Items;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Biblioteka.Model
 {
+    // XML - Ready
     public class Knjiga
     {
         public int KnjigaId { get; set; }
@@ -19,7 +21,13 @@ namespace Biblioteka.Model
         [StringLength(200)]
         public string Naslov { get; set; }
 
+        [XmlIgnore]
+        [IgnoreDataMember]
         public ICollection<Author> SpisakAutora { get; set; }
+
+        [NotMapped]
+        [XmlElement, Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        public List<Author> SpisakAutoraXml { get { return SpisakAutora?.ToList() ?? new List<Author>(); } set { SpisakAutora = value; } }
 
         [StringLength(200)]
         public string Sifra { get; set; }

@@ -27,6 +27,8 @@ namespace Biblioteka.BLL.Managers
             set { clansCache = value; }
         }
 
+        public ICollection<Clan> ClansCollection { get { return clansCache.Select(x => (Clan)x).ToList(); } }
+
         // OK
         public ClanManager(ApplicationDbContext context)
         {

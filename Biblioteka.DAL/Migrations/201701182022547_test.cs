@@ -115,17 +115,17 @@ namespace Biblioteka.DAL.Migrations
                 .Index(t => t.Role_RoleId);
             
             CreateTable(
-                "EC17455.ClanKnjigas",
+                "EC17455.KnjigaClans",
                 c => new
                     {
-                        Clan_UserId = c.Decimal(nullable: false, precision: 10, scale: 0),
                         Knjiga_KnjigaId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                        Clan_UserId = c.Decimal(nullable: false, precision: 10, scale: 0),
                     })
-                .PrimaryKey(t => new { t.Clan_UserId, t.Knjiga_KnjigaId })
-                .ForeignKey("EC17455.Users", t => t.Clan_UserId, cascadeDelete: true)
+                .PrimaryKey(t => new { t.Knjiga_KnjigaId, t.Clan_UserId })
                 .ForeignKey("EC17455.Knjigas", t => t.Knjiga_KnjigaId, cascadeDelete: true)
-                .Index(t => t.Clan_UserId)
-                .Index(t => t.Knjiga_KnjigaId);
+                .ForeignKey("EC17455.Users", t => t.Clan_UserId, cascadeDelete: true)
+                .Index(t => t.Knjiga_KnjigaId)
+                .Index(t => t.Clan_UserId);
             
             CreateTable(
                 "EC17455.KnjigaAuthors",
@@ -146,8 +146,8 @@ namespace Biblioteka.DAL.Migrations
         {
             DropForeignKey("EC17455.KnjigaAuthors", "Author_AuthorId", "EC17455.Authors");
             DropForeignKey("EC17455.KnjigaAuthors", "Knjiga_KnjigaId", "EC17455.Knjigas");
-            DropForeignKey("EC17455.ClanKnjigas", "Knjiga_KnjigaId", "EC17455.Knjigas");
-            DropForeignKey("EC17455.ClanKnjigas", "Clan_UserId", "EC17455.Users");
+            DropForeignKey("EC17455.KnjigaClans", "Clan_UserId", "EC17455.Users");
+            DropForeignKey("EC17455.KnjigaClans", "Knjiga_KnjigaId", "EC17455.Knjigas");
             DropForeignKey("EC17455.Users", "ImageDataId", "EC17455.ImageDatas");
             DropForeignKey("EC17455.UserRoles", "Role_RoleId", "EC17455.Roles");
             DropForeignKey("EC17455.UserRoles", "User_UserId", "EC17455.Users");
@@ -155,15 +155,15 @@ namespace Biblioteka.DAL.Migrations
             DropForeignKey("EC17455.Records", "ClanId", "EC17455.Users");
             DropIndex("EC17455.KnjigaAuthors", new[] { "Author_AuthorId" });
             DropIndex("EC17455.KnjigaAuthors", new[] { "Knjiga_KnjigaId" });
-            DropIndex("EC17455.ClanKnjigas", new[] { "Knjiga_KnjigaId" });
-            DropIndex("EC17455.ClanKnjigas", new[] { "Clan_UserId" });
+            DropIndex("EC17455.KnjigaClans", new[] { "Clan_UserId" });
+            DropIndex("EC17455.KnjigaClans", new[] { "Knjiga_KnjigaId" });
             DropIndex("EC17455.UserRoles", new[] { "Role_RoleId" });
             DropIndex("EC17455.UserRoles", new[] { "User_UserId" });
             DropIndex("EC17455.Records", new[] { "ClanId" });
             DropIndex("EC17455.Records", new[] { "KnjigaId" });
             DropIndex("EC17455.Users", new[] { "ImageDataId" });
             DropTable("EC17455.KnjigaAuthors");
-            DropTable("EC17455.ClanKnjigas");
+            DropTable("EC17455.KnjigaClans");
             DropTable("EC17455.UserRoles");
             DropTable("EC17455.ImageDatas");
             DropTable("EC17455.Roles");

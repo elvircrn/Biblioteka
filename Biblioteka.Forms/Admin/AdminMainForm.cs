@@ -6,8 +6,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -336,7 +338,6 @@ namespace Biblioteka.Forms
 
         private void serializeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
         }
 
         private void knjigaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -344,9 +345,92 @@ namespace Biblioteka.Forms
 
         }
 
-        private void knjigeToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void knjigeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = fbd.SelectedPath + @"\knjgas.xml";
+
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+                    {
+                        await file.WriteAsync(Common.Serialization.XMLSerializer.SerializeToXmlString(_data.KnjigaAPI.GetKnjige()));
+                        MessageBox.Show("Serijalizacija zavrsena");
+                    }
+                }
+            }
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
+        }
+
+        private async void clanoviToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = fbd.SelectedPath + @"\clanovi.xml";
+
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+                    {
+                        var uiContext = TaskScheduler.FromCurrentSynchronizationContext();
+                        Task[] tasks = new Task[] { file.WriteAsync(Common.Serialization.XMLSerializer.SerializeToXmlString(_data.ClanAPI.GetClans()
+                                                                                                           .Select(x => (Clan)x)
+                                                                                                           .ToList())) };
+                        await Task.Factory.ContinueWhenAll(tasks, antecedents =>
+                         {
+                             MessageBox.Show("Serijalizacija clanova zavrsena");
+                         }, CancellationToken.None, TaskContinuationOptions.None, uiContext);
+                    }
+                }
+            }
+
+        }
+
+        private async void radniciToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = fbd.SelectedPath + @"\radnici.xml";
+
+                    using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+                    {
+                        var uiContext = TaskScheduler.FromCurrentSynchronizationContext();
+                        Task[] tasks = new Task[] { file.WriteAsync(Common.Serialization.XMLSerializer.SerializeToXmlString(_data.WorkerAPI.GetWorkers()
+                                                                                                           .Select(x => (Worker)x)
+                                                                                                           .ToList())) };
+                        await Task.Factory.ContinueWhenAll(tasks, antecedents =>
+                        {
+                            MessageBox.Show("Serijalizacija radnika zavrsena");
+                        }, CancellationToken.None, TaskContinuationOptions.None, uiContext);
+                    }
+                }
+            }
+
+        }
+
+        // Deserijalizuj knjige
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "*.xml";
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = openFileDialog1.FileName;
+                Common.Serialization.XMLSerializer(filePath);
+            }
         }
     }
 }
