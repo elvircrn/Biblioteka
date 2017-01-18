@@ -32,11 +32,8 @@ namespace Biblioteka.DAL.Migrations
                         BrojIzdanja = c.Decimal(precision: 10, scale: 0),
                         Specijalno = c.Decimal(precision: 1, scale: 0),
                         Discriminator = c.String(nullable: false, maxLength: 128),
-                        Clan_UserId = c.Decimal(precision: 10, scale: 0),
                     })
-                .PrimaryKey(t => t.KnjigaId)
-                .ForeignKey("EC17455.Users", t => t.Clan_UserId)
-                .Index(t => t.Clan_UserId);
+                .PrimaryKey(t => t.KnjigaId);
             
             CreateTable(
                 "EC17455.Users",
@@ -55,7 +52,7 @@ namespace Biblioteka.DAL.Migrations
                         Sifra = c.String(maxLength: 200),
                         State = c.Decimal(precision: 10, scale: 0),
                         Cash = c.Double(),
-                        WorkerId = c.String(),
+                        WorkerId = c.String(maxLength: 200),
                         ImageDataId = c.Decimal(precision: 10, scale: 0),
                         Occupation = c.String(maxLength: 200),
                         Salary = c.Double(),
@@ -68,6 +65,21 @@ namespace Biblioteka.DAL.Migrations
                 .PrimaryKey(t => t.UserId)
                 .ForeignKey("EC17455.ImageDatas", t => t.ImageDataId)
                 .Index(t => t.ImageDataId);
+            
+            CreateTable(
+                "EC17455.Records",
+                c => new
+                    {
+                        RecordId = c.Decimal(nullable: false, precision: 10, scale: 0, identity: true),
+                        KnjigaId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                        ClanId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                        RentDate = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.RecordId)
+                .ForeignKey("EC17455.Users", t => t.ClanId, cascadeDelete: true)
+                .ForeignKey("EC17455.Knjigas", t => t.KnjigaId, cascadeDelete: true)
+                .Index(t => t.KnjigaId)
+                .Index(t => t.ClanId);
             
             CreateTable(
                 "EC17455.Roles",
@@ -90,19 +102,6 @@ namespace Biblioteka.DAL.Migrations
                 .PrimaryKey(t => t.ImageDataId);
             
             CreateTable(
-                "EC17455.KnjigaAuthors",
-                c => new
-                    {
-                        Knjiga_KnjigaId = c.Decimal(nullable: false, precision: 10, scale: 0),
-                        Author_AuthorId = c.Decimal(nullable: false, precision: 10, scale: 0),
-                    })
-                .PrimaryKey(t => new { t.Knjiga_KnjigaId, t.Author_AuthorId })
-                .ForeignKey("EC17455.Knjigas", t => t.Knjiga_KnjigaId, cascadeDelete: true)
-                .ForeignKey("EC17455.Authors", t => t.Author_AuthorId, cascadeDelete: true)
-                .Index(t => t.Knjiga_KnjigaId)
-                .Index(t => t.Author_AuthorId);
-            
-            CreateTable(
                 "EC17455.UserRoles",
                 c => new
                     {
@@ -115,26 +114,60 @@ namespace Biblioteka.DAL.Migrations
                 .Index(t => t.User_UserId)
                 .Index(t => t.Role_RoleId);
             
+            CreateTable(
+                "EC17455.ClanKnjigas",
+                c => new
+                    {
+                        Clan_UserId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                        Knjiga_KnjigaId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                    })
+                .PrimaryKey(t => new { t.Clan_UserId, t.Knjiga_KnjigaId })
+                .ForeignKey("EC17455.Users", t => t.Clan_UserId, cascadeDelete: true)
+                .ForeignKey("EC17455.Knjigas", t => t.Knjiga_KnjigaId, cascadeDelete: true)
+                .Index(t => t.Clan_UserId)
+                .Index(t => t.Knjiga_KnjigaId);
+            
+            CreateTable(
+                "EC17455.KnjigaAuthors",
+                c => new
+                    {
+                        Knjiga_KnjigaId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                        Author_AuthorId = c.Decimal(nullable: false, precision: 10, scale: 0),
+                    })
+                .PrimaryKey(t => new { t.Knjiga_KnjigaId, t.Author_AuthorId })
+                .ForeignKey("EC17455.Knjigas", t => t.Knjiga_KnjigaId, cascadeDelete: true)
+                .ForeignKey("EC17455.Authors", t => t.Author_AuthorId, cascadeDelete: true)
+                .Index(t => t.Knjiga_KnjigaId)
+                .Index(t => t.Author_AuthorId);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("EC17455.Knjigas", "Clan_UserId", "EC17455.Users");
+            DropForeignKey("EC17455.KnjigaAuthors", "Author_AuthorId", "EC17455.Authors");
+            DropForeignKey("EC17455.KnjigaAuthors", "Knjiga_KnjigaId", "EC17455.Knjigas");
+            DropForeignKey("EC17455.ClanKnjigas", "Knjiga_KnjigaId", "EC17455.Knjigas");
+            DropForeignKey("EC17455.ClanKnjigas", "Clan_UserId", "EC17455.Users");
             DropForeignKey("EC17455.Users", "ImageDataId", "EC17455.ImageDatas");
             DropForeignKey("EC17455.UserRoles", "Role_RoleId", "EC17455.Roles");
             DropForeignKey("EC17455.UserRoles", "User_UserId", "EC17455.Users");
-            DropForeignKey("EC17455.KnjigaAuthors", "Author_AuthorId", "EC17455.Authors");
-            DropForeignKey("EC17455.KnjigaAuthors", "Knjiga_KnjigaId", "EC17455.Knjigas");
-            DropIndex("EC17455.UserRoles", new[] { "Role_RoleId" });
-            DropIndex("EC17455.UserRoles", new[] { "User_UserId" });
+            DropForeignKey("EC17455.Records", "KnjigaId", "EC17455.Knjigas");
+            DropForeignKey("EC17455.Records", "ClanId", "EC17455.Users");
             DropIndex("EC17455.KnjigaAuthors", new[] { "Author_AuthorId" });
             DropIndex("EC17455.KnjigaAuthors", new[] { "Knjiga_KnjigaId" });
+            DropIndex("EC17455.ClanKnjigas", new[] { "Knjiga_KnjigaId" });
+            DropIndex("EC17455.ClanKnjigas", new[] { "Clan_UserId" });
+            DropIndex("EC17455.UserRoles", new[] { "Role_RoleId" });
+            DropIndex("EC17455.UserRoles", new[] { "User_UserId" });
+            DropIndex("EC17455.Records", new[] { "ClanId" });
+            DropIndex("EC17455.Records", new[] { "KnjigaId" });
             DropIndex("EC17455.Users", new[] { "ImageDataId" });
-            DropIndex("EC17455.Knjigas", new[] { "Clan_UserId" });
-            DropTable("EC17455.UserRoles");
             DropTable("EC17455.KnjigaAuthors");
+            DropTable("EC17455.ClanKnjigas");
+            DropTable("EC17455.UserRoles");
             DropTable("EC17455.ImageDatas");
             DropTable("EC17455.Roles");
+            DropTable("EC17455.Records");
             DropTable("EC17455.Users");
             DropTable("EC17455.Knjigas");
             DropTable("EC17455.Authors");

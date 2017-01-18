@@ -8,7 +8,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Biblioteka.BLL
 {
@@ -24,7 +23,7 @@ namespace Biblioteka.BLL
             get
             {
                 if (_knjigasCache == null)
-                    return _knjigasCache = _context.Knjigas.ToList();
+                    return _knjigasCache = _context.Knjigas.Include("SpisakAutora").ToList();
                 else
                     return _knjigasCache;
             }
@@ -50,7 +49,7 @@ namespace Biblioteka.BLL
             knjiga.Sifra = GenerateSifra();
             _context.Knjigas.Add(knjiga);
             _knjigasCache.Add(knjiga);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return knjiga;
         }
 
@@ -82,6 +81,7 @@ namespace Biblioteka.BLL
         public bool RemoveKnjiga(Knjiga knjiga)
         {
             _context.Knjigas.Remove(knjiga);
+            _context.SaveChanges();
             return _knjige.Remove(knjiga);
         }
 

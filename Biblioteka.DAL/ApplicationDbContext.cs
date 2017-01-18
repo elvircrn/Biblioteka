@@ -42,6 +42,10 @@ namespace Biblioteka.DAL
             modelBuilder.Entity<Knjiga>()
             .HasMany(p => p.SpisakAutora)
             .WithMany(x => x.Knjigas);
+
+            modelBuilder.Entity<Knjiga>()
+            .HasMany(p => p.Clans)
+            .WithMany(x => x.WishList);
         }
     }
 }

@@ -328,5 +328,25 @@ namespace Biblioteka.Forms
         {
             
         }
+
+        private void actionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void serializeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void knjigaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void knjigeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

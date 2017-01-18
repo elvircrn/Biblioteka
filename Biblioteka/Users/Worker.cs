@@ -12,6 +12,7 @@ namespace Biblioteka.Model
     public class Worker : User, IWorker
     {
         [Key]
+        [StringLength(200)]
         public string WorkerId { get; set; }
 
         public int? ImageDataId { get; set; }

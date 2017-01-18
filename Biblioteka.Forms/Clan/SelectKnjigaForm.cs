@@ -49,7 +49,7 @@ namespace Biblioteka.Forms
 
             knjige = data.KnjigaAPI.SearchByKeyword(searchText.Text)
                                    .Where(x => _restriction(x) 
-                                   && (data.SessionAPI.CurrentClan == null || !data.SessionAPI.CurrentClan.WishList.Contains(x)))
+                                   && (data.SessionAPI.CurrentClan == null || !(data.SessionAPI.CurrentClan.WishList?.Contains(x) ?? false)))
                                    .ToList();
 
             knjige.ForEach(x => knjigeSearchResult.Rows.Add(

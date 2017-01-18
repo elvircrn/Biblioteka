@@ -64,6 +64,12 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.serializeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.xmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.binarnoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knjigeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knjigaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Bibliotekar.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clanoviDataGrid)).BeginInit();
@@ -364,23 +370,26 @@
             // actionsToolStripMenuItem
             // 
             this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.serializeToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.signOutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.actionsToolStripMenuItem.Text = "Actions";
+            this.actionsToolStripMenuItem.Click += new System.EventHandler(this.actionsToolStripMenuItem_Click);
             // 
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.signOutToolStripMenuItem.Text = "Sign Out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -413,6 +422,51 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Sifra";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // serializeToolStripMenuItem
+            // 
+            this.serializeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xmlToolStripMenuItem,
+            this.binarnoToolStripMenuItem});
+            this.serializeToolStripMenuItem.Name = "serializeToolStripMenuItem";
+            this.serializeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.serializeToolStripMenuItem.Text = "Serialize";
+            this.serializeToolStripMenuItem.Click += new System.EventHandler(this.serializeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
+            // 
+            // xmlToolStripMenuItem
+            // 
+            this.xmlToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.knjigeToolStripMenuItem});
+            this.xmlToolStripMenuItem.Name = "xmlToolStripMenuItem";
+            this.xmlToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.xmlToolStripMenuItem.Text = "Xml";
+            // 
+            // binarnoToolStripMenuItem
+            // 
+            this.binarnoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.knjigaToolStripMenuItem});
+            this.binarnoToolStripMenuItem.Name = "binarnoToolStripMenuItem";
+            this.binarnoToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.binarnoToolStripMenuItem.Text = "Binarno";
+            // 
+            // knjigeToolStripMenuItem
+            // 
+            this.knjigeToolStripMenuItem.Name = "knjigeToolStripMenuItem";
+            this.knjigeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.knjigeToolStripMenuItem.Text = "Knjige";
+            this.knjigeToolStripMenuItem.Click += new System.EventHandler(this.knjigeToolStripMenuItem_Click);
+            // 
+            // knjigaToolStripMenuItem
+            // 
+            this.knjigaToolStripMenuItem.Name = "knjigaToolStripMenuItem";
+            this.knjigaToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.knjigaToolStripMenuItem.Text = "Knjige";
+            this.knjigaToolStripMenuItem.Click += new System.EventHandler(this.knjigaToolStripMenuItem_Click);
             // 
             // AdminMainForm
             // 
@@ -480,5 +534,11 @@
         private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.TabPage AnalizaTab;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolStripMenuItem serializeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xmlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem knjigeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem binarnoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem knjigaToolStripMenuItem;
     }
 }

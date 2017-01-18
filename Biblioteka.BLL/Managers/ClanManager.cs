@@ -21,7 +21,7 @@ namespace Biblioteka.BLL.Managers
             get
             {
                 if (clansCache == null)
-                    clansCache = _context.Clans.Include("Roles").ToList().Select(x => (IClan)x).ToList();
+                    clansCache = _context.Clans.Include("WishList").Include("Roles").ToList().Select(x => (IClan)x).ToList();
                 return clansCache;
             }
             set { clansCache = value; }
@@ -70,6 +70,7 @@ namespace Biblioteka.BLL.Managers
 
             _context.Clans.Remove(query);
             Clans.Remove(query);
+            _context.SaveChanges();
 
             return true;
         }
@@ -120,6 +121,7 @@ namespace Biblioteka.BLL.Managers
             {
                 Clans.Remove(Clans.Where(x => x.Sifra == clanId).FirstOrDefault());
                 _context.Clans.Remove(query);
+                _context.SaveChanges();
                 return true;
             }
             else

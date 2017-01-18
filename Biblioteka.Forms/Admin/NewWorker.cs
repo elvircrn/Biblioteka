@@ -77,7 +77,10 @@ namespace Biblioteka.Forms.Admin
                 toolStripStatusLabel1.Text += "; Username vec postoji";
 
             if (comboBox1.SelectedIndex == 0)
+            {
+                workerTmp.Roles = new List<Role>();
                 workerTmp.Roles.Add((Role)_data.RoleAPI.GetRoleByName("WORKER"));
+            }
 
             if (valid)
             {

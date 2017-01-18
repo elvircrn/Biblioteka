@@ -32,7 +32,7 @@ namespace Biblioteka.BLL.Managers
 
         public RoleManager(ApplicationDbContext context)
         {
-            context = _context;
+            _context = context;
         }
 
         public void AddRole(Model.IRole role)

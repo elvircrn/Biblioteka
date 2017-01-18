@@ -22,19 +22,15 @@ namespace Biblioteka.BLL.Managers
         private IKnjigaManager _knjigaManager;
         private List<LogItem> _log;
 
-        private List<Tuple<Knjiga, IClan, DateTime>> _recordCache;
+        //private List<Tuple<Knjiga, IClan, DateTime>> _recordCache;
+        private List<Record> _recordCache;
 
-        private List<Tuple<Knjiga, IClan, DateTime>> _record
+        private List<Record> _record
         {
             get
             {
                 if (_recordCache == null)
-                    _recordCache = _context.Records
-                                      .ToList()
-                                      .Select(x =>
-                                          new Tuple<Knjiga, IClan, DateTime>(x.Item1, x.Item2, x.Item3)
-                                      )
-                                      .ToList();
+                    _recordCache = _context.Records.Include("Knjiga").Include("Clan").ToList();
                 return _recordCache;
             }
         }
@@ -79,7 +75,6 @@ namespace Biblioteka.BLL.Managers
             if (price != null)
                 MonthlyFee = (double)price;
 
-            _record = new List<Tuple<Knjiga, IClan, DateTime>>();
             _log = new List<LogItem>();
 
             Cash = 0.0;
@@ -109,8 +104,6 @@ namespace Biblioteka.BLL.Managers
             return _clanManager.RemoveClan(clan);
         }
 
-        void Analyse() { }
-
         /*
          * Obzirom na to da se sva desavanja u biblioteci logiraju,
          * broj mogucih kverija je jako velik i lahko se moze doci
@@ -118,8 +111,6 @@ namespace Biblioteka.BLL.Managers
         public List<Tuple<int, string>> Analyze()
         {
             // Uradi se grupisanje po zanru, pa se onda oni soritraju po broju iznajmljivanja
-
-
             var res = _log.Where(x => x.LogAction == LogItem.Action.Posudio)
                                      .ToList()
                                      .GroupBy(x => x.Knjiga.Zanr)
@@ -165,21 +156,30 @@ namespace Biblioteka.BLL.Managers
             return _knjigaManager.GetById(id);
         }
 
+        // OK
         public bool RemoveKnjigaById(string id)
         {
             _record.RemoveAll(x => x.Item1.Sifra == id);
+            _context.Records.RemoveRange(_context.Records.Where(x => x.Knjiga.Sifra == id).ToList());
+            _context.SaveChanges();
             return _knjigaManager.RemoveKnjiga(GetKnjigaById(id));
         }
 
+        // OK
         public bool VratiKnjigu(string clanId, string sifra)
         {
-            var query = _record.Where(x => x.Item2.Sifra == clanId && x.Item1.Sifra == sifra)
-                               .FirstOrDefault();
+            var query = _context.Records.Where(x => x.Item2.Sifra == clanId && x.Item1.Sifra == sifra)
+                                        .FirstOrDefault();
 
             if (query == null)
                 return false;
 
+            var queryCache = _recordCache.Where(x => x.Item2.Sifra == clanId && x.Item1.Sifra == sifra)
+                                        .FirstOrDefault();
+
             query.Item1.Taken = false;
+            if (queryCache != null)
+                queryCache.Item1.Taken = false;
 
             _log.Add(new LogItem
             {
@@ -189,17 +189,22 @@ namespace Biblioteka.BLL.Managers
                 LogAction = LogItem.Action.Vratio
             });
 
-            _record.Remove(query);
+            _context.Records.Remove(query);
 
+            if (queryCache != null)
+                _recordCache.Remove(queryCache);
+
+            _context.SaveChanges();
             return true;
         }
 
+        // OK
         public void RazduziSve(IClan clan)
         {
-            var knjige = _record.Where(x => x.Item2.Sifra == clan.Sifra)
-                                .ToList()
-                                .Select(x => x.Item1)
-                                .ToList();
+            var knjige = _context.Records.Where(x => x.Item2.Sifra == clan.Sifra)
+                                         .ToList()
+                                         .Select(x => x.Item1)
+                                         .ToList();
 
             foreach (Knjiga knjiga in knjige)
             {
@@ -212,10 +217,40 @@ namespace Biblioteka.BLL.Managers
                     LogAction = LogItem.Action.Vratio
                 });
             }
+            _context.Records.RemoveRange(_context.Records.Where(x => x.Item2.Sifra == clan.Sifra).ToList());
 
+            // Update the cache
+            var knjigeChe = _recordCache.Where(x => x.Item2.Sifra == clan.Sifra)
+                                     .ToList()
+                                     .Select(x => x.Item1)
+                                     .ToList();
+
+            foreach (Knjiga knjiga in knjigeChe)
+                knjiga.Taken = false;
             _record.RemoveAll(x => x.Item2.Sifra == clan.Sifra);
+            _context.SaveChanges();
         }
 
+        // OK
+        void AddRecord(Tuple<Knjiga, IClan, DateTime> record)
+        {
+            _context.Records.Add(new Record
+            {
+                Knjiga = record.Item1,
+                Clan = (Clan)record.Item2,
+                RentDate = record.Item3
+            });
+
+            _recordCache.Add(new Record
+            {
+                Knjiga = record.Item1,
+                Clan = (Clan)record.Item2,
+                RentDate = record.Item3
+            });
+            _context.SaveChanges();
+        }
+
+        // OK
         public bool Iznajmi(string clanId, string knjigaId, DateTime deadline, out List<string> errorMessages)
         {
             bool ok = true;
@@ -250,7 +285,7 @@ namespace Biblioteka.BLL.Managers
             if (ok)
             {
                 knjiga.Taken = true;
-                _record.Add(new Tuple<Knjiga, IClan, DateTime>(knjiga, clan, deadline));
+                AddRecord(new Tuple<Knjiga, IClan, DateTime>(knjiga, clan, deadline));
                 _log.Add(new LogItem
                 {
                     DateTime = CurrentDate,
@@ -259,6 +294,8 @@ namespace Biblioteka.BLL.Managers
                     LogAction = LogItem.Action.Posudio
                 });
             }
+
+            _context.SaveChanges();
 
             return ok;
         }

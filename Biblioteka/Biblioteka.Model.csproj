@@ -63,6 +63,7 @@
     <Compile Include="Items\Author.cs" />
     <Compile Include="Items\Interfaces\INaucniRad.cs" />
     <Compile Include="Items\NaucniRad.cs" />
+    <Compile Include="Items\Record.cs" />
     <Compile Include="Roles\Interfaces\IRole.cs" />
     <Compile Include="Items\Knjiga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
