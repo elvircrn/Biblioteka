@@ -8,6 +8,8 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -172,7 +174,7 @@ namespace Biblioteka.Forms
                     _data.WorkerAPI.AddWorker(newWorkerForm.Worker);
                     this.LoadWorkers();
                 }
-                
+
             };
             newWorkerForm.ShowDialog();
         }
@@ -184,7 +186,7 @@ namespace Biblioteka.Forms
 
         private void workersDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -225,7 +227,7 @@ namespace Biblioteka.Forms
 
         private void clanoviDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void urediClanaButton_Click(object sender, EventArgs e)
@@ -303,7 +305,7 @@ namespace Biblioteka.Forms
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -323,12 +325,11 @@ namespace Biblioteka.Forms
 
         private void knjigeTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
         }
 
         private void addClanButton_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void actionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -342,7 +343,20 @@ namespace Biblioteka.Forms
 
         private void knjigaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
 
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = fbd.SelectedPath + @"\knjgas.bin";
+                    using (FileStream streamOut = new FileStream(path, FileMode.Append))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        formatter.Serialize(streamOut, _data.KnjigaAPI.GetKnjige());
+                    }
+                }
+            }
         }
 
         private async void knjigeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -423,13 +437,116 @@ namespace Biblioteka.Forms
         }
 
         // Deserijalizuj knjige
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        private async void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "*.xml";
+            openFileDialog1.Filter = "Xml Files (*.xml)|";
             if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string filePath = openFileDialog1.FileName;
-                Common.Serialization.XMLSerializer(filePath);
+                try
+                {
+                    string fileContent = await Common.Serialization.XmlIO.LoadTextAsync(filePath);
+                    _data.KnjigaAPI.AddKnjigaRange(Common.Serialization.XMLSerializer.DeserializeXmlString<List<Knjiga>>(fileContent));
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Error pri deserijalizaciji knjiga: " + exc.ToString());
+                }
+            }
+        }
+
+        // Deserijalizuj clanove
+        private async void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Xml Files (*.xml)|";
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = openFileDialog1.FileName;
+                try
+                {
+                    string fileContent = await Common.Serialization.XmlIO.LoadTextAsync(filePath);
+                    _data.ClanAPI.AddClanRange(Common.Serialization.XMLSerializer.DeserializeXmlString<List<Clan>>(fileContent));
+                    MessageBox.Show("Deserijalizovao clanove");
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Error pri deserijalizaciji knjiga: " + exc.ToString());
+                }
+            }
+
+        }
+
+        private void Bibliotekar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void knjigeTab_Click(object sender, EventArgs e)
+        {
+            _data.KnjigaAPI.ForceCheck();
+            LoadKnjige();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        // Deserijalizuj radnike
+        private async void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "Xml Files (*.xml)|";
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = openFileDialog1.FileName;
+                try
+                {
+                    string fileContent = await Common.Serialization.XmlIO.LoadTextAsync(filePath);
+                    _data.WorkerAPI.AddWorkerRange(Common.Serialization.XMLSerializer.DeserializeXmlString<List<Worker>>(fileContent));
+                    MessageBox.Show("Deserijalizovao clanove");
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show("Error pri deserijalizaciji knjiga: " + exc.ToString());
+                }
+            }
+
+        }
+
+        private void clansToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = fbd.SelectedPath + @"\clans.bin";
+                    using (FileStream streamOut = new FileStream(path, FileMode.Append))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        formatter.Serialize(streamOut, _data.ClanAPI.GetClans().Select(x => (Clan)x).ToList());
+                    }
+                }
+            }
+
+        }
+
+        private void workersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string path = fbd.SelectedPath + @"\workers.bin";
+                    using (FileStream streamOut = new FileStream(path, FileMode.Append))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        formatter.Serialize(streamOut, _data.WorkerAPI.GetWorkers().Select(x => (Worker)x).ToList());
+                    }
+                }
             }
         }
     }

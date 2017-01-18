@@ -26,8 +26,15 @@ namespace Biblioteka.UWP
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+
         public App()
         {
+            //using (ApplicationDbContext context = new ApplicationDbContext())
+            //{
+            //    Application.Run(new LogInForm(DataAPI.Inject(context)));
+            //}
+
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

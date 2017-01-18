@@ -58,7 +58,6 @@ namespace Biblioteka.Forms
             else if (data.SessionAPI.CurrentUser.IsInRole(RoleManager.ADMIN) ||
                      data.SessionAPI.CurrentUser.IsInRole(RoleManager.WORKER))
             {
-                var str = XMLSerializer.SerializeToXmlString<User>(data.SessionAPI.CurrentUser);
                 AdminMainForm adminForm = new AdminMainForm(data);
                 adminForm.Show();
                 adminForm.Activate();

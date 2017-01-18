@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Biblioteka.Model
 {
     // XML - Ready
+    [Serializable]
     public class Knjiga
     {
         public int KnjigaId { get; set; }

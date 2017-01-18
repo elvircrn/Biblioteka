@@ -15,7 +15,7 @@ using System.Xml.Serialization;
 namespace Biblioteka.Model
 {
     // XML - READY
-    // Binary - NOT READY
+    [Serializable]
     public class Clan : User, IClan
     {
         public int ClanId { get; set; }

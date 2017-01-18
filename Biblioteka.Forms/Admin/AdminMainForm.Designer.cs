@@ -60,8 +60,17 @@
             this.serializeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xmlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knjigeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clanoviToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.radniciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.binarnoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knjigaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deserializeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,16 +79,9 @@
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deserializeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.clanoviToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.radniciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.clansToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.workersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Bibliotekar.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clanoviDataGrid)).BeginInit();
@@ -103,8 +105,9 @@
             this.Bibliotekar.Location = new System.Drawing.Point(0, 31);
             this.Bibliotekar.Name = "Bibliotekar";
             this.Bibliotekar.SelectedIndex = 0;
-            this.Bibliotekar.Size = new System.Drawing.Size(1052, 420);
+            this.Bibliotekar.Size = new System.Drawing.Size(1226, 551);
             this.Bibliotekar.TabIndex = 0;
+            this.Bibliotekar.SelectedIndexChanged += new System.EventHandler(this.Bibliotekar_SelectedIndexChanged);
             this.Bibliotekar.Click += new System.EventHandler(this.Bibliotekar_Click);
             // 
             // tabPage2
@@ -118,14 +121,15 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1044, 391);
+            this.tabPage2.Size = new System.Drawing.Size(1218, 522);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Clanovi";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // urediClanaButton
             // 
-            this.urediClanaButton.Location = new System.Drawing.Point(570, 344);
+            this.urediClanaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.urediClanaButton.Location = new System.Drawing.Point(634, 445);
             this.urediClanaButton.Name = "urediClanaButton";
             this.urediClanaButton.Size = new System.Drawing.Size(193, 41);
             this.urediClanaButton.TabIndex = 5;
@@ -135,7 +139,8 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(769, 343);
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Location = new System.Drawing.Point(842, 444);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(120, 42);
             this.button4.TabIndex = 4;
@@ -145,7 +150,8 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(316, 343);
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(324, 446);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(120, 45);
             this.button3.TabIndex = 3;
@@ -155,14 +161,17 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(8, 352);
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox2.Location = new System.Drawing.Point(3, 464);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(302, 22);
             this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // addClanButton
             // 
-            this.addClanButton.Location = new System.Drawing.Point(895, 343);
+            this.addClanButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.addClanButton.Location = new System.Drawing.Point(968, 444);
             this.addClanButton.Name = "addClanButton";
             this.addClanButton.Size = new System.Drawing.Size(141, 42);
             this.addClanButton.TabIndex = 1;
@@ -190,7 +199,7 @@
             this.clanoviDataGrid.ReadOnly = true;
             this.clanoviDataGrid.RowTemplate.Height = 24;
             this.clanoviDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.clanoviDataGrid.Size = new System.Drawing.Size(1044, 337);
+            this.clanoviDataGrid.Size = new System.Drawing.Size(1141, 440);
             this.clanoviDataGrid.TabIndex = 0;
             this.clanoviDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clanoviDataGrid_CellContentClick);
             // 
@@ -234,14 +243,15 @@
             this.zaposleniciTab.Location = new System.Drawing.Point(4, 25);
             this.zaposleniciTab.Name = "zaposleniciTab";
             this.zaposleniciTab.Padding = new System.Windows.Forms.Padding(3);
-            this.zaposleniciTab.Size = new System.Drawing.Size(1044, 391);
+            this.zaposleniciTab.Size = new System.Drawing.Size(1218, 522);
             this.zaposleniciTab.TabIndex = 2;
             this.zaposleniciTab.Text = "Zaposlenici";
             this.zaposleniciTab.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(349, 341);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(349, 471);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 47);
             this.button2.TabIndex = 6;
@@ -251,7 +261,8 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(8, 349);
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox1.Location = new System.Drawing.Point(8, 479);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(335, 22);
             this.textBox1.TabIndex = 5;
@@ -259,7 +270,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(741, 344);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(899, 474);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 40);
             this.button1.TabIndex = 4;
@@ -286,7 +298,7 @@
             this.workersDataGrid.ReadOnly = true;
             this.workersDataGrid.RowTemplate.Height = 24;
             this.workersDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.workersDataGrid.Size = new System.Drawing.Size(1044, 338);
+            this.workersDataGrid.Size = new System.Drawing.Size(1218, 468);
             this.workersDataGrid.TabIndex = 3;
             this.workersDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.workersDataGrid_CellContentClick);
             // 
@@ -316,7 +328,8 @@
             // 
             // dodajWorker
             // 
-            this.dodajWorker.Location = new System.Drawing.Point(897, 343);
+            this.dodajWorker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.dodajWorker.Location = new System.Drawing.Point(1055, 473);
             this.dodajWorker.Name = "dodajWorker";
             this.dodajWorker.Size = new System.Drawing.Size(141, 41);
             this.dodajWorker.TabIndex = 2;
@@ -330,16 +343,18 @@
             this.knjigeTab.Location = new System.Drawing.Point(4, 25);
             this.knjigeTab.Name = "knjigeTab";
             this.knjigeTab.Padding = new System.Windows.Forms.Padding(3);
-            this.knjigeTab.Size = new System.Drawing.Size(1044, 391);
+            this.knjigeTab.Size = new System.Drawing.Size(1218, 522);
             this.knjigeTab.TabIndex = 3;
             this.knjigeTab.Text = "Knjige";
             this.knjigeTab.UseVisualStyleBackColor = true;
+            this.knjigeTab.Click += new System.EventHandler(this.knjigeTab_Click);
             // 
             // treeView1
             // 
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(3, 3);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(1044, 391);
+            this.treeView1.Size = new System.Drawing.Size(1212, 516);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.knjigeTreeView_AfterSelect);
             // 
@@ -349,7 +364,7 @@
             this.AnalizaTab.Location = new System.Drawing.Point(4, 25);
             this.AnalizaTab.Name = "AnalizaTab";
             this.AnalizaTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AnalizaTab.Size = new System.Drawing.Size(1044, 391);
+            this.AnalizaTab.Size = new System.Drawing.Size(1218, 522);
             this.AnalizaTab.TabIndex = 4;
             this.AnalizaTab.Text = "Analiza";
             this.AnalizaTab.UseVisualStyleBackColor = true;
@@ -359,7 +374,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1038, 385);
+            this.pictureBox1.Size = new System.Drawing.Size(1212, 516);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -372,7 +387,7 @@
             this.actionsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1052, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1226, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -413,14 +428,30 @@
             // knjigeToolStripMenuItem
             // 
             this.knjigeToolStripMenuItem.Name = "knjigeToolStripMenuItem";
-            this.knjigeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.knjigeToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
             this.knjigeToolStripMenuItem.Text = "Knjige";
             this.knjigeToolStripMenuItem.Click += new System.EventHandler(this.knjigeToolStripMenuItem_Click);
+            // 
+            // clanoviToolStripMenuItem
+            // 
+            this.clanoviToolStripMenuItem.Name = "clanoviToolStripMenuItem";
+            this.clanoviToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.clanoviToolStripMenuItem.Text = "Clanovi";
+            this.clanoviToolStripMenuItem.Click += new System.EventHandler(this.clanoviToolStripMenuItem_Click);
+            // 
+            // radniciToolStripMenuItem
+            // 
+            this.radniciToolStripMenuItem.Name = "radniciToolStripMenuItem";
+            this.radniciToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.radniciToolStripMenuItem.Text = "Radnici";
+            this.radniciToolStripMenuItem.Click += new System.EventHandler(this.radniciToolStripMenuItem_Click);
             // 
             // binarnoToolStripMenuItem
             // 
             this.binarnoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.knjigaToolStripMenuItem});
+            this.knjigaToolStripMenuItem,
+            this.clansToolStripMenuItem,
+            this.workersToolStripMenuItem});
             this.binarnoToolStripMenuItem.Name = "binarnoToolStripMenuItem";
             this.binarnoToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.binarnoToolStripMenuItem.Text = "Binarno";
@@ -428,9 +459,63 @@
             // knjigaToolStripMenuItem
             // 
             this.knjigaToolStripMenuItem.Name = "knjigaToolStripMenuItem";
-            this.knjigaToolStripMenuItem.Size = new System.Drawing.Size(126, 26);
+            this.knjigaToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.knjigaToolStripMenuItem.Text = "Knjige";
             this.knjigaToolStripMenuItem.Click += new System.EventHandler(this.knjigaToolStripMenuItem_Click);
+            // 
+            // deserializeToolStripMenuItem
+            // 
+            this.deserializeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem6});
+            this.deserializeToolStripMenuItem.Name = "deserializeToolStripMenuItem";
+            this.deserializeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.deserializeToolStripMenuItem.Text = "Deserialize";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(181, 26);
+            this.toolStripMenuItem2.Text = "Xml";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 26);
+            this.toolStripMenuItem3.Text = "Knjige";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(133, 26);
+            this.toolStripMenuItem4.Text = "Clanovi";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(133, 26);
+            this.toolStripMenuItem5.Text = "Radnici";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem7});
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(181, 26);
+            this.toolStripMenuItem6.Text = "Binarno";
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(126, 26);
+            this.toolStripMenuItem7.Text = "Knjige";
             // 
             // toolStripMenuItem1
             // 
@@ -481,82 +566,30 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // deserializeToolStripMenuItem
-            // 
-            this.deserializeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem6});
-            this.deserializeToolStripMenuItem.Name = "deserializeToolStripMenuItem";
-            this.deserializeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.deserializeToolStripMenuItem.Text = "Deserialize";
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // clanoviToolStripMenuItem
+            // clansToolStripMenuItem
             // 
-            this.clanoviToolStripMenuItem.Name = "clanoviToolStripMenuItem";
-            this.clanoviToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.clanoviToolStripMenuItem.Text = "Clanovi";
-            this.clanoviToolStripMenuItem.Click += new System.EventHandler(this.clanoviToolStripMenuItem_Click);
+            this.clansToolStripMenuItem.Name = "clansToolStripMenuItem";
+            this.clansToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.clansToolStripMenuItem.Text = "Clans";
+            this.clansToolStripMenuItem.Click += new System.EventHandler(this.clansToolStripMenuItem_Click);
             // 
-            // radniciToolStripMenuItem
+            // workersToolStripMenuItem
             // 
-            this.radniciToolStripMenuItem.Name = "radniciToolStripMenuItem";
-            this.radniciToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.radniciToolStripMenuItem.Text = "Radnici";
-            this.radniciToolStripMenuItem.Click += new System.EventHandler(this.radniciToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem4,
-            this.toolStripMenuItem5});
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(181, 26);
-            this.toolStripMenuItem2.Text = "Xml";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(181, 26);
-            this.toolStripMenuItem3.Text = "Knjige";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(181, 26);
-            this.toolStripMenuItem4.Text = "Clanovi";
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(181, 26);
-            this.toolStripMenuItem5.Text = "Radnici";
-            // 
-            // toolStripMenuItem6
-            // 
-            this.toolStripMenuItem6.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem7});
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(181, 26);
-            this.toolStripMenuItem6.Text = "Binarno";
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(181, 26);
-            this.toolStripMenuItem7.Text = "Knjige";
+            this.workersToolStripMenuItem.Name = "workersToolStripMenuItem";
+            this.workersToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.workersToolStripMenuItem.Text = "Workers";
+            this.workersToolStripMenuItem.Click += new System.EventHandler(this.workersToolStripMenuItem_Click);
             // 
             // AdminMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1052, 451);
+            this.ClientSize = new System.Drawing.Size(1226, 582);
             this.Controls.Add(this.Bibliotekar);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -634,5 +667,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem clansToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem workersToolStripMenuItem;
     }
 }

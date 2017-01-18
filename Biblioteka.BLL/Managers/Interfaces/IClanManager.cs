@@ -14,5 +14,6 @@ namespace Biblioteka.BLL.Interfaces
         List<IClan> Search(Func<IClan, bool> f);
         List<IClan> Take(double monthlyFee);
         List<IClan> GetClans(string keywords);
+        void AddClanRange(List<Clan> list);
     }
 }

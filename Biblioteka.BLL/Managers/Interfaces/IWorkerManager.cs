@@ -16,5 +16,6 @@ namespace Biblioteka.BLL.Interfaces
         void RemoveWorker(string workerId);
 
         List<IWorker> GetWorkers(string keywords);
+        void AddWorkerRange(List<Worker> list);
     }
 }

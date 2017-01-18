@@ -7,6 +7,7 @@ using Biblioteka.Common.Security;
 using Biblioteka.Model;
 using Biblioteka.BLL.Interfaces;
 using Biblioteka.DAL;
+using System.Collections.Concurrent;
 
 namespace Biblioteka.BLL.Managers
 {
@@ -73,6 +74,19 @@ namespace Biblioteka.BLL.Managers
                 return GetWorkers();
             else
                 return _workers.Where(x => x.ToString().Contains(keywords)).ToList();
+        }
+
+        public void AddWorkerRange(List<Worker> list)
+        {
+            int ind = 0;
+            var cd = new ConcurrentDictionary<int, Worker>(list
+                .Select(x => new KeyValuePair<int, Worker>(ind++, x))
+                .ToList());
+
+            Parallel.ForEach(cd, x =>
+            {
+                AddWorker(x.Value);
+            });
         }
     }
 }

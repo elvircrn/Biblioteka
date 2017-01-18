@@ -12,5 +12,7 @@ namespace Biblioteka.BLL.Interfaces
         List<Knjiga> SearchByNaziv(string naziv, KnjigaManager.Comparator comparator = null);
         List<Knjiga> SearchByKeyword(string keyword);
         List<Knjiga> GetKnjige();
+        void AddKnjigaRange(ICollection<Knjiga> collection);
+        void ForceCheck();
     }
 }

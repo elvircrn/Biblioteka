@@ -6,6 +6,8 @@ using Biblioteka.BLL.Managers;
 using Biblioteka.Common.Security;
 using Biblioteka.BLL.Interfaces;
 using Biblioteka.DAL;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace Biblioteka.BLL.Managers
 {
@@ -128,6 +130,20 @@ namespace Biblioteka.BLL.Managers
             }
             else
                 return false;
+        }
+
+        // Paralle foreach
+        public void AddClanRange(List<Clan> list)
+        {
+            int ind = 0;
+            var cd = new ConcurrentDictionary<int, Clan>(list
+                .Select(x => new KeyValuePair<int, Clan>(ind++, x))
+                .ToList());
+
+            Parallel.ForEach(cd, x =>
+            {
+                AddClan(x.Value);
+            });
         }
     }
 }

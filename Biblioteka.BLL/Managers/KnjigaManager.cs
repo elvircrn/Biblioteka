@@ -60,6 +60,7 @@ namespace Biblioteka.BLL
 
         public delegate bool Comparator(Knjiga knjiga);
 
+        // Concurrent Dictionary
         public List<Knjiga> SearchByNaziv(string naziv, Comparator comparator = null)
         {
             int ind = 0;
@@ -68,7 +69,7 @@ namespace Biblioteka.BLL
                 .ToList());
 
             if (comparator != null)
-                return _knjige.Where(x => comparator(x)).ToList();
+                return cd.Where(x => comparator(x.Value)).ToList().Select(x => x.Value).ToList();
             else
                 return _knjige.Where(x => x.Naslov == naziv).ToList();
         }
@@ -93,6 +94,17 @@ namespace Biblioteka.BLL
         public List<Knjiga> GetKnjige()
         {
             return _knjige;
+        }
+
+        public void AddKnjigaRange(ICollection<Knjiga> collection)
+        {
+            foreach (var knjiga in collection)
+                AddKnjiga(knjiga);
+        }
+
+        public void ForceCheck()
+        {
+            _knjigasCache = null;
         }
     }
 }
