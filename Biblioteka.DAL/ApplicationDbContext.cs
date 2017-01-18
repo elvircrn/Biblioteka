@@ -6,6 +6,7 @@ namespace Biblioteka.DAL
     using System.Linq;
     using Model;
     using Users;
+    using Items;
 
     public partial class ApplicationDbContext : DbContext
     {
@@ -15,6 +16,8 @@ namespace Biblioteka.DAL
         }
 
         public DbSet<Author> Authors { get; set; }
+
+        public DbSet<Record> Records { get; set; }
 
         public DbSet<Clan> Clans { get; set; }
 
@@ -31,6 +34,14 @@ namespace Biblioteka.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("EC17455");
+
+            modelBuilder.Entity<User>()
+            .HasMany(p => p.Roles)
+            .WithMany(x => x.Users);
+
+            modelBuilder.Entity<Knjiga>()
+            .HasMany(p => p.SpisakAutora)
+            .WithMany(x => x.Knjigas);
         }
     }
 }

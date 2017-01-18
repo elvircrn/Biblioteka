@@ -83,7 +83,8 @@ namespace Biblioteka.DAL.Migrations
                     GodinaIzdanja = 1233 + i * 40,
                     ISBN = "ISBN-13 978-3-642-11746-" + i.ToString(),
                     Taken = false,
-                    Zanr = "Zanr" + i.ToString()
+                    Zanr = "Zanr" + i.ToString(),
+                    SpisakAutora = defaultAuthors
                 });
             }
             #endregion
@@ -107,7 +108,7 @@ namespace Biblioteka.DAL.Migrations
                     MaticniBroj = "123456789123" + i.ToString(),
                     UserName = "bibliotekar" + i.ToString(),
                     PasswordHash = Hash.Encode("aaa"),
-                    WorkerID = i.ToString(),
+                    WorkerId = i.ToString(),
                     Occupation = "Bibliotekar",
                     Salary = NumberGenerator.GetRandomNumber(1000),
                     ImageData = imageData, // Consider not doing this here
@@ -125,7 +126,7 @@ namespace Biblioteka.DAL.Migrations
                     MaticniBroj = "123456789123" + i.ToString(),
                     UserName = "worker" + i.ToString(),
                     PasswordHash = "", // Domari nemaju pristupne podatke sistemu
-                    WorkerID = i.ToString(),
+                    WorkerId = i.ToString(),
                     Occupation = "Domar",
                     Salary = NumberGenerator.GetRandomNumber(1000),
                     ImageData = imageData,

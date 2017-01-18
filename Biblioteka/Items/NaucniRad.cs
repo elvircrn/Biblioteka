@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IO;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteka.Model
 {
     public class NaucniRad : Knjiga, INaucniRad
     {
+        [StringLength(200)]
         private string _oblikReferenciranja;
+        [StringLength(200)]
         private string _oblastNauke;
 
+        [StringLength(200)]
         public string Konferencija { get; set; }
 
         public string GeneralneInformacije()

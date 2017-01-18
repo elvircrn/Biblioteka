@@ -9,9 +9,7 @@ namespace Biblioteka.Model
 {
     public interface IWorker
     {
-        int WorkerId { get; set; }
-
-        string WorkerID { get; set; }
+        string WorkerId { get; set; }
 
         string Occupation { get; set; }
         

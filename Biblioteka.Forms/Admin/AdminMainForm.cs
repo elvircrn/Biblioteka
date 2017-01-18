@@ -46,13 +46,15 @@ namespace Biblioteka.Forms
                     _data.BibliotekaAPI.RemoveKnjigaById(item.Sifra);
                     treeView1.Nodes.Remove(node);
                 };
+
                 node.ContextMenu.MenuItems[1].Click += delegate (object sender, EventArgs e)
                 {
                     _data.KnjigaAPI.AddKnjiga(item);
                     LoadKnjige();
                 };
+
                 TreeNode spisakAutoraNode = node.Nodes.Add("Spisak autora");
-                foreach (Author autor in item.SpisakAutora)
+                foreach (Author autor in item?.SpisakAutora ?? new List<Author>())
                     spisakAutoraNode.Nodes.Add(autor.Name);
                 node.Nodes.AddRange(new TreeNode[]
                 {
@@ -103,9 +105,9 @@ namespace Biblioteka.Forms
                                 u.Prezime,
                                 u.Email,
                                 x.Comment,
-                                u.Roles.Select(t => t.DisplayName)
+                                u.Roles.Count > 0 ? u.Roles.Select(t => t.DisplayName)
                                        .ToList()
-                                       .Aggregate((r, t) => r + ", " + t));
+                                       .Aggregate((r, t) => r + ", " + t) : "");
                         });
         }
 
@@ -146,7 +148,7 @@ namespace Biblioteka.Forms
                 Worker u = (Worker)x;
                 if (u.IsInRole("ADMIN"))
                     return;
-                _workerIds.Add(x.WorkerID);
+                _workerIds.Add(x.WorkerId);
                 workersDataGrid.Rows.Add(
                     u.Ime,
                     u.Prezime,

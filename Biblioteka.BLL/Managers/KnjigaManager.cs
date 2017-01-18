@@ -1,8 +1,10 @@
 ﻿using Biblioteka.BLL;
 using Biblioteka.BLL.Interfaces;
+using System.Threading.Tasks;
 using Biblioteka.DAL;
 using Biblioteka.Model;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +48,9 @@ namespace Biblioteka.BLL
         public Knjiga AddKnjiga(Knjiga knjiga)
         {
             knjiga.Sifra = GenerateSifra();
-            _knjige.Add(knjiga);
+            _context.Knjigas.Add(knjiga);
+            _knjigasCache.Add(knjiga);
+            _context.SaveChangesAsync();
             return knjiga;
         }
 
@@ -59,6 +63,11 @@ namespace Biblioteka.BLL
 
         public List<Knjiga> SearchByNaziv(string naziv, Comparator comparator = null)
         {
+            int ind = 0;
+            var cd = new ConcurrentDictionary<int, Knjiga>(_knjige
+                .Select(x => new KeyValuePair<int, Knjiga>(ind++, x))
+                .ToList());
+
             if (comparator != null)
                 return _knjige.Where(x => comparator(x)).ToList();
             else
@@ -72,6 +81,7 @@ namespace Biblioteka.BLL
 
         public bool RemoveKnjiga(Knjiga knjiga)
         {
+            _context.Knjigas.Remove(knjiga);
             return _knjige.Remove(knjiga);
         }
 

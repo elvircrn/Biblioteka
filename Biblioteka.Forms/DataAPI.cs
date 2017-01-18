@@ -41,6 +41,8 @@ namespace Biblioteka.Forms
             dataAPI.RoleAPI = new RoleManager(context);
             dataAPI.KnjigaAPI = new KnjigaManager(context);
             dataAPI.SessionAPI = new SessionService();
+            dataAPI.WorkerAPI = new WorkerManager(context);
+            dataAPI.BibliotekaAPI = new BibliotekaManager("Dobrinja", dataAPI.ClanAPI, dataAPI.KnjigaAPI, 123.0);
 
             return dataAPI;
         }

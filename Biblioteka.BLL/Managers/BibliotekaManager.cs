@@ -1,6 +1,8 @@
 ﻿using Biblioteka.BLL;
 using Biblioteka.BLL.Interfaces;
 using Biblioteka.BLL.Managers;
+using Biblioteka.DAL;
+using Biblioteka.Items;
 using Biblioteka.Model;
 using System;
 using System.Collections.Generic;
@@ -12,13 +14,30 @@ namespace Biblioteka.BLL.Managers
     {
         #region Properties
 
+        private ApplicationDbContext _context;
+
         private static readonly double MonthlyDefault = 100.0;
 
         private IClanManager _clanManager;
         private IKnjigaManager _knjigaManager;
-        private List<Tuple<Knjiga, IClan, DateTime>> _record;
         private List<LogItem> _log;
 
+        private List<Tuple<Knjiga, IClan, DateTime>> _recordCache;
+
+        private List<Tuple<Knjiga, IClan, DateTime>> _record
+        {
+            get
+            {
+                if (_recordCache == null)
+                    _recordCache = _context.Records
+                                      .ToList()
+                                      .Select(x =>
+                                          new Tuple<Knjiga, IClan, DateTime>(x.Item1, x.Item2, x.Item3)
+                                      )
+                                      .ToList();
+                return _recordCache;
+            }
+        }
         public double MonthlyFee { get; set; } = MonthlyDefault;
 
         private DateTime CurrentDate
@@ -36,8 +55,6 @@ namespace Biblioteka.BLL.Managers
 
         #endregion
 
-
-
         private void Inject(IClanManager clanManager,
                           IKnjigaManager knjigaManager)
         {
@@ -47,12 +64,15 @@ namespace Biblioteka.BLL.Managers
 
         public string Ime { get; set; }
 
-        public BibliotekaManager(string Ime, 
+        public BibliotekaManager(ApplicationDbContext context,
+                                 string Ime, 
                                  IClanManager clanManager,
                                  IKnjigaManager knjigaManager, 
                                  double? price = null)
         {
             Inject(clanManager, knjigaManager);
+
+            _context = context;
 
             this.Ime = Ime;
 

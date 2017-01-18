@@ -10,6 +10,8 @@ namespace Biblioteka.Model
     {
         States State { get; set; }
 
+        int ClanId { get; set; }
+
         double Popust { get; }
 
         string Comment { get; set; }

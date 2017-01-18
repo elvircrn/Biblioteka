@@ -12,15 +12,14 @@ namespace Biblioteka.Model
     public class Worker : User, IWorker
     {
         [Key]
-        public int WorkerId { get; set; }
+        public string WorkerId { get; set; }
 
         public int? ImageDataId { get; set; }
         [ForeignKey("ImageDataId")]
         public ImageData ImageData { get; set; }
 
+        [StringLength(200)]
         public string Occupation { get; set; }
-
-        public string WorkerID { get; set; }
 
         public double Salary { get; set; }
 

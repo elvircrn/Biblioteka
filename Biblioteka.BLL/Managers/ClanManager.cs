@@ -15,45 +15,60 @@ namespace Biblioteka.BLL.Managers
         private ApplicationDbContext _context;
         private List<IClan> clansCache;
 
+        // OK
         private List<IClan> Clans
         {
             get
             {
                 if (clansCache == null)
-                    clansCache = _context.Clans.ToList().Select(x => (IClan)x).ToList();
+                    clansCache = _context.Clans.Include("Roles").ToList().Select(x => (IClan)x).ToList();
                 return clansCache;
             }
+            set { clansCache = value; }
         }
 
+        // OK
         public ClanManager(ApplicationDbContext context)
         {
-            context = _context;
+            _context = context;
         }
 
+        // OK
         private string GenerateSifra()
         {
             string sifra;
             do
             {
                 sifra = SifraGenerator.GenerateSifra(SifraLength);
-            } while (Clans.Find(x => x.Sifra == sifra) != null);
+            } while (_context.Clans.Where(x => x.Sifra == sifra).FirstOrDefault() != null);
             return sifra;
         }
 
+        // OK
         public IClan AddClan(IClan clan)
         {
-            clan.Sifra = GenerateSifra();
-            Clans.Add(clan);
-            return clan;
+            var query = _context.Clans.Where(x => x.ClanId == clan.ClanId).FirstOrDefault();
+            if (query == null)
+            {
+                clan.Sifra = GenerateSifra();
+                Clans.Add(clan);
+                _context.Clans.Add((Clan)clan);
+                _context.SaveChanges();
+                return clan;
+            }
+            else
+                return clan;
         }
 
+        // OK
         public bool RemoveClan(IClan clan)
         {
-            var query = Clans.Where(x => x == clan).FirstOrDefault();
+            var query = _context.Clans.Where(x => x == clan).FirstOrDefault();
 
             if (query == null)
                 return false;
 
+            _context.Clans.Remove(query);
             Clans.Remove(query);
 
             return true;
@@ -97,9 +112,18 @@ namespace Biblioteka.BLL.Managers
                 return Clans;
         }
 
+        // OK
         public bool RemoveClanById(string clanId)
         {
-            return Clans.Remove(Clans.Where(x => x.Sifra == clanId).FirstOrDefault());
+            var query = _context.Clans.Where(x => x.Sifra == clanId).FirstOrDefault();
+            if (query != null)
+            {
+                Clans.Remove(Clans.Where(x => x.Sifra == clanId).FirstOrDefault());
+                _context.Clans.Remove(query);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

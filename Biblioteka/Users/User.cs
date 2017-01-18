@@ -12,20 +12,26 @@ namespace Biblioteka.Model
     {
         public int UserId { get; set; }
 
+        [StringLength(200)]
         public string UserName { get; set; }
 
+        [StringLength(200)]
         public string Ime { get; set; }
 
+        [StringLength(200)]
         public string Prezime { get; set; }
 
+        [StringLength(200)]
         public string MaticniBroj { get; set; }
 
         public DateTime DatumRodjenja { get; set; }
 
         public ICollection<Role> Roles { get; set; }
 
+        [StringLength(200)]
         public string PasswordHash { get; set; }
         
+        [StringLength(200)]
         public string Email { get; set; }
 
         public override string ToString()

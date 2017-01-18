@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,6 +16,9 @@ namespace Biblioteka.Forms
     public partial class LogInForm : Form
     {
         private DataAPI data;
+        private const int BRZINA_ANIMACIJE = 10;
+        System.Threading.Timer mTimer;
+
 
         public LogInForm()
         {
@@ -23,7 +27,11 @@ namespace Biblioteka.Forms
 
         public LogInForm(DataAPI dataAPI) : this()
         {
+            Redraw();
             this.data = dataAPI;
+            TimerCallback timercb = new TimerCallback(NextFrame);
+            mTimer = new System.Threading.Timer(timercb, null, 0, BRZINA_ANIMACIJE);
+
         }
 
         private void logInButton_Click(object sender, EventArgs e)
@@ -57,14 +65,21 @@ namespace Biblioteka.Forms
             }
         }
 
+        int _pointCount = 0;
+
+        protected void NextFrame(object o)
+        {
+            //Update neki
+            _pointCount = (_pointCount + 1) % _points.Count();
+            pictureBox1.Invalidate();
+        }
+
         private void LogInForm_Load(object sender, EventArgs e)
         {
             this.FormClosed += delegate
             {
                 Application.Exit();
             };
-
-            Redraw();
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -89,16 +104,14 @@ namespace Biblioteka.Forms
 
                 using (Pen pen = new Pen(Color.Red, 1 / scale))
                 {
-                    e.Graphics.DrawLines(pen, _points.Select(p => new PointF(p.X * 2.0f, p.Y * 2.0f))
+                    e.Graphics.DrawLines(pen, _points.ToList()
+                                                     .Take(_pointCount + 3)
+                                                     .ToArray()
+                                                     .Select(p => new PointF(p.X * 2.0f, p.Y * 2.0f))
                                                      .Where(p => (p.X < 0.5 || 1.4 < p.X))
                                                      .ToArray());
-
                 }
-
-
             }
-
-
         }
 
 
@@ -127,9 +140,6 @@ namespace Biblioteka.Forms
                 GenerateHilbert(origin + new SizeF(xi / 2 + yi / 2, xj / 2 + yj / 2), xi / 2, xj / 2, yi / 2, yj / 2, depth - 1, points);
                 GenerateHilbert(origin + new SizeF(xi / 2 + yi, xj / 2 + yj), -yi / 2, -yj / 2, -xi / 2, -xj / 2, depth - 1, points);
             }
-
-
-
         }
 
         protected override void OnClientSizeChanged(EventArgs e)

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteka.Model
 {
@@ -8,5 +9,7 @@ namespace Biblioteka.Model
         public int AuthorId { get; set; }
         
         public string Name { get; set; }
+
+        public ICollection<Knjiga> Knjigas { get; set; }
     }
 }

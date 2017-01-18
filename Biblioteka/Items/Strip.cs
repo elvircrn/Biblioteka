@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IO;
+using System.ComponentModel.DataAnnotations;
 
 namespace Biblioteka.Model
 {
     public class Strip : Knjiga
     {
+        [StringLength(200)]
         public string AnimatorskaKuca { get; set; }
 
         public List<string> SpisakUmjetnika { get; set; }
