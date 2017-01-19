@@ -159,3 +159,5 @@ using (var fbd = new FolderBrowserDialog())
 
 ## UWP Aplikacija
 Ne egzistira...
+
+Takodje nije pozeljno diskonektovati se sa interneta za vrijeme rada aplikacije.
