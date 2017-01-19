@@ -1,46 +1,161 @@
 # RPR Biblioteka
 ---
+Disclaimer: repozitorij je bio privatan za vrijeme trajanja zadace
 
-## Nekoliko napomena:
+## Podaci o autoru:
+	Elvir Crncevic, index: 17455
 
-### Broj indeksa: 17455
-	Varijable u Program.cs su promijenjene u skladu sa requirementom.
+## User credentials za koristenje aplikacije
 
-### Aplikacija
-	Konzolna aplikacija je implementirana u projektu 'Test' koji bi trebao biti start-up
-	project.
+* Bibliotekar
+    * Username: bibliotekar0 
+    * Password: aaa
+* Admin
+    * Username: admin 
+    * Password: admin
+* Clan
+    * Username: clan0 
+    * Password: aaa
 
-### Za clanove i knjige vrijedi sljedece:
-	Odabir ovih objekata se vrsi prema njihovoj jedinstvenoj generisanoj sifri. Npr, pri
-	brisanju knjige iz biblioteke, unosi se sifra knjige koje se zeli izbrisati
-	te se potom brise odgovarajuci item iz biblioteke. Ovo je opravdano cinjenicom
-	da je korisnik u svakom trenutku u stanju dobiti listu svih objekata zajedno
-	sa njihovim podacima.
+## Baza podataka
 
-### Eksterni dll
-	Klasa parser (ciji je kod u potpunosti dostupan u folderu), je klasa cija 
-	je svrha olaksavanje parsiranja podataka sa standardnog ulaza. Implementacija klase
-	Paser.cs se nalazi u folderu 'Helpers'. Naziv biblioteke koju sam implementirao je 'IO',
-	tj. IO.dll.
+### Tabele
+Za modeliranje baze podataka je koristen OracleManagedDataAccess.EntityFramework. To je omogucilo generisanje baze podataka uz 'neznatne' izmjene u samom modelu. U klasi ApplicationDbContext definisu su definisane sve tabele pomocu DBset propertija koje su napunjene kroz Seed metodu u Configuration klasi. Ova metoda je pokrenuta prije slanja zadace i nije preporucljivo njeno ponovno pokretanje. O dio ORM-a se nalaze u Bibliteka.Model, 
+### Servisi
+Biblioteka.BLL sadrzi service koji su zaduzeni za CRUD operacije. Svaki servis posjeduje objekat ApplicationDbContext preko kojeg pristupa bazi podataka. Kljucni dio implementacije svakog servisa (za primjer je uzet servis za knjige) je sljedece lazy (ili bar pokusaj) loadanja:
 
-### Analiza podataka
-	Obzirom na to da se sve radnje u biblioteci logiraju, moguce je lahko doci do 
-	relevantnih analiza pomocu LINQa.
-	LINQ ftw!
+KnjigaManager.cs:
+```csharp
+ApplicationDbContext _context;
+private static readonly int SifraLength = 10;
 
-### Delegat
-	Primjer koristenja delegata se moze vidjeti u klasi KnjigaManager.cs, tacnije
-	u metodi SearchByNaziv.
+private List<Knjiga> _knjigasCache;
 
-### Kolekcije podataka
-	Koriste se posvuda. :)
-	
-### Abstract
-	abstract class UselessAbstract
-	
-### Placanje clanarine
-	Svakoj osobi je napocetku dodjeljena nasumicna kolocina novca u opsegu od 10 do 1000KM.
-	Nadalje, pozivom metode Naplati u klasi BibliotekaManager, trazimo od svakog 
-	korisnika da isplati izvjsnu sumu novca. Ako on to ne moze uciniti, vraca sve knjige
-	koje trenuto posjeduje i postaje zauvijek banovan iz biblioteke. Svaka pretpostavlja
-	da je prosao odgovarajuci period da bi ona bila validn
+private List<Knjiga> _knjige
+{
+    get
+    {
+        if (_knjigasCache == null)
+            return _knjigasCache = _context.Knjigas.Include("SpisakAutora").ToList();
+        else
+            return _knjigasCache;
+    }
+}
+```
+Ideja je da se svako pozivanje kontejnerskog objekta presretne sa pozivom na bazu(ako je to neophodno) i da se cache-iraju podaci ako to vec nije ucinjeno. To je ucinjeno za sve servise(managere) koji na pocetku dobijaju ApplicationDbContext objekat.
+
+Program.cs
+
+
+```csharp
+using (ApplicationDbContext context = new ApplicationDbContext())
+{
+	Run(new LogInForm(DataAPI.Inject(context)));
+}
+//...
+dataAPI.UserAPI = new UserManager(context);
+//...
+```
+
+
+Funkcionalnost servisa je zadrzana u odnosu na prethodnu zadacu te oni sada rade sa bazom podataka... nadam se ...
+
+### Serijalizacija
+
+Xml serijalizacija i deserijalizacija je implementirana asinhrono za clanove, radnike i knjige, a binarna serijalizacija samo podrzava upise :(
+
+### Animacija logo-a
+Vrsi se crtanje Hilbertovog fraktala koji se restartuje kada dodje do kraja (jos nisam svjedocio tome).	
+### Asinhroni rad sa datotekama
+Xml serijalizacija radi asinhrono i implementirana je kroz klase u Common.XmlIO i Common.XmlSerializer. Common inace sadrzi pomocne metode, i gotovo svi projekti imaju referencu na ovaj paket klasa. Binarni Serializer, nazalost, radi samo sinhrono. 
+### TPL
+
+ClanManager.cs:
+```csharp
+public void AddClanRange(List<Clan> list)
+{
+    int ind = 0;
+    var cd = new ConcurrentDictionary<int, Clan>(list
+            .Select(x => new KeyValuePair<int, Clan>(ind++, x))
+            .ToList());
+    Parallel.ForEach(cd, x =>
+    {
+        AddClan(x.Value);
+    });
+}
+// Concurrent Dictionary
+public List<Knjiga> SearchByNaziv(string naziv, Comparator comparator = null)
+{
+    int ind = 0;
+    var cd = new ConcurrentDictionary<int, Knjiga>(_knjige
+        .Select(x => new KeyValuePair<int, Knjiga>(ind++, x))
+        .ToList());
+
+    if (comparator != null)
+        return cd.Where(x => comparator(x.Value)).ToList().Select(x => x.Value).ToList();
+    else
+        return _knjige.Where(x => x.Naslov == naziv).ToList();
+}
+```
+
+KnjigaManager.cs
+```csharp
+// Concurrent Dictionary
+public List<Knjiga> SearchByNaziv(string naziv, Comparator comparator = null)
+{
+    int ind = 0;
+    var cd = new ConcurrentDictionary<int, Knjiga>(_knjige
+        .Select(x => new KeyValuePair<int, Knjiga>(ind++, x))
+        .ToList());
+
+    if (comparator != null)
+        return cd.Where(x => comparator(x.Value)).ToList().Select(x => x.Value).ToList();
+    else
+        return _knjige.Where(x => x.Naslov == naziv).ToList();
+}
+
+```
+
+WorkerManager.cs
+```csharp
+public void AddWorkerRange(List<Worker> list)
+{
+    int ind = 0;
+    var cd = new ConcurrentDictionary<int, Worker>(list
+        .Select(x => new KeyValuePair<int, Worker>(ind++, x))
+        .ToList());
+
+    Parallel.ForEach(cd, x =>
+    {
+        AddWorker(x.Value);
+    });
+}
+```
+
+## Paralelizacija serijalizacija (jedan primjer)
+```csharp
+using (var fbd = new FolderBrowserDialog())
+{
+    DialogResult result = fbd.ShowDialog();
+
+    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+    {
+        string path = fbd.SelectedPath + @"\clanovi.xml";
+
+        using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+        {
+            var uiContext = TaskScheduler.FromCurrentSynchronizationContext();
+            Task[] tasks = new Task[] { file.WriteAsync(Common.Serialization.XMLSerializer.SerializeToXmlString(_data.ClanAPI.GetClans()
+                                                                                                           .Select(x => (Clan)x)
+                                                                                                           .ToList())) };
+            await Task.Factory.ContinueWhenAll(tasks, antecedents =>
+             {
+                 MessageBox.Show("Serijalizacija clanova zavrsena");
+             }, CancellationToken.None, TaskContinuationOptions.None, uiContext);
+        }
+    }
+}
+```
+
+## UWP Aplikacija
+Ne egzistira...
